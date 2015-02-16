@@ -9,4 +9,4 @@ Claret-Yakovenko Roman, Divernois Margaux, Visinand Steve
 
 ## Important Information ##
 
-* Rapport on Google Drive
+* Rapport on Google Drive, LaTeX or Word ?
