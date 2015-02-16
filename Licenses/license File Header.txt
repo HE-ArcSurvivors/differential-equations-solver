@@ -2,7 +2,7 @@
 * Copyright © Haute-Ecole ARC - All Rights Reserved
 * Copyright © Banana Rocket - All Rights Reserved
 *
-* This file is part of <P2 Qt Project: James Gouin et la Banane Sacrée>.
+* This file is part of <P2 Java Project: >.
 *
 * Unauthorized copying of this file, via any medium is strictly prohibited
 * Proprietary and confidential
