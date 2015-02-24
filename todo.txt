@@ -1,1 +1,7 @@
 Banana Rocket Dev team
+
+
+- Cahier des charges : 1-2 pages
+- Spécifications : 20 pages
+
+- Wiki : Ne pas faire un copier coller du cahier des charges dans le Wiki /!\ Mais une bonne partie se répète. 
