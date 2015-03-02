@@ -19,11 +19,11 @@ public class UseEquationDifferentielle
 	public static void main()
 		{
 			EquationDifferentielle equadiff = new EquationDifferentielle(50, 25, 4, 2, 2);
-			double y = equadiff.quantiteTempsT(25);
-			double t = equadiff.tempsQuantiteQ(135.62109779499758);
+//			double y = equadiff.quantiteTempsT(25);
+			double y = equadiff.tempsQuantiteQ(135.62);
 //			equadiff.getEquation();
 
-			System.out.println(y+" "+t);
+			System.out.println(y);
 		}
 
 	/*------------------------------------------------------------------*\

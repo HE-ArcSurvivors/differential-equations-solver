@@ -598,3 +598,21 @@ java.lang.NullPointerException
 
 !ENTRY org.eclipse.equinox.security 1 0 2015-03-02 16:35:02.360
 !MESSAGE New keyring password generated. 
+
+!ENTRY org.eclipse.core.net 1 0 2015-03-02 16:42:00.292
+!MESSAGE System property http.proxyHost is not set but should be proxy.he-arc.ch.
+
+!ENTRY org.eclipse.core.net 1 0 2015-03-02 16:42:00.292
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2015-03-02 16:42:00.293
+!MESSAGE System property https.proxyHost is not set but should be proxy.he-arc.ch.
+
+!ENTRY org.eclipse.core.net 1 0 2015-03-02 16:42:00.294
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2015-03-02 16:42:00.295
+!MESSAGE System property socksProxyHost is not set but should be proxy.he-arc.ch.
+
+!ENTRY org.eclipse.core.net 1 0 2015-03-02 16:42:00.296
+!MESSAGE System property socksProxyPort is not set but should be 8080.

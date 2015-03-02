@@ -8,7 +8,7 @@ org.eclipse.debug.ui.PREF_DELETE_CONFIGS_ON_PROJECT_DELETE=always
 org.eclipse.debug.ui.PREF_FILTER_LAUNCH_TYPES=true
 org.eclipse.debug.ui.PREF_FILTER_TYPE_LIST=org.eclipse.pde.ui.RuntimeWorkbench,org.eclipse.jdt.launching.javaApplet,org.eclipse.pde.ui.EquinoxLauncher,
 org.eclipse.debug.ui.PREF_FILTER_WORKING_SETS=true
-org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<launchPerspectives/>\n
+org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<launchPerspectives/>\r\n
 org.eclipse.debug.ui.cancel_launch_with_compile_errors=always
 org.eclipse.debug.ui.manage_view_perspectives=org.eclipse.debug.ui.DebugPerspective,
 org.eclipse.debug.ui.save_dirty_editors_before_launch=always

@@ -20,10 +20,12 @@ public class UseEquationDifferentielle
 		{
 			EquationDifferentielle equadiff = new EquationDifferentielle(50, 25, 4, 2, 2);
 			double y = equadiff.quantiteTempsT(25);
-			double t = equadiff.tempsQuantiteQ(135.62109779499758);
+			double t = equadiff.tempsQuantiteQ(135.62);
 //			equadiff.getEquation();
 
-			System.out.println(y+" "+t);
+			double y =
+
+			System.out.println(y);
 		}
 
 	/*------------------------------------------------------------------*\
