@@ -1,0 +1,10 @@
+package romain;
+
+public class Test {
+
+	public static Test()
+		{
+		System.out.println("Banana Test");
+		}
+
+}
