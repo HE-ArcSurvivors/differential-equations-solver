@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INDEX VERSION 1.127+/Users/Rocla/Clouds/OneDrive/HE-Arc/Projet Java/P2/.metadata/.plugins/org.eclipse.jdt.core
 2922111058.index
 879862999.index
@@ -23,3 +24,25 @@ INDEX VERSION 1.127+/Users/Rocla/Clouds/OneDrive/HE-Arc/Projet Java/P2/.metadata
 278504448.index
 3637047027.index
 1819685514.index
+=======
+INDEX VERSION 1.127+D:\Cours\Programmation\Projet P2 - Java\.metadata\.plugins\org.eclipse.jdt.core
+557163278.index
+953002906.index
+2639938985.index
+361813459.index
+1681162172.index
+338026266.index
+2543652850.index
+3889766839.index
+42449213.index
+4174204247.index
+1552741977.index
+1777081825.index
+1455561172.index
+1420110269.index
+1323482922.index
+4268956183.index
+2091636697.index
+3683878059.index
+3030411839.index
+>>>>>>> ddfa8c98063b7d856a8e78c44f7866e4ccde2df5
