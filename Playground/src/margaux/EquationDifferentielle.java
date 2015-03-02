@@ -10,8 +10,9 @@ public class EquationDifferentielle
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public EquationDifferentielle(double content, double content_val, double in_val, double in_debit, double out_debit)
+	public EquationDifferentielle(double capacite, double content, double content_val, double in_val, double in_debit, double out_debit)
 		{
+		this.capacite = capacite;
 		this.content = content;
 		this.content_val = content_val;
 		this.in_val = in_val;
@@ -34,6 +35,27 @@ public class EquationDifferentielle
 	public double tempsQuantiteQ(double q)
 		{
 			return Math.log((q - Math.pow(out,-1)*in ) / C) / (-out);
+		}
+
+	public double tempsQuantitePourcent(double qPourcent)
+		{
+			//return Math.log((q - Math.pow(out,-1)*in ) / C) / (-out);
+			return 0;
+		}
+
+	public double tempsDebordement()
+		{
+			return (capacite - content)/(in_debit - out_debit);
+		}
+
+	public double tempsVide()
+		{
+			return (- content)/(in_debit - out_debit);
+		}
+
+	public double quantiteDebordement()
+		{
+			return quantiteTempsT(tempsDebordement());
 		}
 
 	private void init()
@@ -66,6 +88,7 @@ public class EquationDifferentielle
 	\*------------------------------------------------------------------*/
 
 	//Input
+	private double capacite;
 	private double content;
 	private double content_val;
 	private double in_val;
