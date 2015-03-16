@@ -67,7 +67,7 @@ public class EquationDifferentielle
 
 	public void getEquation()
 		{
-			System.out.println(Math.pow(out, -1) * in +"+"+ C +"* e^-t*"+out);
+			System.out.println(Math.pow(out, -1) * in+" " +C +"* e^-t*"+out);
 		}
 
 
