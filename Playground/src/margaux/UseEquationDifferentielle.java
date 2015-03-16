@@ -18,19 +18,20 @@ public class UseEquationDifferentielle
 
 	public static void main()
 		{
-			EquationDifferentielle equadiff = new EquationDifferentielle(1000, 300, 50, 0, 10, 40);
-//			double y = equadiff.quantiteTempsT(25);
-//			double t = equadiff.tempsQuantiteQ(135.62109779499758);
-//			equadiff.getEquation();
-
-			double y = equadiff.quantiteDebordement();
-			double t = equadiff.tempsDebordement();
-
-			double tVide = equadiff.tempsVide();
+			//Capacite, content, content_val, in_val, in_debit, out_debit
+			EquationDifferentielle equadiff = new EquationDifferentielle(500, 100, 4, 2, 5, 5);
+			double y = equadiff.quantiteTempsT(10);
+			double t = equadiff.tempsQuantiteQ(81.11999069632385);
+			equadiff.getEquation();
 
 			System.out.println(y+" "+t);
 
-			System.out.println(tVide);
+			double yD = equadiff.quantiteDebordement();
+			double tD = equadiff.tempsDebordement();
+			System.out.println(yD+" "+tD);
+			
+//			double tVide = equadiff.tempsVide();
+//			System.out.println(tVide);
 		}
 
 	/*------------------------------------------------------------------*\

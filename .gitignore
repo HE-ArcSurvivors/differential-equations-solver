@@ -77,3 +77,4 @@ Sirius/bin
 .metadata/.plugins/org.eclipse.jdt.ui/OpenTypeHistory.xml
 .metadata/.plugins/org.eclipse.jdt.ui/QualifiedTypeNameHistory.xml
 .metadata/.plugins/org.eclipse.ui.workbench/dialog_settings.xml
+.recommenders/
