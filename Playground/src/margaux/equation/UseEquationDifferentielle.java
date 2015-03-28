@@ -1,5 +1,5 @@
 
-package margaux;
+package margaux.equation;
 
 
 

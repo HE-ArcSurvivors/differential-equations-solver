@@ -1,5 +1,9 @@
 
-package margaux;
+package margaux.equation;
+
+import margaux.conteneur.Container;
+
+
 
 
 
@@ -18,6 +22,18 @@ public class EquationDifferentielle
 		this.in_val = in_val;
 		this.in_debit = in_debit;
 		this.out_debit = out_debit;
+
+		init();
+		}
+
+	public EquationDifferentielle()
+		{
+		this.capacite = 0;
+		this.content = 0;
+		this.content_val = 0;
+		this.in_val = 0;
+		this.in_debit = 0;
+		this.out_debit = 0;
 
 		init();
 		}
@@ -65,15 +81,32 @@ public class EquationDifferentielle
 			C = content_val - Math.pow(out, -1) * in;
 		}
 
-	public void getEquation()
+	public String getEquation()
 		{
-			System.out.println(Math.pow(out, -1) * in+" " +C +"* e^-t*"+out);
+			return Math.pow(out, -1) * in+" " +C +"* e^-t*"+out;
 		}
-
 
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
+
+	public void setSource(Container container)
+	{
+		this.in_val = container.getSubstancePourcent();
+		this.in_debit = container.getDebit();
+
+		init();
+	}
+
+	public void setContainer(Container container)
+	{
+		this.capacite = container.getCapacite();
+		this.content = container.getContenance();
+		this.content_val = container.getSubstancePourcent();
+		this.out_debit = container.getDebit();
+
+		init();
+	}
 
 	/*------------------------------*\
 	|*				Get				*|
