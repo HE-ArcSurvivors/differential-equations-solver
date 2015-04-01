@@ -96,10 +96,10 @@ public class JPanelParametres extends JPanel
 			add(new JLabel("Contenance du réservoir (en litre) :"),CC.xy(1, 4));
 			add(contenance,CC.xy(2, 4));
 
-			add(new JLabel("Pourcentage d'eau :"),CC.xy(1,5));
+			add(new JLabel("Quantité d'eau :"),CC.xy(1,5));
 			add(liquidePourcent,CC.xy(2,5));
 
-			add(new JLabel("Pourcentage de substance :"),CC.xy(1,6));
+			add(new JLabel("Quantité de substance :"),CC.xy(1,6));
 			add(substancePourcent,CC.xy(2,6));
 
 			add(new JLabel("Débit (en l/s)"),CC.xy(1,7));

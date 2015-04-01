@@ -66,7 +66,7 @@ public class JFrameLayout extends JFrame
 
 	private void appearance()
 		{
-		setSize(600, 400);
+		setSize(600, 500);
 		setLocationRelativeTo(null); // frame centrer
 		setVisible(true); // last!
 		}
