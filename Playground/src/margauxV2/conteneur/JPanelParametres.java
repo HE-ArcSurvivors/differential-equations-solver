@@ -1,4 +1,4 @@
-package margaux.conteneur;
+package margauxV2.conteneur;
 
 import java.awt.Checkbox;
 import java.awt.Component;
@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import margauxV2.substance.Substance;
 
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -33,10 +35,10 @@ public class JPanelParametres extends JPanel
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
-	public Container getConteneur()
+	public Reservoir getConteneur()
 	{
 		boolean infiniBoolean = infini.getState();
-
+		double debitDouble = Double.parseDouble(debit.getText());
 		double capaciteDouble = 0;
 		double contenanceDouble = 0;
 		if(!infiniBoolean)
@@ -44,13 +46,15 @@ public class JPanelParametres extends JPanel
 			capaciteDouble = Double.parseDouble(capacite.getText());
 			contenanceDouble = Double.parseDouble(contenance.getText());
 		}
-
-		double liquidePourcentDouble = Double.parseDouble(liquide.getText());
 		double substancePourcentDouble = Double.parseDouble(substance.getText());
-		double debitDouble = Double.parseDouble(debit.getText());
 
-		return new Container(infiniBoolean, capaciteDouble, contenanceDouble, liquidePourcentDouble, substancePourcentDouble, debitDouble);
+		Reservoir newReservoir = new Reservoir(infiniBoolean, capaciteDouble, debitDouble);
+		newReservoir.addLiquid(new Substance("Eau",0.15), contenanceDouble);
+		newReservoir.addSubstance(new Substance("Sel",0.20), substancePourcentDouble);
+
+		return newReservoir;
 	}
+
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
@@ -96,10 +100,10 @@ public class JPanelParametres extends JPanel
 			add(new JLabel("Contenance du réservoir (en litre) :"),CC.xy(1, 4));
 			add(contenance,CC.xy(2, 4));
 
-			add(new JLabel("Quantité d'eau :"),CC.xy(1,5));
+			add(new JLabel("Pourcentage d'eau :"),CC.xy(1,5));
 			add(liquide,CC.xy(2,5));
 
-			add(new JLabel("Quantité de substance :"),CC.xy(1,6));
+			add(new JLabel("Pourcentage de substance :"),CC.xy(1,6));
 			add(substance,CC.xy(2,6));
 
 			add(new JLabel("Débit (en l/s)"),CC.xy(1,7));
@@ -206,4 +210,5 @@ public class JPanelParametres extends JPanel
 	private JTextField liquide;
 	private JTextField substance;
 	private JTextField debit;
+
 	}
