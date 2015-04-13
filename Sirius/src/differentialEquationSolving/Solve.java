@@ -1,7 +1,7 @@
 
-package margauxV2.equation;
+package differentialEquationSolving;
 
-import margauxV2.conteneur.Reservoir;
+import tank.Tank;
 
 
 
