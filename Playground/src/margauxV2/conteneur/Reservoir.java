@@ -59,9 +59,9 @@ public class Reservoir
 		return contentSubstance;
 	}
 
-	public void addSubstance(Substance substance, double pourcentage)
+	public boolean addSubstance(Substance substance, double pourcentage)
 	{
-		mapSubstance.put(substance, pourcentage);
+		return mapSubstance.put(substance, pourcentage) != null;
 	}
 
 	public boolean editSubstance(Substance substance)
