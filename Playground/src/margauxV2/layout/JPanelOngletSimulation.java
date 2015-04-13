@@ -52,7 +52,7 @@ public class JPanelOngletSimulation extends JPanel
 
 			// JComponent : add
 			add(jpanelcontent,BorderLayout.CENTER);
-			add(jpaneloutil,BorderLayout.WEST);
+			//add(jpaneloutil,BorderLayout.WEST);
 			add(jpanelbottom,BorderLayout.SOUTH);
 		}
 

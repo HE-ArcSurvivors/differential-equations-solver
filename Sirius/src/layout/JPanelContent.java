@@ -1,17 +1,22 @@
-package margauxV2.layout;
+package layout;
 
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 
+import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class JPanelOngletResolution extends JPanel
+import tank.JPanelParametres;
+import tank.Tank;
+
+public class JPanelContent extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelOngletResolution()
+	public JPanelContent()
 		{
 		geometry();
 		control();
@@ -21,6 +26,13 @@ public class JPanelOngletResolution extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
+
+	public Tank getMainContainer()
+	{
+		Tank mainContainer = panelParametresContainer.getConteneur();
+		mainContainer.addReservoirParent(panelParametresSource.getConteneur());
+		return mainContainer;
+	}
 
 	/*------------------------------*\
 	|*				Set				*|
@@ -37,17 +49,31 @@ public class JPanelOngletResolution extends JPanel
 	private void geometry()
 		{
 			// JComponent : Instanciation
+			panelParametresSource = new JPanelParametres();
+			panelParametresContainer = new JPanelParametres();
 
 			// Layout : Specification
 			{
-			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
-			setLayout(flowlayout);
+			// Box contains a BoxLayout.
+			Box boxV = Box.createVerticalBox();
+			//boxV.add(Box.createVerticalStrut(10));
+
+			boxV.add(new JLabel("Source"));
+			boxV.add(panelParametresSource);
+
+			boxV.add(Box.createVerticalGlue());
+
+			boxV.add(new JLabel("Container"));
+			boxV.add(panelParametresContainer);
+
+			setLayout(new BorderLayout());
+			add(boxV,BorderLayout.CENTER);
 
 			// flowlayout.setHgap(20);
 			// flowlayout.setVgap(20);
 			}
 
-		// JComponent : add
+			// JComponent : add
 
 		}
 
@@ -66,5 +92,7 @@ public class JPanelOngletResolution extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
+	private JPanelParametres panelParametresSource;
+	private JPanelParametres panelParametresContainer;
 
 	}

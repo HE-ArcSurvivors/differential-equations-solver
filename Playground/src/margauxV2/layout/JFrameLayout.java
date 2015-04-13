@@ -1,4 +1,4 @@
-package margauxV2.layout;
+package layout;
 
 import java.awt.BorderLayout;
 
@@ -50,13 +50,10 @@ public class JFrameLayout extends JFrame
 			{
 			BorderLayout borderLayout = new BorderLayout();
 			setLayout(borderLayout);
-
-//			borderLayout.setHgap(20);
-//			borderLayout.setVgap(20);
 			}
 
-		// JComponent : add
-		add(tabbedPane, BorderLayout.CENTER);
+			// JComponent : add
+			add(tabbedPane, BorderLayout.CENTER);
 		}
 
 	private void control()

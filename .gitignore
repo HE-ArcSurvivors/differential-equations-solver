@@ -1,4 +1,4 @@
-libraryInfos.xml
+﻿libraryInfos.xml
 .install.xml
 savedIndexNames.txt
 .metadata/.lock
@@ -78,3 +78,8 @@ Sirius/bin
 .metadata/.plugins/org.eclipse.jdt.ui/QualifiedTypeNameHistory.xml
 .metadata/.plugins/org.eclipse.ui.workbench/dialog_settings.xml
 .recommenders/
+Administration/DiagrammeClasses_v2.asta.lock
+Administration/Scénario/Sans titre-1.psd
+Administration/Scénario/~$Présentation du Scénario.odp
+Sirius/.classpath
+Sirius/.project
