@@ -1,4 +1,4 @@
-libraryInfos.xml
+﻿libraryInfos.xml
 .install.xml
 savedIndexNames.txt
 .metadata/.lock
@@ -81,3 +81,5 @@ Sirius/bin
 Administration/DiagrammeClasses_v2.asta.lock
 Administration/Scénario/Sans titre-1.psd
 Administration/Scénario/~$Présentation du Scénario.odp
+Sirius/.classpath
+Sirius/.project
