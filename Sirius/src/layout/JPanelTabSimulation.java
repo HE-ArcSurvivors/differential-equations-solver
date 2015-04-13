@@ -1,17 +1,17 @@
-package margauxV2.layout;
+package layout;
 
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-public class JPanelOngletResolution extends JPanel
+public class JPanelTabSimulation extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelOngletResolution()
+	public JPanelTabSimulation()
 		{
 		geometry();
 		control();
@@ -37,18 +37,23 @@ public class JPanelOngletResolution extends JPanel
 	private void geometry()
 		{
 			// JComponent : Instanciation
+			jpaneloutil = new JPanelOutils();
+			jpanelcontent = new JPanelContent();
+			jpanelbottom = new JPanelBottom(jpanelcontent);
 
 			// Layout : Specification
 			{
-			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
-			setLayout(flowlayout);
+			BorderLayout borderLayout = new BorderLayout();
+			setLayout(borderLayout);
 
-			// flowlayout.setHgap(20);
-			// flowlayout.setVgap(20);
+			// borderLayout.setHgap(20);
+			// borderLayout.setVgap(20);
 			}
 
-		// JComponent : add
-
+			// JComponent : add
+			add(jpanelcontent,BorderLayout.CENTER);
+			//add(jpaneloutil,BorderLayout.WEST);
+			add(jpanelbottom,BorderLayout.SOUTH);
 		}
 
 	private void control()
@@ -66,5 +71,8 @@ public class JPanelOngletResolution extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
+	private JPanelOutils 	jpaneloutil;
+	private JPanelContent 	jpanelcontent;
+	private JPanelBottom	jpanelbottom;
 
 	}

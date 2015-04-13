@@ -1,21 +1,19 @@
-package margauxV2.layout;
+package substance;
 
-import java.awt.FlowLayout;
 
-import javax.swing.JPanel;
 
-public class JPanelOngletResolution extends JPanel
+public class Substance
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelOngletResolution()
+	public Substance(String name, double hue_color)
 		{
-		geometry();
-		control();
-		appearance();
+		super();
+		this.name = name;
+		this.hue_color = hue_color;
 		}
 
 	/*------------------------------------------------------------------*\
@@ -26,45 +24,39 @@ public class JPanelOngletResolution extends JPanel
 	|*				Set				*|
 	\*------------------------------*/
 
+	public void setName(String name)
+		{
+		this.name = name;
+		}
+
+	public void setHue_color(double hue_color)
+		{
+		this.hue_color = hue_color;
+		}
+
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
+
+	public String getName()
+		{
+		return this.name;
+		}
+
+	public double getHue_color()
+		{
+		return this.hue_color;
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
-	private void geometry()
-		{
-			// JComponent : Instanciation
-
-			// Layout : Specification
-			{
-			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
-			setLayout(flowlayout);
-
-			// flowlayout.setHgap(20);
-			// flowlayout.setVgap(20);
-			}
-
-		// JComponent : add
-
-		}
-
-	private void control()
-		{
-		// rien
-		}
-
-	private void appearance()
-		{
-		// rien
-		}
-
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
-	// Tools
-
+	private String name;
+	private double hue_color;
 	}
+

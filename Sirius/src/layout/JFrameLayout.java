@@ -1,17 +1,18 @@
-package margauxV2.layout;
+package layout;
 
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 
-import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 
-public class JPanelOngletResolution extends JPanel
+public class JFrameLayout extends JFrame
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelOngletResolution()
+	public JFrameLayout()
 		{
 		geometry();
 		control();
@@ -37,28 +38,34 @@ public class JPanelOngletResolution extends JPanel
 	private void geometry()
 		{
 			// JComponent : Instanciation
+			tabbedPane = new JTabbedPane();
+
+			panelSimulation = new JPanelTabSimulation();
+			panelResolution = new JPanelTabResolution();
+
+			tabbedPane.addTab("Simulation",panelSimulation);
+			tabbedPane.addTab("Résolution",panelResolution);
 
 			// Layout : Specification
 			{
-			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
-			setLayout(flowlayout);
-
-			// flowlayout.setHgap(20);
-			// flowlayout.setVgap(20);
+			BorderLayout borderLayout = new BorderLayout();
+			setLayout(borderLayout);
 			}
 
-		// JComponent : add
-
+			// JComponent : add
+			add(tabbedPane, BorderLayout.CENTER);
 		}
 
 	private void control()
 		{
-		// rien
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		}
 
 	private void appearance()
 		{
-		// rien
+		setSize(800, 600);
+		setLocationRelativeTo(null); // frame centrer
+		setVisible(true); // last!
 		}
 
 	/*------------------------------------------------------------------*\
@@ -66,5 +73,8 @@ public class JPanelOngletResolution extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
+	private JTabbedPane tabbedPane;
+	private JPanelTabSimulation panelSimulation;
+	private JPanelTabResolution panelResolution;
 
 	}

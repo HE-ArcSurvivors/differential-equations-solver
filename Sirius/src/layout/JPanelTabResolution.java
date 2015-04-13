@@ -1,17 +1,17 @@
-package margauxV2.layout;
+package layout;
 
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-public class JPanelOngletResolution extends JPanel
+public class JPanelTabResolution extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelOngletResolution()
+	public JPanelTabResolution()
 		{
 		geometry();
 		control();
