@@ -20,7 +20,7 @@ public class Tank
 		{
 		mapSubstance = new  HashMap<Substance,Double>();
 		mapLiquide = new HashMap<Substance,Double>();
-		listReservoirParent = new ArrayList<Tank>();
+		listTankParent = new ArrayList<Tank>();
 
 		this.infini = infini;
 		this.capacite = capacite;
@@ -37,16 +37,27 @@ public class Tank
 			return Math.pow(out, -1) * in + C * Math.exp(-t*out);
 		}
 
-	public double getContent(double t)
-	{
-		double contenance = 0;
-		for(Double element : mapLiquide.values())
+	public double getContent()
 		{
-			contenance += element;
+			double contenanceTemps0 = 0;
+			for(Double element : mapLiquide.values())
+			{
+				contenanceTemps0 += element;
+			}
+			return contenanceTemps0;
 		}
-		//contenance -= t *
-		return contenance;
-	}
+
+	public double getContent(double t)
+		{
+			double contenance = this.getContent();
+			for(Tank tank : listTankParent)
+			{
+				contenance += tank.getDebit()*t;
+			}
+			contenance -= this.debit * t;
+
+			return contenance;
+		}
 
 	public double getValueSubstance()
 	{
@@ -81,7 +92,7 @@ public class Tank
 
 	public boolean addReservoirParent(Tank reservoirParent)
 	{
-		return listReservoirParent.add(reservoirParent);
+		return listTankParent.add(reservoirParent);
 	}
 
 	/*------------------------------*\
@@ -132,7 +143,7 @@ public class Tank
 		{
 			in = 0;
 
-			for(Tank reservoir : listReservoirParent)
+			for(Tank reservoir : listTankParent)
 			{
 				in += reservoir.getDebit() * reservoir.getValueSubstance();
 			}
@@ -152,7 +163,7 @@ public class Tank
 
 	private Map<Substance,Double> mapSubstance;
 	private Map<Substance,Double> mapLiquide;
-	private List<Tank> listReservoirParent;
+	private List<Tank> listTankParent;
 
 	//Tools
 	private double in;
