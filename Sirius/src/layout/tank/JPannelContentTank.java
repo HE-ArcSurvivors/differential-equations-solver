@@ -1,23 +1,18 @@
-package layout;
+package layout.tank;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 
-import javax.swing.Box;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import layout.tank.JPanelTank;
-import tank.JPanelParametres;
-import tank.Tank;
-
-public class JPanelContent extends JPanel
+public class JPannelContentTank extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelContent()
+	public JPannelContentTank()
 		{
 		geometry();
 		control();
@@ -28,12 +23,6 @@ public class JPanelContent extends JPanel
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
-	public Tank getMainContainer()
-	{
-		Tank mainContainer = panelParametresContainer.getConteneur();
-		mainContainer.addTankParent(panelParametresSource.getConteneur());
-		return mainContainer;
-	}
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
@@ -49,13 +38,18 @@ public class JPanelContent extends JPanel
 	private void geometry()
 		{
 			// JComponent : Instanciation
-			JPanelTank tank1 = new JPanelTank();
 
 			// Layout : Specification
-			setLayout(null);
-			add(tank1);
-			
-			tank1.setLocation(10, 150); //pos fixe
+			{
+			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
+			setLayout(flowlayout);
+
+			// flowlayout.setHgap(20);
+			// flowlayout.setVgap(20);
+			}
+
+		// JComponent : add
+
 		}
 
 	private void control()
@@ -65,7 +59,7 @@ public class JPanelContent extends JPanel
 
 	private void appearance()
 		{
-		// rien
+		setBackground(Color.blue);
 		}
 
 	/*------------------------------------------------------------------*\
@@ -73,5 +67,6 @@ public class JPanelContent extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
+
 
 	}

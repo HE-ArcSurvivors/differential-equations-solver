@@ -1,23 +1,19 @@
-package layout;
 
-import java.awt.BorderLayout;
+package layout.tank;
 
-import javax.swing.Box;
-import javax.swing.JLabel;
+import java.awt.Color;
+
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import layout.tank.JPanelTank;
-import tank.JPanelParametres;
-import tank.Tank;
-
-public class JPanelContent extends JPanel
+public class JPanelTank extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelContent()
+	public JPanelTank()
 		{
 		geometry();
 		control();
@@ -28,12 +24,6 @@ public class JPanelContent extends JPanel
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
-	public Tank getMainContainer()
-	{
-		Tank mainContainer = panelParametresContainer.getConteneur();
-		mainContainer.addTankParent(panelParametresSource.getConteneur());
-		return mainContainer;
-	}
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
@@ -48,14 +38,24 @@ public class JPanelContent extends JPanel
 
 	private void geometry()
 		{
-			// JComponent : Instanciation
-			JPanelTank tank1 = new JPanelTank();
+		// JComponent : Instanciation
+
+		jpanelgraduation = new JPanelGraduation();
+		jpanelSubstances = new JPanelSubstances();
+		jpanelContentTank = new JPannelContentTank();
+		jpanelTap = new JPannelTap();
 
 			// Layout : Specification
-			setLayout(null);
-			add(tank1);
-			
-			tank1.setLocation(10, 150); //pos fixe
+			{
+			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+			add(jpanelgraduation);
+			add(jpanelSubstances);
+			add(jpanelContentTank);
+			add(jpanelTap);
+			}
+
+		// JComponent : add
+
 		}
 
 	private void control()
@@ -65,7 +65,8 @@ public class JPanelContent extends JPanel
 
 	private void appearance()
 		{
-		// rien
+		setBackground(Color.blue);
+		setSize(300, 300);
 		}
 
 	/*------------------------------------------------------------------*\
@@ -73,5 +74,9 @@ public class JPanelContent extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
+	private JPanelGraduation jpanelgraduation;
+	private JPanelSubstances jpanelSubstances;
+	private JPannelContentTank jpanelContentTank;
+	private JPannelTap jpanelTap;
 
 	}

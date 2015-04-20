@@ -132,7 +132,6 @@ public class JPanelBottom extends JPanel
 					mainReservoir.printTank(t,sel);
 					}
 			});
-
 		}
 
 	private void appearance()
