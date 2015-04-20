@@ -9,11 +9,11 @@ public class Substance
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public Substance(String name, double hue_color)
+	public Substance(String name, double hue_color, int state)
 		{
-		super();
 		this.name = name;
 		this.hue_color = hue_color;
+		this.state = state;
 		}
 
 	/*------------------------------------------------------------------*\
@@ -34,6 +34,11 @@ public class Substance
 		this.hue_color = hue_color;
 		}
 
+	public void setState(int state)
+		{
+		this.state = state;
+		}
+
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
@@ -48,6 +53,11 @@ public class Substance
 		return this.hue_color;
 		}
 
+	public int getState()
+		{
+		return this.state;
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
@@ -58,5 +68,9 @@ public class Substance
 
 	private String name;
 	private double hue_color;
+	private int state;
+
+	public static final int SOLID = 0;
+	public static final int LIQUID = 1;
 	}
 

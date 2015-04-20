@@ -49,8 +49,8 @@ public class JPanelParametres extends JPanel
 		double substancePourcentDouble = Double.parseDouble(substance.getText());
 
 		Tank newReservoir = new Tank(infiniBoolean, capaciteDouble, debitDouble);
-		newReservoir.addLiquid(new Substance("Eau",0.15), contenanceDouble);
-		newReservoir.addSubstance(new Substance("Sel",0.20), substancePourcentDouble);
+		newReservoir.addSubstance(new Substance("Eau",0.15,Substance.LIQUID), contenanceDouble);
+		newReservoir.addSubstance(new Substance("Sel",0.20,Substance.SOLID), substancePourcentDouble);
 
 		return newReservoir;
 	}

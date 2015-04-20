@@ -30,7 +30,7 @@ public class JPanelContent extends JPanel
 	public Tank getMainContainer()
 	{
 		Tank mainContainer = panelParametresContainer.getConteneur();
-		mainContainer.addReservoirParent(panelParametresSource.getConteneur());
+		mainContainer.addTankParent(panelParametresSource.getConteneur());
 		return mainContainer;
 	}
 
