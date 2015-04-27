@@ -35,6 +35,7 @@ public class JPanelContent extends JPanel
 
 	public JPanelContent()
 		{
+
 		tank1 = new JPanelTank(new Tank(false, 200, 5));
 		listPanelTank = new LinkedList<JPanelTank>();
 		tank1.setLocation(10, 150); // default pos
