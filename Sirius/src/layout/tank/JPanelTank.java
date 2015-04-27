@@ -60,8 +60,8 @@ public class JPanelTank extends JPanel
 
 
 		Tank tank = new Tank(false, 100, 5);
-		tank.addSubstance(new Substance("eau", (float) 0.6), 40);
-		tank.addSubstance(new Substance("sel", (float) 1.0), 10);
+		tank.addSubstance(new Substance("eau", (float) 0.6, Substance.LIQUID), 40);
+		tank.addSubstance(new Substance("sel", (float) 1.0, Substance.SOLID), 10);
 
 		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
 		jpanelgraduation.setPreferredSize(new Dimension(50, 0));
