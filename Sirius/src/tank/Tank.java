@@ -18,7 +18,7 @@ public class Tank
 
 	public Tank(boolean infini, double capacite, double debit)
 		{
-		mapSubstance = new  HashMap<Substance,Double>();
+		mapSubstance = new HashMap<Substance,Double>();
 		mapLiquide = new HashMap<Substance,Double>();
 		listTankParent = new ArrayList<Tank>();
 
@@ -134,6 +134,16 @@ public class Tank
 		{
 		return this.debit;
 		}
+
+	public Map<Substance, Double> getAllSubstances(double t) //TODO : use t
+	{
+		Map<Substance, Double> mapAllSubstances = new HashMap<Substance, Double>();
+
+		mapAllSubstances.putAll(mapLiquide);
+		mapAllSubstances.putAll(mapSubstance);
+
+		return mapAllSubstances;
+	}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|

@@ -1,7 +1,11 @@
+
 package layout.tank;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
@@ -12,8 +16,11 @@ public class JPannelContentTank extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPannelContentTank()
+	public JPannelContentTank(double capacite, double content)
 		{
+		this.capacite = capacite;
+		this.content = content;
+
 		geometry();
 		control();
 		appearance();
@@ -22,6 +29,18 @@ public class JPannelContentTank extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
+
+	public void setContent(double content)
+		{
+		this.content = content;
+		repaint();
+		}
+
+	public void setCapacite(double capacite)
+		{
+		this.capacite = capacite;
+		repaint();
+		}
 
 	/*------------------------------*\
 	|*				Set				*|
@@ -34,6 +53,35 @@ public class JPannelContentTank extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
+	@Override
+	protected void paintComponent(Graphics g)
+		{
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D)g;
+
+		dessiner(g2d);
+		}
+
+	private void dessiner(Graphics2D g2d)
+		{
+		int totalh = this.getHeight();
+
+		double RatioRempli = content / capacite;
+
+		int h = (int)(RatioRempli * totalh);
+
+		rectContent = new Rectangle2D.Double(0, totalh - h, this.getWidth(), totalh);
+
+		g2d.setColor(Color.BLUE);
+		g2d.fill(rectContent);
+
+		g2d.setColor(Color.BLACK);
+		String contentL = (double)(Math.round(content * 100)) / 100 + " l";
+		int x = (int)(rectContent.getWidth() / 2) - 12;
+		int y = (int)((rectContent.getY() + rectContent.getHeight()) / 2);
+		g2d.drawString(contentL, x, y);
+
+		}
 
 	private void geometry()
 		{
@@ -59,14 +107,18 @@ public class JPannelContentTank extends JPanel
 
 	private void appearance()
 		{
-		setBackground(Color.blue);
+		//setBackground(Color.blue);
 		}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
-	// Tools
+	// Input
+	private double capacite;
+	private double content;
 
+	// Tools
+	private Rectangle2D rectContent;
 
 	}
