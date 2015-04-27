@@ -173,6 +173,16 @@ public class Tank implements Iterable<Tank>
 		return this.debit;
 	}
 
+	public Map<Substance, Double> getAllSubstances(double t) //TODO : use t
+	{
+		Map<Substance, Double> mapAllSubstances = new HashMap<Substance, Double>();
+
+		mapAllSubstances.putAll(mapLiquide);
+		mapAllSubstances.putAll(mapSubstance);
+
+		return mapAllSubstances;
+	}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/

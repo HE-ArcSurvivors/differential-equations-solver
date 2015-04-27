@@ -9,7 +9,7 @@ public class Substance
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public Substance(String name, double hue_color, int state)
+	public Substance(String name, float hue_color, int state)
 		{
 		this.name = name;
 		this.hue_color = hue_color;
@@ -29,7 +29,7 @@ public class Substance
 		this.name = name;
 		}
 
-	public void setHue_color(double hue_color)
+	public void setHue_color(float hue_color)
 		{
 		this.hue_color = hue_color;
 		}
@@ -48,7 +48,7 @@ public class Substance
 		return this.name;
 		}
 
-	public double getHue_color()
+	public float getHue_color()
 		{
 		return this.hue_color;
 		}
@@ -67,7 +67,7 @@ public class Substance
 	\*------------------------------------------------------------------*/
 
 	private String name;
-	private double hue_color;
+	private float hue_color;
 	private int state;
 
 	public static final int SOLID = 0;

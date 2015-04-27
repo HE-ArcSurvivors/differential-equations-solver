@@ -1,9 +1,13 @@
+
 package layout.tank;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
+
+import layout.tank.tools.MagasinImage;
 
 public class JPannelTap extends JPanel
 	{
@@ -14,6 +18,7 @@ public class JPannelTap extends JPanel
 
 	public JPannelTap()
 		{
+
 		geometry();
 		control();
 		appearance();
@@ -31,9 +36,24 @@ public class JPannelTap extends JPanel
 	|*				Get				*|
 	\*------------------------------*/
 
+
+	@Override
+	protected void paintComponent(Graphics g)
+		{
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D)g;
+		dessiner(g2d);
+		}
+
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
+
+	private void dessiner(Graphics2D g2d)
+		{
+		g2d.drawImage(MagasinImage.tap.getImage(), 0, this.getHeight()-this.getWidth(), this.getWidth(),this.getWidth(), null);
+		}
 
 	private void geometry()
 		{
@@ -49,7 +69,6 @@ public class JPannelTap extends JPanel
 			}
 
 		// JComponent : add
-
 		}
 
 	private void control()
@@ -59,7 +78,7 @@ public class JPannelTap extends JPanel
 
 	private void appearance()
 		{
-		setBackground(Color.black);
+		//setBackground(Color.black);
 		}
 
 	/*------------------------------------------------------------------*\
@@ -67,6 +86,5 @@ public class JPannelTap extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
-
 
 	}

@@ -31,8 +31,8 @@ public class JPanelBottom extends JPanel
 		{
 		this.panelContent = panelContent;
 
-		Substance eau = new Substance("Eau",5,Substance.LIQUID);
-		sel = new Substance("Sel",1,Substance.SOLID);
+		Substance eau = new Substance("Eau",(float)5.0,Substance.LIQUID);
+		sel = new Substance("Sel",(float)1.0,Substance.SOLID);
 
 		this.r1 = new Tank(false, 1000, 3);
 		this.r1.addSubstance(eau, 100);
