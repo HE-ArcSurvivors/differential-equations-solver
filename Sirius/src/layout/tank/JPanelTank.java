@@ -23,6 +23,7 @@ public class JPanelTank extends JPanel
 		control();
 		appearance();
 		}
+	
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|

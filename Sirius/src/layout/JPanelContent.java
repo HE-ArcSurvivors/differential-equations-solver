@@ -230,7 +230,11 @@ public class JPanelContent extends JPanel
 	// Tools
 	private List<JPanelTank> listPanelTank;
 	
-//	JPanelTank tank1 = new JPanelTank();
+	
+	
+	Tank tank = new Tank(false, 500, 2);
+	JPanelTank tank1 = new JPanelTank(tank);
+	
 	JXCollapsiblePane collapsibelPane = new JXCollapsiblePane(
 			Direction.TRAILING);
 	JXButton toggle = new JXButton(collapsibelPane.getActionMap().get(
