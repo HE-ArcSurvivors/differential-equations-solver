@@ -3,8 +3,6 @@ package differentialEquationSolving;
 
 import tank.Tank;
 
-
-
 public class Solve
 	{
 

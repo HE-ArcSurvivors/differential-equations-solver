@@ -1,14 +1,8 @@
 package layout;
 
-import java.awt.BorderLayout;
-
-import javax.swing.Box;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import layout.tank.JPanelTank;
-import tank.JPanelParametres;
-import tank.Tank;
 
 public class JPanelContent extends JPanel
 	{
@@ -31,7 +25,7 @@ public class JPanelContent extends JPanel
 //	public Tank getMainContainer()
 //	{
 //		Tank mainContainer = panelParametresContainer.getConteneur();
-//		mainContainer.addReservoirParent(panelParametresSource.getConteneur());
+//		mainContainer.addTankParent(panelParametresSource.getConteneur());
 //		return mainContainer;
 //	}
 
@@ -55,7 +49,7 @@ public class JPanelContent extends JPanel
 			// Layout : Specification
 			setLayout(null);
 			add(tank1);
-			
+
 			tank1.setLocation(10, 150); //pos fixe
 		}
 

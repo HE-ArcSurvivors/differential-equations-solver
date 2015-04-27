@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import substance.Substance;
 import tank.Tank;
 
 
@@ -27,6 +28,34 @@ public class JPanelBottom extends JPanel
 	public JPanelBottom(JPanelContent panelContent)
 		{
 		this.panelContent = panelContent;
+
+		Substance eau = new Substance("Eau",5,Substance.LIQUID);
+		sel = new Substance("Sel",1,Substance.SOLID);
+
+		this.r1 = new Tank(false, 1000, 2);
+		this.r1.addSubstance(eau, 100);
+		this.r1.addSubstance(sel,1);
+
+		this.r2 = new Tank(false,500,2);
+		this.r2.addSubstance(eau, 50);
+		this.r2.addSubstance(sel,2);
+
+		this.r3 = new Tank(false,500,1);
+		this.r3.addSubstance(eau, 50);
+		this.r3.addSubstance(sel,0);
+
+		r2.addTankParent(r1);
+//		r3.addTankParent(r2);
+
+//		this.r1 = new Tank(false, 10000, 5);
+//		this.r3 = new Tank(false, 1000, 5);
+//
+//		r1.addSubstance(eau,10000);
+//		r3.addSubstance(eau, 100);
+//		r1.addSubstance(sel,2);
+//		r3.addSubstance(sel,4);
+//
+//		r3.addTankParent(r1);
 
 		geometry();
 		control();
@@ -86,7 +115,7 @@ public class JPanelBottom extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					mainReservoir = panelContent.getMainContainer();
+					mainReservoir = r2; //panelContent.getMainContainer();
 					slider.setVisible(true);
 					}
 			});
@@ -96,11 +125,13 @@ public class JPanelBottom extends JPanel
 				@Override
 				public void stateChanged(ChangeEvent e)
 					{
+					double t = slider.getValue();
 					DecimalFormat df = new DecimalFormat("0.00");
-					formule.setText(" = "+df.format(mainReservoir.equaDiff(slider.getValue()))+" pour t = "+slider.getValue());
+					formule.setText(" = "+df.format(mainReservoir.equaDiff(t,sel))+" pour t = "+t);
+					System.out.println("T = "+t);
+					mainReservoir.printTank(t,sel);
 					}
 			});
-
 		}
 
 	private void appearance()
@@ -120,4 +151,10 @@ public class JPanelBottom extends JPanel
 	private Tank mainReservoir;
 
 	private JPanelContent panelContent;
+
+//	TEST
+	private Tank r1;
+	private Tank r2;
+	private Tank r3;
+	private Substance sel;
 	}
