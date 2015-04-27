@@ -10,10 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import tank.Tank;
+import differentialEquationSolving.JFrameStopCondition;
 
 
 public class JPanelBottom extends JPanel
@@ -86,6 +88,7 @@ public class JPanelBottom extends JPanel
 		{
 			// JComponent : Instanciation
 			startSimulation = new JButton("OK");
+			stopCondition = new JButton("Stop");
 			formule = new JLabel("");
 			slider = new JSlider(SwingConstants.HORIZONTAL,0,10,0);
 			slider.setVisible(false);
@@ -101,6 +104,7 @@ public class JPanelBottom extends JPanel
 
 			// JComponent : add
 			add(startSimulation);
+			add(stopCondition);
 			add(slider);
 			add(formule);
 		}
@@ -113,8 +117,22 @@ public class JPanelBottom extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-//					mainReservoir = r2; //panelContent.getMainContainer();
+					//mainReservoir = r3; //panelContent.getMainContainer();
 					slider.setVisible(true);
+					}
+			});
+
+		stopCondition.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+					{
+						 SwingUtilities.invokeLater(new Runnable() {
+					       public void run() {
+					          JFrameStopCondition newFrame = new JFrameStopCondition();
+					          newFrame.setVisible(true);
+					        }
+					        });
 					}
 			});
 
@@ -145,6 +163,7 @@ public class JPanelBottom extends JPanel
 
 	// Tools
 	private JButton startSimulation;
+	private JButton stopCondition;
 	private JSlider slider;
 	private JLabel	formule;
 
