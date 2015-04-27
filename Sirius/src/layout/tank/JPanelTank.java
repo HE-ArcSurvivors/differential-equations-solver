@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import substance.Substance;
 import tank.Tank;
 
 public class JPanelTank extends JPanel
@@ -17,8 +16,9 @@ public class JPanelTank extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelTank()
+	public JPanelTank(Tank tank)
 		{
+		this.tank = tank;
 		geometry();
 		control();
 		appearance();
@@ -27,6 +27,11 @@ public class JPanelTank extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
+
+	public void affTime(double t)
+		{
+		jpanelSubstances.updateFromTank(t);
+		}
 
 	/*------------------------------*\
 	|*				Set				*|
@@ -50,25 +55,19 @@ public class JPanelTank extends JPanel
 		jpanelSeparation.setMinimumSize(new Dimension(width, 0));
 		jpanelSeparation.setMaximumSize(new Dimension(width, maxHeight));
 		return jpanelSeparation;
-	}
+		}
+
 	private void geometry()
 		{
 		// JComponent : Instanciation
 		int maxHeight = 500;
-
-		//Double t = 0.0;
-
-
-		Tank tank = new Tank(false, 100, 5);
-		tank.addSubstance(new Substance("eau", (float) 0.6, Substance.LIQUID), 40);
-		tank.addSubstance(new Substance("sel", (float) 1.0, Substance.SOLID), 10);
 
 		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
 		jpanelgraduation.setPreferredSize(new Dimension(50, 0));
 		jpanelgraduation.setMinimumSize(new Dimension(50, 0));
 		jpanelgraduation.setMaximumSize(new Dimension(50, maxHeight));
 
-		jpanelContentTank = new JPannelContentTank(tank.getCapacite(), 50); //TODO : getCapacite t = 0
+		jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
 
 		jpanelSubstances = new JPanelSubstances(tank, jpanelContentTank);
 		jpanelSubstances.setPreferredSize(new Dimension(60, 0));
@@ -103,7 +102,7 @@ public class JPanelTank extends JPanel
 	private void appearance()
 		{
 		setBackground(Color.LIGHT_GRAY);
-		setSize(500, 300);
+		setSize(350, 200);
 		}
 
 	/*------------------------------------------------------------------*\
@@ -115,5 +114,8 @@ public class JPanelTank extends JPanel
 	private JPanelSubstances jpanelSubstances;
 	private JPannelContentTank jpanelContentTank;
 	private JPannelTap jpanelTap;
+
+	//in
+	private Tank tank;
 
 	}

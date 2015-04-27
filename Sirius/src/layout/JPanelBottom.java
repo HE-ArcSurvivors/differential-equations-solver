@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -33,8 +32,9 @@ public class JPanelBottom extends JPanel
 
 	public JPanelBottom(JPanelContent panelContent)
 		{
+
 		this.listSubstance = new ArrayList<Substance>();
-		Substance eau = new Substance("Eau", (float)5.0, Substance.LIQUID);
+		eau = new Substance("Eau", (float)5.0, Substance.LIQUID);
 		sel = new Substance("Sel", (float)1.0, Substance.SOLID);
 		listSubstance.add(eau);
 		listSubstance.add(sel);
@@ -43,17 +43,13 @@ public class JPanelBottom extends JPanel
 
 		this.r1 = new Tank(false, 500, 5);
 		this.r2 = new Tank(false, 200, 5);
-
 		this.r1.addSubstance(sel, 2);
 		this.r1.addSubstance(eau, 500);
 
 		this.r2.addSubstance(sel, 4);
 		this.r2.addSubstance(eau, 100);
-
 		r2.addTankParent(r1);
-		mainReservoir = r2; //panelContent.getMainContainer();
-
-		geometry();
+		mainReservoir = r2;		geometry();
 		control();
 		appearance();
 		}
@@ -82,12 +78,11 @@ public class JPanelBottom extends JPanel
 
 	private void geometry()
 		{
-		// JComponent : Instanciation
-		startSimulation = new JButton("OK");
-		stopCondition = new JButton("Stop");
+		startSimulation = new JButton("Start");
+		stopCondition = new JButton("Condition");
+
+		slider = new JSlider(0,0);
 		formule = new JLabel("");
-		slider = new JSlider(SwingConstants.HORIZONTAL, 0, 10, 0);
-		slider.setVisible(false);
 
 		jframestopcondition = new JFrameStopCondition(mainReservoir, listSubstance, JPanelStopCondition.TIME);
 		jframestopcondition.setVisible(false);
@@ -101,11 +96,11 @@ public class JPanelBottom extends JPanel
 			// flowlayout.setVgap(20);
 			}
 
-		// JComponent : add
 		add(startSimulation);
 		add(stopCondition);
 		add(slider);
 		add(formule);
+
 		}
 
 	private void control()
@@ -122,10 +117,10 @@ public class JPanelBottom extends JPanel
 
 		stopCondition.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
+
 						jframestopcondition.setVisible(true);
 					}
 			});
@@ -137,7 +132,11 @@ public class JPanelBottom extends JPanel
 					{
 					double t = slider.getValue();
 					DecimalFormat df = new DecimalFormat("0.00");
-					formule.setText(" = " + df.format(mainReservoir.equaDiff(t, sel)) + " pour t = " + t);
+					formule.setText(" = "+df.format(mainReservoir.equaDiff(t,sel))+" pour t = "+t);
+					System.out.println("T = "+t);
+//					mainReservoir.printTank(t,sel);
+
+					//panelContent.affTime(t);
 					}
 			});
 
@@ -164,6 +163,7 @@ public class JPanelBottom extends JPanel
 	private JButton startSimulation;
 	private JButton stopCondition;
 	private JSlider slider;
+
 	private JLabel formule;
 
 	private Tank mainReservoir;
@@ -172,10 +172,7 @@ public class JPanelBottom extends JPanel
 	private JFrameStopCondition jframestopcondition;
 
 	//	TEST
-	private Tank r1;
-	private Tank r2;
-	private Tank r3;
-	private Substance sel;
-
+	private Tank r1, r2;
+	private Substance eau, sel;
 	private List<Substance> listSubstance;
 	}
