@@ -35,7 +35,6 @@ public class JPanelContent extends JPanel
 	public JPanelContent()
 		{
 		listPanelTank = new LinkedList<JPanelTank>();
-	public JPanelContent() {
 		tank1.setLocation(10, 150); // default pos
 		geometry();
 		control();
@@ -131,6 +130,7 @@ public class JPanelContent extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
+	
 
 	private void geometry()
 		{
@@ -146,33 +146,35 @@ public class JPanelContent extends JPanel
 			Tank r2 = new Tank(false, 500, 2);
 			r2.addSubstance(eau, 50);
 			r2.addSubstance(sel, 2);
-
-
-			r2.addTankParent(r1);
-
-			JPanelTank panelTank1 = new JPanelTank(r1);
-			JPanelTank panelTank2 = new JPanelTank(r2);
-
-			// Layout : Specification
-			setLayout(null);
-			add(panelTank1);
-			add(panelTank2);
-
-
-			listPanelTank.add(panelTank1);
-			listPanelTank.add(panelTank2);
-
-
-			panelTank1.setLocation(10, 10);
-			panelTank2.setLocation(200, 250);
 		}
 
-		addParameters();
-		addMouseMotionListener(ma);
-		addMouseListener(ma);
-		addMouseWheelListener(new ScaleHandler());
+	private void control() {
 
-	}
+//			r2.addTankParent(r1);
+//
+//			JPanelTank panelTank1 = new JPanelTank(r1);
+//			JPanelTank panelTank2 = new JPanelTank(r2);
+
+//			// Layout : Specification
+//			setLayout(null);
+//			add(panelTank1);
+//			add(panelTank2);
+//
+//
+//			listPanelTank.add(panelTank1);
+//			listPanelTank.add(panelTank2);
+//
+//
+//			panelTank1.setLocation(10, 10);
+//			panelTank2.setLocation(200, 250);
+			
+			addParameters();
+			addMouseMotionListener(ma);
+			addMouseListener(ma);
+			addMouseWheelListener(new ScaleHandler());
+		}
+
+		
 
 	private void appearance() {
 		// rien
@@ -227,5 +229,14 @@ public class JPanelContent extends JPanel
 
 	// Tools
 	private List<JPanelTank> listPanelTank;
+	
+//	JPanelTank tank1 = new JPanelTank();
+	JXCollapsiblePane collapsibelPane = new JXCollapsiblePane(
+			Direction.TRAILING);
+	JXButton toggle = new JXButton(collapsibelPane.getActionMap().get(
+			JXCollapsiblePane.TOGGLE_ACTION));
+	Box box = new Box(BoxLayout.Y_AXIS);
+	MovingAdapter ma = new MovingAdapter();
+
 
 }
