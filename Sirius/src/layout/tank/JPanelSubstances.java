@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -50,12 +49,25 @@ public class JPanelSubstances extends JPanel
 
 	public void updateSubstancesInTank()
 		{
-		//TODO : update the substances in Tank with the content of map_Substances
+		//update the substances in Tank with the content of map_Substances
+		Set<Entry<Substance, Double>> set = map_Substances.entrySet();
+		Iterator<Entry<Substance, Double>> it = set.iterator();
+		while(it.hasNext())
+			{
+			Entry<Substance, Double> ligne = it.next();
+			Substance substance = ligne.getKey();
+			Double quantity = ligne.getValue();
+
+			tank.editSubstance(substance, quantity);
+			}
 		}
 
 	public void updateFromTank(double t)
 		{
+		map_Substances.clear();
 		map_Substances = tank.getAllSubstances(t);
+		panelContentTank.setContent(tank.getContent(t));
+
 		repaint();
 		}
 
@@ -250,12 +262,22 @@ public class JPanelSubstances extends JPanel
 
 	private Double calculateContent()
 		{
-		Collection<Double> values = map_Substances.values();
+		Set<Entry<Substance, Double>> set = map_Substances.entrySet();
+		Iterator<Entry<Substance, Double>> it = set.iterator();
+
 		Double total = 0.0;
-		for(Double val:values)
+		while(it.hasNext())
 			{
-			total += val;
+			Entry<Substance, Double> ligne = it.next();
+			Substance substance = ligne.getKey();
+			Double qte = ligne.getValue();
+
+			if(substance.getState() == Substance.LIQUID)
+				{
+				total += qte;
+				}
 			}
+
 		return total;
 		}
 
