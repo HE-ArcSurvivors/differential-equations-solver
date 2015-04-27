@@ -52,11 +52,13 @@ public class Tank implements Iterable<Tank>
 		for(Tank element : listTankParent)
 		{
 			in += element.getDebit() * element.getValueSubstance(substance);
+			System.out.println("IN : "+in);
 		}
 
 		out = debit / getContent(t);
 		C = this.getValueSubstance(substance) - Math.pow(out, -1) * in;
 
+		System.out.println(Math.pow(out, -1)+" * "+in+" + "+C+" * "+Math.exp(-t*out));
 		return Math.pow(out, -1) * in + C * Math.exp(-t*out);
 	}
 

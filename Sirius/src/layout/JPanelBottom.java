@@ -11,11 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import substance.Substance;
 import tank.Tank;
+import differentialEquationSolving.JFrameStopCondition;
 
 
 public class JPanelBottom extends JPanel
@@ -32,20 +34,20 @@ public class JPanelBottom extends JPanel
 		Substance eau = new Substance("Eau",5,Substance.LIQUID);
 		sel = new Substance("Sel",1,Substance.SOLID);
 
-		this.r1 = new Tank(false, 1000, 2);
+		this.r1 = new Tank(false, 1000, 3);
 		this.r1.addSubstance(eau, 100);
 		this.r1.addSubstance(sel,1);
 
 		this.r2 = new Tank(false,500,2);
 		this.r2.addSubstance(eau, 50);
-		this.r2.addSubstance(sel,2);
+		this.r2.addSubstance(sel,1);
 
-		this.r3 = new Tank(false,500,1);
+		this.r3 = new Tank(false,500,2);
 		this.r3.addSubstance(eau, 50);
-		this.r3.addSubstance(sel,0);
+		this.r3.addSubstance(sel,2);
 
-		r2.addTankParent(r1);
-//		r3.addTankParent(r2);
+		r3.addTankParent(r1);
+		r3.addTankParent(r2);
 
 //		this.r1 = new Tank(false, 10000, 5);
 //		this.r3 = new Tank(false, 1000, 5);
@@ -88,6 +90,7 @@ public class JPanelBottom extends JPanel
 		{
 			// JComponent : Instanciation
 			startSimulation = new JButton("OK");
+			stopCondition = new JButton("Stop");
 			formule = new JLabel("");
 			slider = new JSlider(SwingConstants.HORIZONTAL,0,10,0);
 			slider.setVisible(false);
@@ -103,6 +106,7 @@ public class JPanelBottom extends JPanel
 
 			// JComponent : add
 			add(startSimulation);
+			add(stopCondition);
 			add(slider);
 			add(formule);
 		}
@@ -115,8 +119,22 @@ public class JPanelBottom extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					mainReservoir = r2; //panelContent.getMainContainer();
+					mainReservoir = r3; //panelContent.getMainContainer();
 					slider.setVisible(true);
+					}
+			});
+
+		stopCondition.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+					{
+						 SwingUtilities.invokeLater(new Runnable() {
+					       public void run() {
+					          JFrameStopCondition newFrame = new JFrameStopCondition();
+					          newFrame.setVisible(true);
+					        }
+					        });
 					}
 			});
 
@@ -145,6 +163,7 @@ public class JPanelBottom extends JPanel
 
 	// Tools
 	private JButton startSimulation;
+	private JButton stopCondition;
 	private JSlider slider;
 	private JLabel	formule;
 
