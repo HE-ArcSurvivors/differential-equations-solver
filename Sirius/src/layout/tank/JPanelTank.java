@@ -50,7 +50,7 @@ public class JPanelTank extends JPanel
 		jpanelSeparation.setMinimumSize(new Dimension(width, 0));
 		jpanelSeparation.setMaximumSize(new Dimension(width, maxHeight));
 		return jpanelSeparation;
-	}
+		}
 	private void geometry()
 		{
 		// JComponent : Instanciation
