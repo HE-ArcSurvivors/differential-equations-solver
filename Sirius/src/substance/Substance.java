@@ -1,6 +1,5 @@
+
 package substance;
-
-
 
 public class Substance
 	{
@@ -39,6 +38,12 @@ public class Substance
 		this.state = state;
 		}
 
+	@Override
+	public String toString()
+		{
+			return name;
+		}
+
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
@@ -73,4 +78,3 @@ public class Substance
 	public static final int SOLID = 0;
 	public static final int LIQUID = 1;
 	}
-

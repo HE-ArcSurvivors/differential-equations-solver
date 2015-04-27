@@ -52,13 +52,13 @@ public class Tank implements Iterable<Tank>
 		for(Tank element : listTankParent)
 		{
 			in += element.getDebit() * element.getValueSubstance(substance);
-			System.out.println("IN : "+in);
 		}
 
 		out = debit / getContent(t);
 		C = this.getValueSubstance(substance) - Math.pow(out, -1) * in;
 
 		System.out.println(Math.pow(out, -1)+" * "+in+" + "+C+" * "+Math.exp(-t*out));
+
 		return Math.pow(out, -1) * in + C * Math.exp(-t*out);
 	}
 
@@ -181,6 +181,34 @@ public class Tank implements Iterable<Tank>
 		mapAllSubstances.putAll(mapSubstance);
 
 		return mapAllSubstances;
+	}
+
+	public boolean isOverflowPossible()
+	{
+		double in = getInflow();
+
+		if(this.debit >= in) { return false; }
+
+		return true;
+	}
+
+	public boolean isEmptyPossible()
+	{
+		double in = getInflow();
+
+		if(this.debit <= in) { return false; }
+
+		return true;
+	}
+
+	public double getInflow()
+	{
+		double in = 0;
+		for(Tank element : listTankParent)
+			{
+				in += element.getDebit();
+			}
+		return in;
 	}
 
 	/*------------------------------------------------------------------*\

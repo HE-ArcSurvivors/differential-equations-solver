@@ -10,20 +10,20 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
 import differentialEquationSolving.JPanelStopCondition;
 
-public class JPanelStopTimeT extends JPanel
+public class JPanelStopEmpty extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelStopTimeT(JPanelStopCondition jpanelstopcondition)
+	public JPanelStopEmpty(JPanelStopCondition jpanelstopcondition)
 		{
 		this.jpanelstopcondition = jpanelstopcondition;
+		this.possible = true;
 		geometry();
 		control();
 		appearance();
@@ -48,19 +48,16 @@ public class JPanelStopTimeT extends JPanel
 	private void geometry()
 		{
 		// JComponent : Instanciation
-		stopTimeT = new JRadioButton("Arrêt temps t");
-		stopTimeT.setSelected(true);
-		stopTimeT.setPreferredSize(new Dimension(150, 20));
+		stopEmpty = new JRadioButton("Arrêt vide");
+		stopEmpty.setSelected(false);
+		stopEmpty.setPreferredSize(new Dimension(200, 20));
 
-		paramTime = new JTextField("0");
-		paramTime.setPreferredSize(new Dimension(50, 10));
-
-		labelCheck = new JLabel("");
+		jlabelPossible = new JLabel("");
 
 		Box boxH = Box.createHorizontalBox();
-		boxH.add(stopTimeT);
-		boxH.add(paramTime);
-		boxH.add(labelCheck);
+		boxH.add(stopEmpty);
+		boxH.add(Box.createHorizontalGlue());
+		boxH.add(jlabelPossible);
 
 		setLayout(new BorderLayout());
 		add(boxH, BorderLayout.CENTER);
@@ -68,13 +65,12 @@ public class JPanelStopTimeT extends JPanel
 
 	private void control()
 		{
-		stopTimeT.addActionListener(new ActionListener()
+		stopEmpty.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					jpanelstopcondition.setSelectedElement(JPanelStopCondition.TIME);
+					jpanelstopcondition.setSelectedElement(JPanelStopCondition.EMPTY);
 					}
 			});
 		}
@@ -83,31 +79,38 @@ public class JPanelStopTimeT extends JPanel
 		{
 		}
 
-	@Override
-	public void setEnabled(boolean value)
-		{
-		paramTime.setEnabled(value);
-		}
-
 	public void setSelected(boolean value)
 		{
-		stopTimeT.setSelected(value);
-		setEnabled(value);
+		stopEmpty.setSelected(value);
 		}
 
-	public double getTime()
-		{
-		return Double.parseDouble(paramTime.getText());
-		}
+	public void setPossible(boolean value)
+	{
+		if(!value)
+			{
+			stopEmpty.setEnabled(false);
+			jlabelPossible.setText("Cet événement n'arrivera pas");
+			possible = value;
+			}
+	}
+
+	public boolean isPossible()
+	{
+		return possible;
+	}
+
+
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	private JRadioButton stopTimeT;
-	private JTextField paramTime;
-	private JLabel labelCheck;
+	private JRadioButton stopEmpty;
+	private JLabel jlabelPossible;
 
 	private JPanelStopCondition jpanelstopcondition;
+
+	private boolean possible;
+
 	}

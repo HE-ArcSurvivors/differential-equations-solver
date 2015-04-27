@@ -1,9 +1,13 @@
 package differentialEquationSolving;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
+
+import substance.Substance;
+import tank.Tank;
 
 public class JFrameStopCondition extends JFrame
 	{
@@ -12,8 +16,11 @@ public class JFrameStopCondition extends JFrame
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JFrameStopCondition()
+	public JFrameStopCondition(Tank mainTank, List<Substance> listSubstance, int state)
 		{
+		this.jpanelstopcondition = new JPanelStopCondition(this, mainTank, listSubstance);
+		this.mainTank = mainTank;
+		this.state = state;
 		geometry();
 		control();
 		appearance();
@@ -38,8 +45,6 @@ public class JFrameStopCondition extends JFrame
 	private void geometry()
 		{
 			// JComponent : Instanciation
-			jpanelstopcondition = new JPanelStopCondition();
-
 			boxV = Box.createVerticalBox();
 			boxH = Box.createHorizontalBox();
 
@@ -62,10 +67,40 @@ public class JFrameStopCondition extends JFrame
 
 	private void appearance()
 		{
-			setSize(700, 400);
+			setSize(450, 200);
 			setLocationRelativeTo(null); // frame centrer
 			setVisible(true); // last!
+			setResizable(false);
 		}
+
+	public double getTime()
+		{
+		double t = 0;
+		switch(state)
+			{
+			case JPanelStopCondition.TIME:
+				t = jpanelstopcondition.getTime();
+				break;
+			case JPanelStopCondition.QUANTITY:
+				double q = jpanelstopcondition.getQuantity();
+				t = Solve.timeQuantityQ(mainTank, q);
+				break;
+			case JPanelStopCondition.OVERFLOW:
+				t = Solve.timeOverflow(mainTank);
+				break;
+			case JPanelStopCondition.EMPTY:
+				t = Solve.timeEmpty(mainTank);
+				break;
+			default:
+				break;
+			}
+			return t;
+		}
+
+	public void setStateCondition(int state)
+	{
+		this.state = state;
+	}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
@@ -76,5 +111,9 @@ public class JFrameStopCondition extends JFrame
 
 	private Box boxV;
 	private Box boxH;
+
+	private int state;
+
+	private Tank mainTank;
 
 	}

@@ -4,15 +4,17 @@ package differentialEquationSolving;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
+import substance.Substance;
+import tank.Tank;
+import differentialEquationSolving.element.JPanelStopEmpty;
+import differentialEquationSolving.element.JPanelStopOverflow;
+import differentialEquationSolving.element.JPanelStopQuantityQ;
 import differentialEquationSolving.element.JPanelStopTimeT;
 
 public class JPanelStopCondition extends JPanel
@@ -22,8 +24,14 @@ public class JPanelStopCondition extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelStopCondition()
+	public JPanelStopCondition(JFrameStopCondition jframestopcondition, Tank mainTank, List<Substance> listSubstance)
 		{
+		jpanelstopquantityq = new JPanelStopQuantityQ(this, listSubstance);
+
+		this.jframestopcondition = jframestopcondition;
+		this.mainTank = mainTank;
+		this.currentState = 0;
+
 		geometry();
 		control();
 		appearance();
@@ -51,96 +59,54 @@ public class JPanelStopCondition extends JPanel
 		buttonOk = new JButton("OK");
 		buttonCancel = new JButton("Annuler");
 
-		jpanelstoptimet = new JPanelStopTimeT();
+		jpanelstoptimet = new JPanelStopTimeT(this);
+		jpanelstopoverflow = new JPanelStopOverflow(this);
+		jpanelstopempty = new JPanelStopEmpty(this);
 
-		stopQuantityQ = new JRadioButton("Arrêt quantité t");
-		stopOverflow = new JRadioButton("Arrêt débordement");
-		stopEmpty = new JRadioButton("Arrêt vide");
+		if(!this.mainTank.isOverflowPossible())
+		{
+			jpanelstopoverflow.setPossible(false);
+		}
 
-		paramQuantity = new JTextField();
-		paramQuantity.setEnabled(false);
+		if(!this.mainTank.isEmptyPossible())
+		{
+			jpanelstopempty.setPossible(false);
+		}
 
-		String comboBoxItems[] = { "Eau", "Sel" };
-		paramSubstance = new JComboBox<String>(comboBoxItems);
-		paramSubstance.setEnabled(false);
+		Box boxV = Box.createVerticalBox();
+		boxV.add(jpanelstoptimet);
+		boxV.add(jpanelstopquantityq);
+		boxV.add(jpanelstopoverflow);
+		boxV.add(jpanelstopempty);
 
-		FlowLayout layout = new FlowLayout(FlowLayout.CENTER);
-		setLayout(layout);
+		Box boxH = Box.createHorizontalBox();
+		boxH.add(buttonOk);
+		boxH.add(buttonCancel);
 
-//		ButtonGroup group = new ButtonGroup();
-//		group.add(stopTimeT);
-//		group.add(stopQuantityQ);
-//		group.add(stopOverflow);
-//		group.add(stopEmpty);
+		boxV.add(boxH);
 
-//		FormLayout layout = new FormLayout("100dlu, 110dlu, 10dlu, 110dlu", // columns
-//				"pref, pref, pref, pref, pref, pref"); // rows
-//
-//		setLayout(layout);
-
-		// JComponent : add
-
-//		add(stopQuantityQ, CC.xy(1, 2));
-//		add(paramSubstance, CC.xy(2, 2));
-//		add(paramQuantity, CC.xy(4, 2));
-//
-//		add(stopOverflow, CC.xy(1, 3));
-//		add(stopEmpty, CC.xy(1, 4));
-//
-//		add(buttonOk, CC.xy(2, 5));
-//		add(buttonCancel, CC.xy(4, 5));
+		setLayout(new FlowLayout());
+		add(boxV);
 		}
 
 	private void control()
 		{
-		jpanelstoptimet.addMouseListener(new MouseAdapter()
-			{
-				@Override
-				public void mouseClicked(MouseEvent e)
-					{
-					System.out.println("StopTimeT");
-					jpanelstoptimet.setEnabled(true);
-					jpanelstoptimet.setSelected(true);
-
-					paramQuantity.setEnabled(false);
-					paramSubstance.setEnabled(false);
-					}
-			});
-
-		stopQuantityQ.addActionListener(new ActionListener()
+		buttonCancel.addActionListener(new ActionListener()
 			{
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					System.out.println("StopQuantityQ");
-					jpanelstoptimet.setEnabled(false);
-					paramQuantity.setEnabled(true);
-					paramSubstance.setEnabled(true);
+					jframestopcondition.setVisible(false);
 					}
 			});
 
-		stopOverflow.addActionListener(new ActionListener()
+		buttonOk.addActionListener(new ActionListener()
 			{
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					System.out.println("StopOverflow");
-					jpanelstoptimet.setEnabled(false);
-					paramQuantity.setEnabled(false);
-					paramSubstance.setEnabled(false);
-					}
-			});
-
-		stopEmpty.addActionListener(new ActionListener()
-			{
-
-				@Override
-				public void actionPerformed(ActionEvent e)
-					{
-					System.out.println("StopEmpty");
-					jpanelstoptimet.setEnabled(false);
-					paramQuantity.setEnabled(false);
-					paramSubstance.setEnabled(false);
+					jframestopcondition.setStateCondition(currentState);
+					jframestopcondition.setVisible(false);
 					}
 			});
 		}
@@ -150,22 +116,87 @@ public class JPanelStopCondition extends JPanel
 		// rien
 		}
 
+	public void setSelectedElement(int element)
+		{
+		currentState = element;
+		switch(element)
+			{
+			case TIME:
+				System.out.println("StopTimeT");
+				jpanelstoptimet.setSelected(true);
+				jpanelstopquantityq.setSelected(false);
+				jpanelstopoverflow.setSelected(false);
+				jpanelstopempty.setSelected(false);
+				break;
+			case QUANTITY:
+				System.out.println("StopQuantityQ");
+				jpanelstoptimet.setSelected(false);
+				jpanelstopquantityq.setSelected(true);
+				jpanelstopoverflow.setSelected(false);
+				jpanelstopempty.setSelected(false);
+				break;
+			case OVERFLOW:
+				System.out.println("StopOverflow");
+				if(jpanelstopoverflow.isPossible())
+				{
+					jpanelstoptimet.setSelected(false);
+					jpanelstopquantityq.setSelected(false);
+					jpanelstopoverflow.setSelected(true);
+					jpanelstopempty.setSelected(false);
+				}
+				break;
+			case EMPTY:
+				System.out.println("StopEmpty");
+				if(jpanelstopempty.isPossible())
+				{
+					jpanelstoptimet.setSelected(false);
+					jpanelstopquantityq.setSelected(false);
+					jpanelstopoverflow.setSelected(false);
+					jpanelstopempty.setSelected(true);
+				}
+				break;
+			default:
+				currentState = 0;
+				break;
+			}
+		}
+
+		public double getTime()
+		{
+			return jpanelstoptimet.getTime();
+		}
+
+		public double getQuantity()
+		{
+			return jpanelstopquantityq.getQuantity();
+		}
+
+		public Substance getSubstance()
+		{
+			return jpanelstopquantityq.getSubstance();
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
 	// Tools
 	private JPanelStopTimeT jpanelstoptimet;
-
-
-	private JRadioButton stopQuantityQ;
-	private JRadioButton stopOverflow;
-	private JRadioButton stopEmpty;
-
-	private JTextField paramQuantity;
-	private JComboBox<String> paramSubstance;
+	private JPanelStopQuantityQ jpanelstopquantityq;
+	private JPanelStopOverflow jpanelstopoverflow;
+	private JPanelStopEmpty jpanelstopempty;
 
 	private JButton buttonOk;
 	private JButton buttonCancel;
+
+	private int currentState;
+	private Tank mainTank;
+
+	private JFrameStopCondition jframestopcondition;
+
+	public static final int TIME = 0;
+	public static final int QUANTITY = 1;
+	public static final int OVERFLOW = 2;
+	public static final int EMPTY = 3;
 
 	}
