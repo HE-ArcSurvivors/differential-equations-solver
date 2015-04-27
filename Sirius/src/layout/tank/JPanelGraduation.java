@@ -60,6 +60,15 @@ public class JPanelGraduation extends JPanel
 		double ratio = h / capacite;
 		double pasPixel = (ratio * pasL);
 
+		int nbGrad = (int)(h/pasPixel);
+		int maxGrad = 30;
+
+		if(nbGrad > maxGrad)
+			{
+			pasPixel = h / maxGrad;
+			pasL = (int)(pasPixel / ratio);
+			}
+
 		int L = -pasL;
 		for(double i = h; i > 0; i -= pasPixel)
 			{

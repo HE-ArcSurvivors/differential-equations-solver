@@ -9,6 +9,9 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
@@ -19,13 +22,19 @@ import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXTextField;
 
 import layout.tank.JPanelTank;
+import substance.Substance;
+import tank.Tank;
 
-public class JPanelContent extends JPanel {
+public class JPanelContent extends JPanel
+	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
+	public JPanelContent()
+		{
+		listPanelTank = new LinkedList<JPanelTank>();
 	public JPanelContent() {
 		tank1.setLocation(10, 150); // default pos
 		geometry();
@@ -103,6 +112,14 @@ public class JPanelContent extends JPanel {
 				- collapsibelPane.getHeight() / 2);
 	}
 
+	public void affTime(double t)
+	{
+		for(JPanelTank paneltank:listPanelTank)
+			{
+			paneltank.affTime(t);
+			}
+	}
+
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
@@ -115,11 +132,40 @@ public class JPanelContent extends JPanel {
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
-	private void geometry() {
+	private void geometry()
+		{
+			// JComponent : Instanciation
 
-	}
+			Substance eau = new Substance("Eau",(float)0.6,Substance.LIQUID);
+			Substance sel = new Substance("Sel",(float)1.0,Substance.SOLID);
 
-	private void control() {
+			Tank r1 = new Tank(false, 150, 2);
+			r1.addSubstance(eau, 100);
+			r1.addSubstance(sel,1);
+
+			Tank r2 = new Tank(false, 500, 2);
+			r2.addSubstance(eau, 50);
+			r2.addSubstance(sel, 2);
+
+
+			r2.addTankParent(r1);
+
+			JPanelTank panelTank1 = new JPanelTank(r1);
+			JPanelTank panelTank2 = new JPanelTank(r2);
+
+			// Layout : Specification
+			setLayout(null);
+			add(panelTank1);
+			add(panelTank2);
+
+
+			listPanelTank.add(panelTank1);
+			listPanelTank.add(panelTank2);
+
+
+			panelTank1.setLocation(10, 10);
+			panelTank2.setLocation(200, 250);
+		}
 
 		addParameters();
 		addMouseMotionListener(ma);
@@ -180,12 +226,6 @@ public class JPanelContent extends JPanel {
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	JPanelTank tank1 = new JPanelTank();
-	JXCollapsiblePane collapsibelPane = new JXCollapsiblePane(
-			Direction.TRAILING);
-	JXButton toggle = new JXButton(collapsibelPane.getActionMap().get(
-			JXCollapsiblePane.TOGGLE_ACTION));
-	Box box = new Box(BoxLayout.Y_AXIS);
-	MovingAdapter ma = new MovingAdapter();
+	private List<JPanelTank> listPanelTank;
 
 }
