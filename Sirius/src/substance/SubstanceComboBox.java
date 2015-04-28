@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 
-public class SubstanceComboBox extends AbstractListModel<Object> implements ComboBoxModel<Object>
+public class SubstanceComboBox extends AbstractListModel<Substance> implements ComboBoxModel<Substance>
 	{
 
 	public SubstanceComboBox(List<Substance> substanceList)
@@ -21,7 +21,7 @@ public class SubstanceComboBox extends AbstractListModel<Object> implements Comb
 	}
 
 	@Override
-	public Object getElementAt(int index)
+	public Substance getElementAt(int index)
 		{
 		return substanceTab[index];
 		}
@@ -39,10 +39,22 @@ public class SubstanceComboBox extends AbstractListModel<Object> implements Comb
 		}
 
 	@Override
-	public Object getSelectedItem()
+	public Substance getSelectedItem()
 		{
-		return selection; // to add the selection to the combo box
+		return getSelectedSubstance(selection); // to add the selection to the combo box
 		}
+
+	public Substance getSelectedSubstance(String name)
+	{
+		for(int i = 0; i < substanceTab.length; i++)
+		{
+			if(substanceTab[i].getName() == name)
+				{
+				return substanceTab[i];
+				}
+		}
+		return null;
+	}
 
 	private Substance[] substanceTab;
 	private String selection;

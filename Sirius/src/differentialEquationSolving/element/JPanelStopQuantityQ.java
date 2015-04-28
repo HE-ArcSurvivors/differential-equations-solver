@@ -5,7 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.Box;
 import javax.swing.JComboBox;
@@ -13,10 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
 
 import substance.Substance;
 import substance.SubstanceComboBox;
+import tools.DoubleDocumentFilter;
 import differentialEquationSolving.JPanelStopCondition;
+import differentialEquationSolving.SimulationSingleton;
 
 public class JPanelStopQuantityQ extends JPanel
 	{
@@ -25,10 +29,9 @@ public class JPanelStopQuantityQ extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelStopQuantityQ(JPanelStopCondition jpanelstopcondition, List<Substance> listSubstance)
+	public JPanelStopQuantityQ(JPanelStopCondition jpanelstopcondition)
 		{
 		this.jpanelstopcondition = jpanelstopcondition;
-		this.listSubstance = listSubstance;
 		geometry();
 		control();
 		appearance();
@@ -57,25 +60,27 @@ public class JPanelStopQuantityQ extends JPanel
 		stopQuantityQ.setSelected(false);
 		stopQuantityQ.setPreferredSize(new Dimension(150, 20));
 
-		paramQuantity = new JTextField();
+		paramQuantity = new JTextField("0");
 		paramQuantity.setEnabled(false);
 		paramQuantity.setPreferredSize(new Dimension(30, 10));
+		((AbstractDocument)paramQuantity.getDocument()).setDocumentFilter(new DoubleDocumentFilter());
 
-		SubstanceComboBox substancecombobox = new SubstanceComboBox(listSubstance);
-		paramSubstance = new JComboBox(substancecombobox);
+		substancecombobox = new SubstanceComboBox(SimulationSingleton.getInstance().getSubstanceList());
+		paramSubstance = new JComboBox<Substance>(substancecombobox);
 		paramSubstance.setEnabled(false);
 		paramSubstance.setPreferredSize(new Dimension(100, 10));
+		paramSubstance.setSelectedIndex(1);
 
-		labelCheck = new JLabel("");
 		labelType = new JLabel("");
+		setLabelType();
 
 		Box boxH = Box.createHorizontalBox();
 		boxH.add(stopQuantityQ);
 		boxH.add(paramSubstance);
 		boxH.add(Box.createHorizontalStrut(10));
 		boxH.add(paramQuantity);
-		//		boxH.add(labelType);
-		//		boxH.add(labelCheck);
+		boxH.add(Box.createHorizontalStrut(5));
+		boxH.add(labelType);
 
 		setLayout(new BorderLayout());
 		add(boxH, BorderLayout.CENTER);
@@ -85,7 +90,6 @@ public class JPanelStopQuantityQ extends JPanel
 		{
 		stopQuantityQ.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
@@ -93,13 +97,12 @@ public class JPanelStopQuantityQ extends JPanel
 					}
 			});
 
-		paramSubstance.addActionListener(new ActionListener()
+		paramSubstance.addItemListener(new ItemListener()
 			{
-
 				@Override
-				public void actionPerformed(ActionEvent e)
+				public void itemStateChanged(ItemEvent e)
 					{
-
+					setLabelType();
 					}
 			});
 		}
@@ -131,6 +134,18 @@ public class JPanelStopQuantityQ extends JPanel
 		return Double.parseDouble(paramQuantity.getText());
 		}
 
+	private void setLabelType()
+	{
+		if (((Substance)paramSubstance.getSelectedItem()).getState() == Substance.LIQUID)
+			{
+			labelType.setText("l");
+			}
+		else if (((Substance)paramSubstance.getSelectedItem()).getState() == Substance.SOLID)
+			{
+			labelType.setText("g");
+			}
+	}
+
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
@@ -138,11 +153,10 @@ public class JPanelStopQuantityQ extends JPanel
 	// Tools
 	private JRadioButton stopQuantityQ;
 	private JTextField paramQuantity;
-	private JComboBox paramSubstance;
-	private JLabel labelCheck;
+	private JComboBox<Substance> paramSubstance;
+	private SubstanceComboBox substancecombobox;
 	private JLabel labelType;
 
 	private JPanelStopCondition jpanelstopcondition;
-	private List<Substance> listSubstance;
 
 	}

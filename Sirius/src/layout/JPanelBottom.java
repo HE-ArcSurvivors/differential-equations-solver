@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,6 +20,7 @@ import substance.Substance;
 import tank.Tank;
 import differentialEquationSolving.JFrameStopCondition;
 import differentialEquationSolving.JPanelStopCondition;
+import differentialEquationSolving.SimulationSingleton;
 
 public class JPanelBottom extends JPanel
 	{
@@ -30,16 +29,13 @@ public class JPanelBottom extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelBottom(JPanelContent panelContent)
+	public JPanelBottom()
 		{
-
-		this.listSubstance = new ArrayList<Substance>();
 		eau = new Substance("Eau", (float)5.0, Substance.LIQUID);
 		sel = new Substance("Sel", (float)1.0, Substance.SOLID);
-		listSubstance.add(eau);
-		listSubstance.add(sel);
 
-		this.panelContent = panelContent;
+		SimulationSingleton.getInstance().addSubstance(eau);
+		SimulationSingleton.getInstance().addSubstance(sel);
 
 		this.r1 = new Tank(false, 500, 5);
 		this.r2 = new Tank(false, 200, 5);
@@ -49,7 +45,10 @@ public class JPanelBottom extends JPanel
 		this.r2.addSubstance(sel, 4);
 		this.r2.addSubstance(eau, 100);
 		r2.addTankParent(r1);
-		mainReservoir = r2;		geometry();
+
+		SimulationSingleton.getInstance().setMainTank(r2);
+
+		geometry();
 		control();
 		appearance();
 		}
@@ -81,10 +80,12 @@ public class JPanelBottom extends JPanel
 		startSimulation = new JButton("Start");
 		stopCondition = new JButton("Condition");
 
-		slider = new JSlider(0,0);
+		slider = new JSlider(0, 0);
+		slider.setVisible(false);
+
 		formule = new JLabel("");
 
-		jframestopcondition = new JFrameStopCondition(mainReservoir, listSubstance, JPanelStopCondition.TIME);
+		jframestopcondition = new JFrameStopCondition(JPanelStopCondition.TIME);
 		jframestopcondition.setVisible(false);
 
 			// Layout : Specification
@@ -111,7 +112,14 @@ public class JPanelBottom extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					slider.setVisible(true);
+					if (slider.getMaximum() == 0)
+						{
+						jframestopcondition.setVisible(true);
+						}
+					else
+						{
+						slider.setVisible(true);
+						}
 					}
 			});
 
@@ -120,8 +128,7 @@ public class JPanelBottom extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-
-						jframestopcondition.setVisible(true);
+					jframestopcondition.setVisible(true);
 					}
 			});
 
@@ -132,21 +139,20 @@ public class JPanelBottom extends JPanel
 					{
 					double t = slider.getValue();
 					DecimalFormat df = new DecimalFormat("0.00");
-					formule.setText(" = "+df.format(mainReservoir.equaDiff(t,sel))+" pour t = "+t);
-					System.out.println("T = "+t);
-//					mainReservoir.printTank(t,sel);
-
-					//panelContent.affTime(t);
+					formule.setText(" = " + df.format(SimulationSingleton.getInstance().getMainTank().equaDiff(t / 10, sel)) + " pour t = " + df.format(t / 10));
+					System.out.println("T = " + t / 10);
 					}
 			});
 
 		jframestopcondition.addComponentListener(new ComponentAdapter()
 			{
-			@Override
-			public void componentHidden(ComponentEvent e)
-				{
-				    slider.setMaximum((int)jframestopcondition.getTime());
-				}
+				@Override
+				public void componentHidden(ComponentEvent e)
+					{
+					slider.setMaximum((int)(jframestopcondition.getTime() * 10));
+					slider.setVisible(slider.getMaximum() != 0);
+					formule.setText("");
+					}
 			});
 		}
 
@@ -166,13 +172,10 @@ public class JPanelBottom extends JPanel
 
 	private JLabel formule;
 
-	private Tank mainReservoir;
-
-	private JPanelContent panelContent;
 	private JFrameStopCondition jframestopcondition;
 
 	//	TEST
 	private Tank r1, r2;
 	private Substance eau, sel;
-	private List<Substance> listSubstance;
+
 	}

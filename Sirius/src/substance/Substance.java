@@ -1,7 +1,7 @@
 
 package substance;
 
-public class Substance
+public class Substance extends Object
 	{
 
 	/*------------------------------------------------------------------*\

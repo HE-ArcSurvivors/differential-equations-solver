@@ -4,14 +4,12 @@ package differentialEquationSolving;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import substance.Substance;
-import tank.Tank;
 import differentialEquationSolving.element.JPanelStopEmpty;
 import differentialEquationSolving.element.JPanelStopOverflow;
 import differentialEquationSolving.element.JPanelStopQuantityQ;
@@ -24,12 +22,10 @@ public class JPanelStopCondition extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelStopCondition(JFrameStopCondition jframestopcondition, Tank mainTank, List<Substance> listSubstance)
+	public JPanelStopCondition(JFrameStopCondition jframestopcondition)
 		{
-		jpanelstopquantityq = new JPanelStopQuantityQ(this, listSubstance);
 
 		this.jframestopcondition = jframestopcondition;
-		this.mainTank = mainTank;
 		this.currentState = 0;
 
 		geometry();
@@ -60,15 +56,16 @@ public class JPanelStopCondition extends JPanel
 		buttonCancel = new JButton("Annuler");
 
 		jpanelstoptimet = new JPanelStopTimeT(this);
+		jpanelstopquantityq = new JPanelStopQuantityQ(this);
 		jpanelstopoverflow = new JPanelStopOverflow(this);
 		jpanelstopempty = new JPanelStopEmpty(this);
 
-		if(!this.mainTank.isOverflowPossible())
+		if(!SimulationSingleton.getInstance().getMainTank().isOverflowPossible())
 		{
 			jpanelstopoverflow.setPossible(false);
 		}
 
-		if(!this.mainTank.isEmptyPossible())
+		if(!SimulationSingleton.getInstance().getMainTank().isEmptyPossible())
 		{
 			jpanelstopempty.setPossible(false);
 		}
@@ -190,7 +187,6 @@ public class JPanelStopCondition extends JPanel
 	private JButton buttonCancel;
 
 	private int currentState;
-	private Tank mainTank;
 
 	private JFrameStopCondition jframestopcondition;
 

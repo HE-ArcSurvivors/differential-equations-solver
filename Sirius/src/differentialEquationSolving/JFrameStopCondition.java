@@ -1,13 +1,9 @@
 package differentialEquationSolving;
 
 import java.awt.BorderLayout;
-import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
-
-import substance.Substance;
-import tank.Tank;
 
 public class JFrameStopCondition extends JFrame
 	{
@@ -16,10 +12,8 @@ public class JFrameStopCondition extends JFrame
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JFrameStopCondition(Tank mainTank, List<Substance> listSubstance, int state)
+	public JFrameStopCondition(int state)
 		{
-		this.jpanelstopcondition = new JPanelStopCondition(this, mainTank, listSubstance);
-		this.mainTank = mainTank;
 		this.state = state;
 		geometry();
 		control();
@@ -45,6 +39,8 @@ public class JFrameStopCondition extends JFrame
 	private void geometry()
 		{
 			// JComponent : Instanciation
+			this.jpanelstopcondition = new JPanelStopCondition(this);
+
 			boxV = Box.createVerticalBox();
 			boxH = Box.createHorizontalBox();
 
@@ -83,13 +79,13 @@ public class JFrameStopCondition extends JFrame
 				break;
 			case JPanelStopCondition.QUANTITY:
 				double q = jpanelstopcondition.getQuantity();
-				t = Solve.timeQuantityQ(mainTank, q);
+				t = SimulationSingleton.getInstance().getMainTank().timeQuantityQ(q);
 				break;
 			case JPanelStopCondition.OVERFLOW:
-				t = Solve.timeOverflow(mainTank);
+				t = SimulationSingleton.getInstance().getMainTank().timeOverflow();
 				break;
 			case JPanelStopCondition.EMPTY:
-				t = Solve.timeEmpty(mainTank);
+				t = SimulationSingleton.getInstance().getMainTank().timeEmpty();
 				break;
 			default:
 				break;
@@ -113,7 +109,5 @@ public class JFrameStopCondition extends JFrame
 	private Box boxH;
 
 	private int state;
-
-	private Tank mainTank;
 
 	}

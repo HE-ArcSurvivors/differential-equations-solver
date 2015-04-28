@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
+
+import tools.DoubleDocumentFilter;
 
 import differentialEquationSolving.JPanelStopCondition;
 
@@ -52,8 +55,10 @@ public class JPanelStopTimeT extends JPanel
 		stopTimeT.setSelected(true);
 		stopTimeT.setPreferredSize(new Dimension(150, 20));
 
+
 		paramTime = new JTextField("0");
 		paramTime.setPreferredSize(new Dimension(50, 10));
+        ((AbstractDocument)paramTime.getDocument()).setDocumentFilter(new DoubleDocumentFilter());
 
 		labelCheck = new JLabel("");
 
@@ -70,7 +75,6 @@ public class JPanelStopTimeT extends JPanel
 		{
 		stopTimeT.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
