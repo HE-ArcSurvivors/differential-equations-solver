@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import layout.tank.JPanelTank;
 import substance.Substance;
 import tank.Tank;
+import differentialEquationSolving.SimulationSingleton;
 
 public class JPanelContent extends JPanel {
 
@@ -119,16 +120,18 @@ public class JPanelContent extends JPanel {
 	private void geometry() {
 		// JComponent : Instanciation
 
-		Substance eau = new Substance("Eau", (float) 0.6, Substance.LIQUID);
-		Substance sel = new Substance("Sel", (float) 1.0, Substance.SOLID);
+		List<Substance> list = SimulationSingleton.getInstance().getSubstanceList();
+
+//		Substance eau = new Substance("Eau", (float) 0.6, Substance.LIQUID);
+//		Substance sel = new Substance("Sel", (float) 1.0, Substance.SOLID);
 
 		Tank r1 = new Tank(false, 150, 2);
-		r1.addSubstance(eau, 100);
-		r1.addSubstance(sel, 1);
+		r1.addSubstance(list.get(0), 100);
+		r1.addSubstance(list.get(1), 1);
 
 		Tank r2 = new Tank(false, 500, 2);
-		r2.addSubstance(eau, 50);
-		r2.addSubstance(sel, 2);
+		r2.addSubstance(list.get(0), 50);
+		r2.addSubstance(list.get(1), 2);
 
 		r2.addTankParent(r1);
 
