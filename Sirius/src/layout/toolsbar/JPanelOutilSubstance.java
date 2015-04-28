@@ -1,18 +1,26 @@
-package layout;
+package layout.toolsbar;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class JPanelOutils extends JPanel
+import substance.Substance;
+
+public class JPanelOutilSubstance extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelOutils()
+	public JPanelOutilSubstance(Substance substance)
 		{
+		this.substance = substance;
+
 		geometry();
 		control();
 		appearance();
@@ -37,17 +45,19 @@ public class JPanelOutils extends JPanel
 	private void geometry()
 		{
 			// JComponent : Instanciation
+			substance_name = new JLabel(substance.getName());
+			substance_name.setForeground(Color.BLUE);
 
-			// Layout : Specification
-			{
-			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
-			setLayout(flowlayout);
+			buttonEdit = new JButton("Editer");
+			// Layout
+			Box boxH = Box.createHorizontalBox();
+			boxH.add(substance_name);
+			boxH.add(buttonEdit);
 
-			// flowlayout.setHgap(20);
-			// flowlayout.setVgap(20);
-			}
+			setLayout(new FlowLayout());
 
 			// JComponent : add
+			add(boxH);
 		}
 
 	private void control()
@@ -64,4 +74,10 @@ public class JPanelOutils extends JPanel
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
+	// Tools
+	private Substance substance;
+
+	private JLabel substance_name;
+
+	private JButton buttonEdit;
 	}

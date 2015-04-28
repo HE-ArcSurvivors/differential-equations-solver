@@ -1,5 +1,5 @@
 
-package layout.tank.tools;
+package tools;
 
 import java.awt.Image;
 import java.awt.Toolkit;

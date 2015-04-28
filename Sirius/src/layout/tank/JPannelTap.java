@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import layout.tank.tools.MagasinImage;
+import tools.MagasinImage;
 
 public class JPannelTap extends JPanel
 	{

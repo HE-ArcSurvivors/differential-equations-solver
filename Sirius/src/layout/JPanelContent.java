@@ -1,28 +1,11 @@
 package layout;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import layout.tank.JPanelTank;
-
-import org.jdesktop.swingx.JXButton;
-import org.jdesktop.swingx.JXCollapsiblePane;
-import org.jdesktop.swingx.JXCollapsiblePane.Direction;
-import org.jdesktop.swingx.JXLabel;
-import org.jdesktop.swingx.JXTextField;
-
 import substance.Substance;
 import tank.Tank;
 
@@ -32,8 +15,8 @@ public class JPanelContent extends JPanel {
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelContent() {
-
+	public JPanelContent()
+	{
 		//tank1 = new JPanelTank(new Tank(false, 200, 5));
 		listPanelTank = new LinkedList<JPanelTank>();
 		//tank1.setLocation(10, 150); // default pos

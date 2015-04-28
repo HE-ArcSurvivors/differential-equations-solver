@@ -1,5 +1,5 @@
 
-package layout.tank.tools;
+package tools;
 
 import javax.swing.ImageIcon;
 

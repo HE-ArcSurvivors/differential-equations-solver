@@ -35,6 +35,11 @@ public class SimulationSingleton
 		return listSubstance;
 	}
 
+	public Substance getSubstanceAt(int i)
+	{
+		return listSubstance.get(i);
+	}
+
 	public boolean addSubstance(Substance substance)
 	{
 		return listSubstance.add(substance);

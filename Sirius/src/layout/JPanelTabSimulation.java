@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import layout.toolsbar.JPanelOutils;
+
 public class JPanelTabSimulation extends JPanel
 	{
 
@@ -52,7 +54,7 @@ public class JPanelTabSimulation extends JPanel
 
 			// JComponent : add
 			add(jpanelcontent,BorderLayout.CENTER);
-			//add(jpaneloutil,BorderLayout.WEST);
+			add(jpaneloutil,BorderLayout.WEST);
 			add(jpanelbottom,BorderLayout.SOUTH);
 		}
 
