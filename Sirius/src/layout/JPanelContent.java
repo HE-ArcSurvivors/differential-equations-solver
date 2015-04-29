@@ -132,6 +132,7 @@ public class JPanelContent extends JPanel
 		List<Tank> pileTank = new LinkedList<Tank>();
 		pileTank.add(mainTank);
 
+		//Technique d'affichage temporaire
 		int h = 10;
 		while(!pileTank.isEmpty())
 			{
