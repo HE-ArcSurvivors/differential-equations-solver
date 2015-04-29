@@ -32,18 +32,9 @@ public class Tank implements Iterable<Tank>
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
-	public void printTank(double t, Substance substance)
-		{
-		for(Tank element:listTankParent)
-			{
-			element.printTank(t, substance);
-			}
-		System.out.println();
-		System.out.println("Contenu : " + getContent(t));
-		System.out.println("Dï¿½bit : " + getDebit());
-		System.out.println("Quantitï¿½ de " + substance.getName() + " : " + equaDiff(t, substance));
-		System.out.println();
-		}
+	/*------------------------------*\
+	|*	   Résolution d'équation	*|
+	\*------------------------------*/
 
 	public double equaDiff(double t, Substance substance)
 		{
@@ -52,15 +43,115 @@ public class Tank implements Iterable<Tank>
 		for(Tank element:listTankParent)
 			{
 			in += element.getDebit() * element.getValueSubstance(substance);
-			System.out.println("IN : "+in);
-		}
+			}
 
 		out = debit / getContent(t);
 		C = this.getValueSubstance(substance) - Math.pow(out, -1) * in;
 
-		System.out.println(Math.pow(out, -1)+" * "+in+" + "+C+" * "+Math.exp(-t*out));
-		return Math.pow(out, -1) * in + C * Math.exp(-t*out);
-	}
+		return Math.pow(out, -1) * in + C * Math.exp(-t * out);
+		}
+
+	public double timeQuantityQ(double quantity)
+		{
+		return -Math.log((quantity - Math.pow(out, -1) * in) / C) / out;
+		}
+
+	public double timeOverflow()
+		{
+		return (capacite-getContent()) / (getInflow() - getDebit());
+		}
+
+	public double timeEmpty()
+		{
+		return -getContent() / (getInflow() - getDebit());
+		}
+
+	/*------------------------------*\
+	|*	      Other Methods			*|
+	\*------------------------------*/
+
+	public void printTank(double t, Substance substance)
+		{
+		for(Tank element:listTankParent)
+			{
+			element.printTank(t, substance);
+			}
+		System.out.println();
+		System.out.println("Contenu : " + getContent(t));
+		System.out.println("Débit : " + getDebit());
+		System.out.println("Quantité de " + substance.getName() + " : " + equaDiff(t, substance));
+		System.out.println();
+		}
+
+	public boolean addTankParent(Tank tankParent)
+		{
+		return listTankParent.add(tankParent);
+		}
+
+	@Override
+	public Iterator<Tank> iterator()
+		{
+		return this.listTankParent.iterator();
+		}
+
+	/*------------------------------*\
+	|*	    List of Substances		*|
+	\*------------------------------*/
+
+	public boolean addSubstance(Substance substance, double quantity)
+		{
+		if (substance.getState() == Substance.SOLID)
+			{
+			return mapSubstance.put(substance, quantity) != null;
+			}
+		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.put(substance, quantity) != null; }
+
+		return false;
+		}
+
+	public boolean editSubstance(Substance substance, double quantity)
+		{
+		if (substance.getState() == Substance.SOLID)
+			{
+			return mapSubstance.put(substance, quantity) != null;
+			}
+		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.put(substance, quantity) != null; }
+
+		return false;
+		}
+
+	public boolean removeSubstance(Substance substance)
+		{
+		return mapSubstance.remove(substance) != null || mapLiquide.remove(substance) != null;
+		}
+
+	/*------------------------------*\
+	|*				Set				*|
+	\*------------------------------*/
+
+	public void setInfini(boolean infini)
+		{
+		this.infini = infini;
+		}
+
+	public void setCapacite(double capacite)
+		{
+		this.capacite = capacite;
+		}
+
+	public void setDebit(double debit)
+		{
+		this.debit = debit;
+		}
+
+	/*------------------------------*\
+	|*				Get				*|
+	\*------------------------------*/
+
+	public boolean isInfini()
+		{
+		return this.infini;
+		}
 
 	public double getContent()
 		{
@@ -92,72 +183,6 @@ public class Tank implements Iterable<Tank>
 			}
 		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.get(substance); }
 		return 0.0;
-		}
-
-	public boolean addSubstance(Substance substance, double quantity)
-		{
-		if (substance.getState() == Substance.SOLID)
-			{
-			return mapSubstance.put(substance, quantity) != null;
-			}
-		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.put(substance, quantity) != null; }
-
-		return false;
-		}
-
-	public boolean editSubstance(Substance substance, double quantity)
-		{
-		if (substance.getState() == Substance.SOLID)
-			{
-			return mapSubstance.put(substance, quantity) != null;
-			}
-		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.put(substance, quantity) != null; }
-
-		return false;
-		}
-
-	public boolean removeSubstance(Substance substance)
-		{
-		return mapSubstance.remove(substance) != null || mapLiquide.remove(substance) != null;
-		}
-
-	public boolean addTankParent(Tank tankParent)
-		{
-		return listTankParent.add(tankParent);
-		}
-
-	@Override
-	public Iterator<Tank> iterator()
-		{
-		return this.listTankParent.iterator();
-		}
-
-	/*------------------------------*\
-	|*				Set				*|
-	\*------------------------------*/
-
-	public void setInfini(boolean infini)
-		{
-		this.infini = infini;
-		}
-
-	public void setCapacite(double capacite)
-		{
-		this.capacite = capacite;
-		}
-
-	public void setDebit(double debit)
-		{
-		this.debit = debit;
-		}
-
-	/*------------------------------*\
-	|*				Get				*|
-	\*------------------------------*/
-
-	public boolean isInfini()
-		{
-		return this.infini;
 		}
 
 	public double getCapacite()
@@ -194,6 +219,34 @@ public class Tank implements Iterable<Tank>
 			}
 
 		return mapSubstanceTime;
+		}
+
+	public boolean isOverflowPossible()
+		{
+		double in = getInflow();
+
+		if (this.debit >= in) { return false; }
+
+		return true;
+		}
+
+	public boolean isEmptyPossible()
+		{
+		double in = getInflow();
+
+		if (this.debit <= in) { return false; }
+
+		return true;
+		}
+
+	public double getInflow()
+		{
+		double in = 0;
+		for(Tank element:listTankParent)
+			{
+			in += element.getDebit();
+			}
+		return in;
 		}
 
 	/*------------------------------------------------------------------*\

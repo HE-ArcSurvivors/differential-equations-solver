@@ -12,8 +12,9 @@ public class JFrameStopCondition extends JFrame
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JFrameStopCondition()
+	public JFrameStopCondition(int state)
 		{
+		this.state = state;
 		geometry();
 		control();
 		appearance();
@@ -38,7 +39,7 @@ public class JFrameStopCondition extends JFrame
 	private void geometry()
 		{
 			// JComponent : Instanciation
-			jpanelstopcondition = new JPanelStopCondition();
+			this.jpanelstopcondition = new JPanelStopCondition(this);
 
 			boxV = Box.createVerticalBox();
 			boxH = Box.createHorizontalBox();
@@ -62,10 +63,40 @@ public class JFrameStopCondition extends JFrame
 
 	private void appearance()
 		{
-			setSize(700, 400);
+			setSize(450, 200);
 			setLocationRelativeTo(null); // frame centrer
 			setVisible(true); // last!
+			setResizable(false);
 		}
+
+	public double getTime()
+		{
+		double t = 0;
+		switch(state)
+			{
+			case JPanelStopCondition.TIME:
+				t = jpanelstopcondition.getTime();
+				break;
+			case JPanelStopCondition.QUANTITY:
+				double q = jpanelstopcondition.getQuantity();
+				t = SimulationSingleton.getInstance().getMainTank().timeQuantityQ(q);
+				break;
+			case JPanelStopCondition.OVERFLOW:
+				t = SimulationSingleton.getInstance().getMainTank().timeOverflow();
+				break;
+			case JPanelStopCondition.EMPTY:
+				t = SimulationSingleton.getInstance().getMainTank().timeEmpty();
+				break;
+			default:
+				break;
+			}
+			return t;
+		}
+
+	public void setStateCondition(int state)
+	{
+		this.state = state;
+	}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
@@ -76,5 +107,7 @@ public class JFrameStopCondition extends JFrame
 
 	private Box boxV;
 	private Box boxH;
+
+	private int state;
 
 	}

@@ -1,8 +1,16 @@
-package layout;
 
+package layout.toolsbar;
+
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+
+import substance.Substance;
+import differentialEquationSolving.SimulationSingleton;
 
 public class JPanelOutils extends JPanel
 	{
@@ -13,6 +21,9 @@ public class JPanelOutils extends JPanel
 
 	public JPanelOutils()
 		{
+		int size = SimulationSingleton.getInstance().getSubstanceList().size();
+		tabSubstance = new JPanelOutilSubstance[size];
+
 		geometry();
 		control();
 		appearance();
@@ -37,17 +48,25 @@ public class JPanelOutils extends JPanel
 	private void geometry()
 		{
 			// JComponent : Instanciation
-
-			// Layout : Specification
+			for(int i = 0; i < tabSubstance.length; i++)
 			{
+			Substance substance = SimulationSingleton.getInstance().getSubstanceAt(i);
+			tabSubstance[i] = new JPanelOutilSubstance(substance);
+			}
+
 			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
 			setLayout(flowlayout);
 
-			// flowlayout.setHgap(20);
-			// flowlayout.setVgap(20);
+			Box boxV = Box.createVerticalBox();
+
+			for(int i = 0; i < tabSubstance.length; i++)
+			{
+				boxV.add(tabSubstance[i]);
 			}
 
-			// JComponent : add
+			add(boxV);
+
+			setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), "Substance"));
 		}
 
 	private void control()
@@ -57,11 +76,14 @@ public class JPanelOutils extends JPanel
 
 	private void appearance()
 		{
-		// rien
+		int height = this.getHeight();
+		setPreferredSize(new Dimension(150,height));
 		}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
+
+	private JPanelOutilSubstance[] tabSubstance;
 
 	}

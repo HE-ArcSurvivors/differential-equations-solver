@@ -10,23 +10,21 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.text.AbstractDocument;
-
-import tools.DoubleDocumentFilter;
 
 import differentialEquationSolving.JPanelStopCondition;
 
-public class JPanelStopTimeT extends JPanel
+public class JPanelStopOverflow extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelStopTimeT(JPanelStopCondition jpanelstopcondition)
+	public JPanelStopOverflow(JPanelStopCondition jpanelstopcondition)
 		{
 		this.jpanelstopcondition = jpanelstopcondition;
+		this.possible = true;
+
 		geometry();
 		control();
 		appearance();
@@ -51,21 +49,16 @@ public class JPanelStopTimeT extends JPanel
 	private void geometry()
 		{
 		// JComponent : Instanciation
-		stopTimeT = new JRadioButton("Arrêt temps t");
-		stopTimeT.setSelected(true);
-		stopTimeT.setPreferredSize(new Dimension(150, 20));
+		stopOverflow = new JRadioButton("Arrêt débordement");
+		stopOverflow.setSelected(false);
+		stopOverflow.setPreferredSize(new Dimension(200, 20));
 
-
-		paramTime = new JTextField("0");
-		paramTime.setPreferredSize(new Dimension(50, 10));
-        ((AbstractDocument)paramTime.getDocument()).setDocumentFilter(new DoubleDocumentFilter());
-
-		labelCheck = new JLabel("");
+		jlabelPossible = new JLabel("");
 
 		Box boxH = Box.createHorizontalBox();
-		boxH.add(stopTimeT);
-		boxH.add(paramTime);
-		boxH.add(labelCheck);
+		boxH.add(stopOverflow);
+		boxH.add(Box.createHorizontalGlue());
+		boxH.add(jlabelPossible);
 
 		setLayout(new BorderLayout());
 		add(boxH, BorderLayout.CENTER);
@@ -73,12 +66,12 @@ public class JPanelStopTimeT extends JPanel
 
 	private void control()
 		{
-		stopTimeT.addActionListener(new ActionListener()
+		stopOverflow.addActionListener(new ActionListener()
 			{
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					jpanelstopcondition.setSelectedElement(JPanelStopCondition.TIME);
+					jpanelstopcondition.setSelectedElement(JPanelStopCondition.OVERFLOW);
 					}
 			});
 		}
@@ -87,31 +80,35 @@ public class JPanelStopTimeT extends JPanel
 		{
 		}
 
-	@Override
-	public void setEnabled(boolean value)
-		{
-		paramTime.setEnabled(value);
-		}
-
 	public void setSelected(boolean value)
 		{
-		stopTimeT.setSelected(value);
-		setEnabled(value);
+			stopOverflow.setSelected(value);
 		}
 
-	public double getTime()
-		{
-		return Double.parseDouble(paramTime.getText());
-		}
+	public void setPossible(boolean value)
+	{
+		if(!value)
+			{
+			stopOverflow.setEnabled(false);
+			jlabelPossible.setText("Cet événement n'arrivera pas");
+			possible = value;
+			}
+	}
+
+	public boolean isPossible()
+	{
+		return possible;
+	}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	private JRadioButton stopTimeT;
-	private JTextField paramTime;
-	private JLabel labelCheck;
-
+	private JRadioButton stopOverflow;
 	private JPanelStopCondition jpanelstopcondition;
+	private JLabel jlabelPossible;
+
+	private boolean possible;
+
 	}
