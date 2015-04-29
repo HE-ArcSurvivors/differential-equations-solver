@@ -28,14 +28,16 @@ public class JPanelSubstances extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelSubstances(Tank tank, JPannelContentTank panelContentTank) //t
+	public JPanelSubstances(Tank tank, JPannelContentTank panelContentTank, int typeSubstance, boolean pourcentageMode)
 		{
-		//this.t = t;
+		this.pourcentageMode = pourcentageMode;
+		this.typeSubstance = typeSubstance;
 		this.panelContentTank = panelContentTank;
 		this.changingSubstance = null;
 		this.tank = tank;
 
-		map_Substances = tank.getAllSubstances(0);
+		map_Substances = tank.getTypeSubstances(0, typeSubstance);
+
 		map_Rectangles = new HashMap<Substance, Rectangle2D>();
 
 		geometry();
@@ -65,8 +67,12 @@ public class JPanelSubstances extends JPanel
 	public void updateFromTank(double t)
 		{
 		map_Substances.clear();
-		map_Substances = tank.getAllSubstances(t);
-		panelContentTank.setContent(tank.getContent(t));
+		map_Substances = tank.getTypeSubstances(t, typeSubstance);
+
+		if (panelContentTank != null)
+			{
+			panelContentTank.setContent(tank.getContent(t));
+			}
 
 		repaint();
 		}
@@ -103,11 +109,26 @@ public class JPanelSubstances extends JPanel
 
 			g2d.setColor(Color.BLACK);
 			String name = substance.getName();
-			String content = map_Substances.get(substance) + " l";
+
+			String content;
+			if (pourcentageMode)
+				{
+				content = (int)(map_Substances.get(substance) / calculateContent() * 100) + "%";
+				}
+			else
+				{
+				String type = "l";
+				if (substance.getState() == Substance.SOLID)
+					{
+					type = "g";
+					}
+				content = map_Substances.get(substance) + type;
+				}
+
 			int x = 5; //(int)(rect.getX() + rect.getWidth() / 2)-12;
 			int y = (int)(rect.getY() + rect.getHeight() / 2);
-			g2d.drawString(name, x, y);
-			g2d.drawString(content, x, y + 20);
+			g2d.drawString(name, x, y + 20);
+			g2d.drawString(content, x, y);
 			}
 		}
 
@@ -195,7 +216,7 @@ public class JPanelSubstances extends JPanel
 				public void mousePressed(MouseEvent e)
 					{
 					Substance tmp = overSubstance(e.getY());
-					if (tmp != null)
+					if (tmp != null && !pourcentageMode) //TODO: change for many Liquids in infinite mode
 						{
 						changingSubstance = tmp;
 						}
@@ -219,6 +240,7 @@ public class JPanelSubstances extends JPanel
 				public void mouseMoved(MouseEvent e)
 					{
 					Substance tmp = overSubstance(e.getY());
+
 					if (tmp != null)
 						{
 						getParent().setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
@@ -228,6 +250,7 @@ public class JPanelSubstances extends JPanel
 						getParent().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 						}
 					}
+
 			});
 
 		}
@@ -255,7 +278,11 @@ public class JPanelSubstances extends JPanel
 
 		map_Substances.put(substance, (double)(Math.round(valueSubstance * 100)) / 100); //2 chiffres après la vigule
 
-		panelContentTank.setContent(calculateContent());
+		if (panelContentTank != null)
+			{
+			panelContentTank.setContent(calculateContent());
+			}
+
 		updateSubstancesInTank();
 		repaint();
 		}
@@ -271,11 +298,7 @@ public class JPanelSubstances extends JPanel
 			Entry<Substance, Double> ligne = it.next();
 			Substance substance = ligne.getKey();
 			Double qte = ligne.getValue();
-
-			if(substance.getState() == Substance.LIQUID)
-				{
-				total += qte;
-				}
+			total += qte;
 			}
 
 		return total;
@@ -298,7 +321,9 @@ public class JPanelSubstances extends JPanel
 
 	// in
 	private Tank tank;
-	private double t;
 	private JPannelContentTank panelContentTank;
+	private int typeSubstance;
+
+	private boolean pourcentageMode;
 
 	}

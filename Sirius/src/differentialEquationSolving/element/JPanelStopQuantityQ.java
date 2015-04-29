@@ -56,7 +56,7 @@ public class JPanelStopQuantityQ extends JPanel
 	private void geometry()
 		{
 		// JComponent : Instanciation
-		stopQuantityQ = new JRadioButton("Arrêt quantité t");
+		stopQuantityQ = new JRadioButton("Arrï¿½t quantitï¿½ t");
 		stopQuantityQ.setSelected(false);
 		stopQuantityQ.setPreferredSize(new Dimension(150, 20));
 
@@ -66,7 +66,7 @@ public class JPanelStopQuantityQ extends JPanel
 		((AbstractDocument)paramQuantity.getDocument()).setDocumentFilter(new DoubleDocumentFilter());
 
 		substancecombobox = new SubstanceComboBox(SimulationSingleton.getInstance().getSubstanceList());
-		paramSubstance = new JComboBox<Substance>(substancecombobox);
+		paramSubstance = new JComboBox(substancecombobox);
 		paramSubstance.setEnabled(false);
 		paramSubstance.setPreferredSize(new Dimension(100, 10));
 		paramSubstance.setSelectedIndex(1);
@@ -153,7 +153,7 @@ public class JPanelStopQuantityQ extends JPanel
 	// Tools
 	private JRadioButton stopQuantityQ;
 	private JTextField paramQuantity;
-	private JComboBox<Substance> paramSubstance;
+	private JComboBox paramSubstance;
 	private SubstanceComboBox substancecombobox;
 	private JLabel labelType;
 

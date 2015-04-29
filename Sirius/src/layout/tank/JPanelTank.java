@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import substance.Substance;
 import tank.Tank;
 
 public class JPanelTank extends JPanel
@@ -18,6 +19,7 @@ public class JPanelTank extends JPanel
 
 	public JPanelTank(Tank tank)
 		{
+		this.initialWidth = 400;
 		this.tank = tank;
 		geometry();
 		control();
@@ -30,7 +32,8 @@ public class JPanelTank extends JPanel
 
 	public void affTime(double t)
 		{
-		jpanelSubstances.updateFromTank(t);
+		jpanelSolid.updateFromTank(t);
+		jpanelLiquid.updateFromTank(t);
 		}
 
 	/*------------------------------*\
@@ -62,17 +65,32 @@ public class JPanelTank extends JPanel
 		// JComponent : Instanciation
 		int maxHeight = 500;
 
+
+		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
+		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
+
 		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
+
+		if (tank.isInfini())
+			{
+			initialWidth = 250;
+			}
+		else
+			{
+			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
+
+			jpanelSolid.setPreferredSize(new Dimension(60, 0));
+			jpanelSolid.setMinimumSize(new Dimension(60, 0));
+			jpanelSolid.setMaximumSize(new Dimension(60, maxHeight));
+			jpanelLiquid.setPreferredSize(new Dimension(60, 0));
+			jpanelLiquid.setMinimumSize(new Dimension(60, 0));
+			jpanelLiquid.setMaximumSize(new Dimension(60, maxHeight));
+			}
+
 		jpanelgraduation.setPreferredSize(new Dimension(50, 0));
 		jpanelgraduation.setMinimumSize(new Dimension(50, 0));
 		jpanelgraduation.setMaximumSize(new Dimension(50, maxHeight));
 
-		jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
-
-		jpanelSubstances = new JPanelSubstances(tank, jpanelContentTank);
-		jpanelSubstances.setPreferredSize(new Dimension(60, 0));
-		jpanelSubstances.setMinimumSize(new Dimension(60, 0));
-		jpanelSubstances.setMaximumSize(new Dimension(60, maxHeight));
 
 		jpanelTap = new JPannelTap();
 		jpanelTap.setPreferredSize(new Dimension(60, 0));
@@ -82,11 +100,20 @@ public class JPanelTank extends JPanel
 			// Layout : Specification
 			{
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
 			add(jpanelgraduation);
-			add(jpanelSubstances);
+			add(jpanelSolid);
+
+			add(createSeparation(10));
+			add(jpanelLiquid);
 			add(createSeparation(20));
-			add(jpanelContentTank);
-			add(createSeparation(20));
+
+			if (!tank.isInfini())
+				{
+				add(jpanelContentTank);
+				add(createSeparation(20));
+				}
+
 			add(jpanelTap);
 			}
 
@@ -102,7 +129,7 @@ public class JPanelTank extends JPanel
 	private void appearance()
 		{
 		setBackground(Color.LIGHT_GRAY);
-		setSize(350, 200);
+		setSize(initialWidth, 200);
 		}
 
 	/*------------------------------------------------------------------*\
@@ -111,9 +138,13 @@ public class JPanelTank extends JPanel
 
 	// Tools
 	private JPanelGraduation jpanelgraduation;
-	private JPanelSubstances jpanelSubstances;
+	private JPanelSubstances jpanelSolid;
+	private JPanelSubstances jpanelLiquid;
 	private JPannelContentTank jpanelContentTank;
+
 	private JPannelTap jpanelTap;
+
+	private int initialWidth;
 
 	//in
 	private Tank tank;

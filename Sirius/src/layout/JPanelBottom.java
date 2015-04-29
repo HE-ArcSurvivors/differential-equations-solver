@@ -27,8 +27,9 @@ public class JPanelBottom extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelBottom()
+	public JPanelBottom(JPanelContent jpanelcontent)
 		{
+		this.jpanelcontent = jpanelcontent;
 		geometry();
 		control();
 		appearance();
@@ -121,8 +122,10 @@ public class JPanelBottom extends JPanel
 					double t = slider.getValue();
 					DecimalFormat df = new DecimalFormat("0.00");
 					formule.setText(" = " + df.format(SimulationSingleton.getInstance().getMainTank().equaDiff(t / 10,
-							SimulationSingleton.getInstance().getSubstanceAt(0))) + " pour t = " + df.format(t / 10));
-					System.out.println("T = " + t / 10);
+					SimulationSingleton.getInstance().getSubstanceAt(1))) + " pour t = " + df.format(t / 10));
+					//System.out.println("T = " + t / 10);
+
+					jpanelcontent.affTime(t/10);
 					}
 			});
 
@@ -155,5 +158,7 @@ public class JPanelBottom extends JPanel
 	private JLabel formule;
 
 	private JFrameStopCondition jframestopcondition;
+
+	private JPanelContent jpanelcontent;
 
 	}

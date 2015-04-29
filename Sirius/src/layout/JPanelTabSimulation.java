@@ -41,7 +41,7 @@ public class JPanelTabSimulation extends JPanel
 			// JComponent : Instanciation
 			jpaneloutil = new JPanelOutils();
 			jpanelcontent = new JPanelContent();
-			jpanelbottom = new JPanelBottom();
+			jpanelbottom = new JPanelBottom(jpanelcontent);
 
 			// Layout : Specification
 			{
