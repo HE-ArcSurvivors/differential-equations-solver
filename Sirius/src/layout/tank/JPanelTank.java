@@ -2,7 +2,10 @@
 package layout.tank;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -133,20 +136,22 @@ public class JPanelTank extends JPanel
 
 	private void control()
 		{
-		//		boutonDelete.addMouseListener(new MouseAdapter()
-		//			{
-		//
-		//				@Override
-		//				public void mousePressed(MouseEvent e)
-		//					{
-		//					tank.delete();
-		//					tank = null;
-		//					SimulationSingleton.getInstance().delete();
-		//					repaint();
-		//					}
-		//
-		//			});
+		final JPanelTank panelTank = this;
+		boutonDelete.addMouseListener(new MouseAdapter()
+			{
+				@Override
+				public void mousePressed(MouseEvent arg0)
+					{
+					Container tmp = panelTank.getParent();
+					deleteTank();
+					panelTank.getParent().remove(panelTank);
+					tmp.repaint();
+					}
+
+			});
 		}
+
+
 
 	public void deleteTank()
 		{
