@@ -37,7 +37,6 @@ public class JFrameLayout extends JFrame
 
 		SimulationSingleton.getInstance().setMainTank(r2);
 
-
 		geometry();
 		control();
 		appearance();
@@ -100,7 +99,6 @@ public class JFrameLayout extends JFrame
 	private JTabbedPane tabbedPane;
 	private JPanelTabSimulation panelSimulation;
 	private JPanelTabResolution panelResolution;
-
 
 	// TEST
 	private Tank r1, r2;

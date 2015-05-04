@@ -1,21 +1,20 @@
-package layout;
+
+package layout.bottom;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Graphics;
 
+import javax.swing.Box;
 import javax.swing.JPanel;
 
-import layout.bottom.JPanelBottom;
-import layout.toolsbar.JPanelOutils;
-
-public class JPanelTabSimulation extends JPanel
+public class JPanelBottom extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelTabSimulation()
+	public JPanelBottom()
 		{
 		geometry();
 		control();
@@ -38,40 +37,42 @@ public class JPanelTabSimulation extends JPanel
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
+	@Override
+	protected void paintComponent(Graphics g)
+		{
+		super.paintComponent(g);
+		}
+
 	private void geometry()
 		{
-			// JComponent : Instanciation
-			jpaneloutil = new JPanelOutils();
-			jpanelcontent = new JPanelContent();
-			jpanelbottom = new JPanelBottom();
-			jpanelbottom.setMinimumSize(new Dimension(this.getWidth(),100));
-			jpanelbottom.setSize(new Dimension(this.getWidth(),100));
-			jpanelbottom.setMaximumSize(new Dimension(this.getWidth(),100));
-			jpanelbottom.setPreferredSize(new Dimension(this.getWidth(),100));
 
-			// Layout : Specification
-			{
-			BorderLayout borderLayout = new BorderLayout();
-			setLayout(borderLayout);
+		jpanelbottomequationline = new JPanelBottomEquationLine();
+		jpanelbottomsimulationline = new JPanelBottomSimulationLine();
 
-			// borderLayout.setHgap(20);
-			// borderLayout.setVgap(20);
-			}
+		Box boxV = Box.createVerticalBox();
 
-			// JComponent : add
-			add(jpanelcontent,BorderLayout.CENTER);
-			add(jpaneloutil,BorderLayout.WEST);
-			add(jpanelbottom,BorderLayout.SOUTH);
+		boxV.add(jpanelbottomsimulationline);
+		boxV.add(Box.createVerticalGlue());
+		boxV.add(jpanelbottomequationline);
+
+		setLayout(new BorderLayout());
+		add(boxV,BorderLayout.WEST);
+
 		}
 
 	private void control()
 		{
-		// rien
+
 		}
 
 	private void appearance()
 		{
-		// rien
+
+		}
+
+	public void setEquationVisible(boolean visible)
+		{
+			jpanelbottomequationline.setVisible(visible);
 		}
 
 	/*------------------------------------------------------------------*\
@@ -79,8 +80,7 @@ public class JPanelTabSimulation extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	private JPanelOutils 	jpaneloutil;
-	private JPanelContent 	jpanelcontent;
-	private JPanelBottom	jpanelbottom;
+	private JPanelBottomEquationLine jpanelbottomequationline;
+	private JPanelBottomSimulationLine jpanelbottomsimulationline;
 
 	}
