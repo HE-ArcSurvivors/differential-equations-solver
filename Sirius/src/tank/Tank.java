@@ -94,13 +94,23 @@ public class Tank implements Iterable<Tank>
 		return this.listTankParent.iterator();
 		}
 
+public String getFormula()
+	{
+		//Math.pow(out, -1) * in + C * Math.exp(-t * out);
+		String outString = Double.toString(out);
+		String inString = Double.toString(in);
+		String cString = Double.toString(C);
+
+		return "y="+outString+"^{-1}*"+inString+"+"+cString+"*e^{-t*"+outString+"}";
+	}
+
 	public void delete()
-		{
-		for(Tank tank:listTankParent)
+	{
+		for(Tank tank: listTankParent)
 			{
 			tank = null;
 			}
-		}
+	}
 
 	/*------------------------------*\
 	|*	    List of Substances		*|

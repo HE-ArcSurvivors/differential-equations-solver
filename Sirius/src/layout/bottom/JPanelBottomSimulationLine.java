@@ -1,8 +1,5 @@
+package layout.bottom;
 
-package layout;
-
-import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -16,19 +13,21 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import layout.JPanelContent;
 import differentialEquationSolving.JFrameStopCondition;
 import differentialEquationSolving.JPanelStopCondition;
 import differentialEquationSolving.SimulationSingleton;
 
-public class JPanelBottom extends JPanel
+public class JPanelBottomSimulationLine extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelBottom(JPanelContent jpanelcontent)
-		{
+
+	public JPanelBottomSimulationLine(JPanelContent jpanelcontent)
+	{
 		this.jpanelcontent = jpanelcontent;
 		geometry();
 		control();
@@ -38,24 +37,6 @@ public class JPanelBottom extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
-
-	/*------------------------------*\
-	|*				Set				*|
-	\*------------------------------*/
-
-	/*------------------------------*\
-	|*				Get				*|
-	\*------------------------------*/
-
-	/*------------------------------------------------------------------*\
-	|*							Methodes Private						*|
-	\*------------------------------------------------------------------*/
-
-	@Override
-	protected void paintComponent(Graphics g)
-		{
-		super.paintComponent(g);
-		}
 
 	private void geometry()
 		{
@@ -70,19 +51,9 @@ public class JPanelBottom extends JPanel
 		jframestopcondition = new JFrameStopCondition(JPanelStopCondition.TIME);
 		jframestopcondition.setVisible(false);
 
-			// Layout : Specification
-			{
-			FlowLayout flowlayout = new FlowLayout(FlowLayout.LEFT);
-			setLayout(flowlayout);
-
-			// flowlayout.setHgap(20);
-			// flowlayout.setVgap(20);
-			}
-
 		add(startSimulation);
 		add(stopCondition);
 		add(slider);
-		add(formule);
 
 		}
 
@@ -122,8 +93,7 @@ public class JPanelBottom extends JPanel
 					double t = slider.getValue();
 					DecimalFormat df = new DecimalFormat("0.00");
 					formule.setText(" = " + df.format(SimulationSingleton.getInstance().getMainTank().equaDiff(t / 10,
-					SimulationSingleton.getInstance().getSubstanceAt(1))) + " pour t = " + df.format(t / 10));
-					System.out.println("T = " + t / 10);
+					SimulationSingleton.getInstance().getSubstanceAt(0))) + " pour t = " + df.format(t / 10));					System.out.println("T = " + t / 10);
 
 					jpanelcontent.affTime(t/10);
 					}
@@ -158,7 +128,6 @@ public class JPanelBottom extends JPanel
 	private JLabel formule;
 
 	private JFrameStopCondition jframestopcondition;
-
 	private JPanelContent jpanelcontent;
 
 	}

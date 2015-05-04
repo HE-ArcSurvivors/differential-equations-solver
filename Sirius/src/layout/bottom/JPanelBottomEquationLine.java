@@ -1,21 +1,19 @@
-package layout;
+package layout.bottom;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import layout.bottom.JPanelBottom;
-import layout.toolsbar.JPanelOutils;
+import differentialEquationSolving.JPanelPrintEquation;
 
-public class JPanelTabSimulation extends JPanel
+public class JPanelBottomEquationLine extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelTabSimulation()
+	public JPanelBottomEquationLine()
 		{
 		geometry();
 		control();
@@ -41,27 +39,19 @@ public class JPanelTabSimulation extends JPanel
 	private void geometry()
 		{
 			// JComponent : Instanciation
-			jpaneloutil = new JPanelOutils();
-			jpanelcontent = new JPanelContent();
-			jpanelbottom = new JPanelBottom(jpanelcontent);
-			jpanelbottom.setMinimumSize(new Dimension(this.getWidth(),100));
-			jpanelbottom.setSize(new Dimension(this.getWidth(),100));
-			jpanelbottom.setMaximumSize(new Dimension(this.getWidth(),100));
-			jpanelbottom.setPreferredSize(new Dimension(this.getWidth(),100));
+			jpanelprintequation = new JPanelPrintEquation();
 
 			// Layout : Specification
 			{
-			BorderLayout borderLayout = new BorderLayout();
-			setLayout(borderLayout);
+			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
+			setLayout(flowlayout);
 
-			// borderLayout.setHgap(20);
-			// borderLayout.setVgap(20);
+			// flowlayout.setHgap(20);
+			// flowlayout.setVgap(20);
 			}
 
 			// JComponent : add
-			add(jpanelcontent,BorderLayout.CENTER);
-			add(jpaneloutil,BorderLayout.WEST);
-			add(jpanelbottom,BorderLayout.SOUTH);
+			add(jpanelprintequation);
 		}
 
 	private void control()
@@ -79,8 +69,6 @@ public class JPanelTabSimulation extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	private JPanelOutils 	jpaneloutil;
-	private JPanelContent 	jpanelcontent;
-	private JPanelBottom	jpanelbottom;
+	private JPanelPrintEquation jpanelprintequation;
 
 	}

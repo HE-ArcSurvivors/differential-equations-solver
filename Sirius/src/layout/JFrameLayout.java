@@ -39,8 +39,6 @@ public class JFrameLayout extends JFrame
 
 		r1 = null;
 		r2 = null;
-
-
 		geometry();
 		control();
 		appearance();
@@ -71,7 +69,7 @@ public class JFrameLayout extends JFrame
 			panelResolution = new JPanelTabResolution();
 
 			tabbedPane.addTab("Simulation",panelSimulation);
-			tabbedPane.addTab("R�solution",panelResolution);
+			tabbedPane.addTab("Résolution",panelResolution);
 
 			// Layout : Specification
 			{
@@ -103,7 +101,6 @@ public class JFrameLayout extends JFrame
 	private JTabbedPane tabbedPane;
 	private JPanelTabSimulation panelSimulation;
 	private JPanelTabResolution panelResolution;
-
 
 	// TEST
 	private Tank r1, r2;
