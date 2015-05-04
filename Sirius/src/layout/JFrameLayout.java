@@ -37,6 +37,8 @@ public class JFrameLayout extends JFrame
 
 		SimulationSingleton.getInstance().setMainTank(r2);
 
+		r1 = null;
+		r2 = null;
 		geometry();
 		control();
 		appearance();
@@ -67,7 +69,7 @@ public class JFrameLayout extends JFrame
 			panelResolution = new JPanelTabResolution();
 
 			tabbedPane.addTab("Simulation",panelSimulation);
-			tabbedPane.addTab("Résolution",panelResolution);
+			tabbedPane.addTab("RÃ©solution",panelResolution);
 
 			// Layout : Specification
 			{

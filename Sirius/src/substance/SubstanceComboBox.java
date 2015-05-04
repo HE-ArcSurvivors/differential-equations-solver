@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.ComboBoxModel;
 
-public class SubstanceComboBox extends AbstractListModel<Substance> implements ComboBoxModel<Substance>
+public class SubstanceComboBox extends AbstractListModel implements ComboBoxModel
 	{
 
 	public SubstanceComboBox(List<Substance> substanceList)

@@ -43,7 +43,7 @@ public class JPanelTabSimulation extends JPanel
 			// JComponent : Instanciation
 			jpaneloutil = new JPanelOutils();
 			jpanelcontent = new JPanelContent();
-			jpanelbottom = new JPanelBottom();
+			jpanelbottom = new JPanelBottom(jpanelcontent);
 			jpanelbottom.setMinimumSize(new Dimension(this.getWidth(),100));
 			jpanelbottom.setSize(new Dimension(this.getWidth(),100));
 			jpanelbottom.setMaximumSize(new Dimension(this.getWidth(),100));

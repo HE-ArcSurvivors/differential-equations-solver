@@ -33,7 +33,7 @@ public class Tank implements Iterable<Tank>
 	\*------------------------------------------------------------------*/
 
 	/*------------------------------*\
-	|*	   Résolution d'équation	*|
+	|*	   Rï¿½solution d'ï¿½quation	*|
 	\*------------------------------*/
 
 	public double equaDiff(double t, Substance substance)
@@ -58,7 +58,7 @@ public class Tank implements Iterable<Tank>
 
 	public double timeOverflow()
 		{
-		return (capacite-getContent()) / (getInflow() - getDebit());
+		return (capacite - getContent()) / (getInflow() - getDebit());
 		}
 
 	public double timeEmpty()
@@ -78,8 +78,8 @@ public class Tank implements Iterable<Tank>
 			}
 		System.out.println();
 		System.out.println("Contenu : " + getContent(t));
-		System.out.println("Débit : " + getDebit());
-		System.out.println("Quantité de " + substance.getName() + " : " + equaDiff(t, substance));
+		System.out.println("Dï¿½bit : " + getDebit());
+		System.out.println("Quantitï¿½ de " + substance.getName() + " : " + equaDiff(t, substance));
 		System.out.println();
 		}
 
@@ -94,7 +94,7 @@ public class Tank implements Iterable<Tank>
 		return this.listTankParent.iterator();
 		}
 
-	public String getFormula()
+public String getFormula()
 	{
 		//Math.pow(out, -1) * in + C * Math.exp(-t * out);
 		String outString = Double.toString(out);
@@ -102,8 +102,13 @@ public class Tank implements Iterable<Tank>
 		String cString = Double.toString(C);
 
 		return "y="+outString+"^{-1}*"+inString+"+"+cString+"*e^{-t*"+outString+"}";
-	}
-	/*------------------------------*\
+	}	public void delete()
+		{
+		for(Tank tank:listTankParent)
+			{
+			tank = null;
+			}
+		}	/*------------------------------*\
 	|*	    List of Substances		*|
 	\*------------------------------*/
 
@@ -124,7 +129,10 @@ public class Tank implements Iterable<Tank>
 			{
 			return mapSubstance.put(substance, quantity) != null;
 			}
-		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.put(substance, quantity) != null; }
+		else if (substance.getState() == Substance.LIQUID)
+			{
+			return mapLiquide.put(substance, quantity) != null;
+			
 
 		return false;
 		}
@@ -204,30 +212,35 @@ public class Tank implements Iterable<Tank>
 		return this.debit;
 		}
 
-	public Map<Substance, Double> getAllSubstances(double t)
+	public List<Tank> getlistTankParent()
 		{
-		Map<Substance, Double> mapAllSubstances = new HashMap<Substance, Double>();
-		mapAllSubstances.putAll(mapLiquide);
-		mapAllSubstances.putAll(mapSubstance);
+		return listTankParent;
+		}
 
-		Map<Substance, Double> mapSubstanceTime = new HashMap<Substance, Double>();
 
-		Set<Substance> listSubstances = mapAllSubstances.keySet();
+	public Map<Substance, Double> getTypeSubstances(double t, int substanceType)
+		{
+		Map<Substance, Double> mapTypeSubstances = new HashMap<Substance, Double>();
 
-		for(Substance substance:listSubstances)
+		if (substanceType == Substance.LIQUID)
 			{
-			//Only 2 substances now
-			if (substance.getState() == Substance.LIQUID) //remove the if when we are ready for +2 substances
+			//TODO : For many substances it will not work !
+			Set<Substance> listLiquid = mapLiquide.keySet();
+			for(Substance substance:listLiquid)
 				{
-				mapSubstanceTime.put(substance, getContent(t));
+				mapTypeSubstances.put(substance, getContent(t)); //change with equaDiff(t, substance)
 				}
-			else
+			}
+		else if (substanceType == Substance.SOLID)
+			{
+			Set<Substance> listSolid = mapSubstance.keySet();
+			for(Substance substance:listSolid)
 				{
-				mapSubstanceTime.put(substance, equaDiff(t, substance));
+				mapTypeSubstances.put(substance, equaDiff(t, substance));
 				}
 			}
 
-		return mapSubstanceTime;
+		return mapTypeSubstances;
 		}
 
 	public boolean isOverflowPossible()
@@ -268,6 +281,7 @@ public class Tank implements Iterable<Tank>
 
 	//Input
 	private boolean infini;
+
 	private double capacite;
 	private double debit;
 
@@ -279,5 +293,6 @@ public class Tank implements Iterable<Tank>
 	private double in;
 	private double out;
 	private double C;
+
 
 	}

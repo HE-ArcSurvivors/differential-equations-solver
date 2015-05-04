@@ -25,8 +25,9 @@ public class JPanelBottomSimulationLine extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelBottomSimulationLine()
-		{
+
+	public JPanelBottom(JPanelContent jpanelcontent)		{
+		this.jpanelcontent = jpanelcontent;
 		geometry();
 		control();
 		appearance();
@@ -49,8 +50,7 @@ public class JPanelBottomSimulationLine extends JPanel
 		jframestopcondition = new JFrameStopCondition(JPanelStopCondition.TIME);
 		jframestopcondition.setVisible(false);
 
-		FlowLayout flowlayout = new FlowLayout(FlowLayout.LEFT);
-		setLayout(flowlayout);
+
 
 		add(startSimulation);
 		add(stopCondition);
@@ -94,8 +94,9 @@ public class JPanelBottomSimulationLine extends JPanel
 					double t = slider.getValue();
 					DecimalFormat df = new DecimalFormat("0.00");
 					formule.setText(" = " + df.format(SimulationSingleton.getInstance().getMainTank().equaDiff(t / 10,
-							SimulationSingleton.getInstance().getSubstanceAt(1))) + " pour t = " + df.format(t / 10));
-					System.out.println("T = " + t / 10);
+					SimulationSingleton.getInstance().getSubstanceAt(0))) + " pour t = " + df.format(t / 10));					System.out.println("T = " + t / 10);
+
+					jpanelcontent.affTime(t/10);
 					}
 			});
 
@@ -113,7 +114,7 @@ public class JPanelBottomSimulationLine extends JPanel
 
 	private void appearance()
 		{
-
+		// rien
 		}
 
 	/*------------------------------------------------------------------*\
@@ -129,4 +130,5 @@ public class JPanelBottomSimulationLine extends JPanel
 
 	private JFrameStopCondition jframestopcondition;
 
+	private JPanelContent jpanelcontent;
 	}

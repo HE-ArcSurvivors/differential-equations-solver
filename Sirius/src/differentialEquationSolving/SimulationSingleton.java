@@ -58,4 +58,10 @@ public class SimulationSingleton
 	private Tank mainTank;
 	private List<Substance> listSubstance;
 
+	//test
+	public void deleteMainTank()
+		{
+		mainTank = null;
+		}
+
 	}
