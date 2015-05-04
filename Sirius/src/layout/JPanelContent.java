@@ -133,12 +133,12 @@ public class JPanelContent extends JPanel
 
 				tank = null;
 
-				System.out.println("IT'S A TANK !");
+//				System.out.println("IT'S A TANK !");
 				}
 			}
 
 		mainTank = null;
-		System.out.println(listPanelTank);
+//		System.out.println(listPanelTank);
 		return listPanelTank;
 		}
 
@@ -147,7 +147,7 @@ public class JPanelContent extends JPanel
 		//removeAll();
 		for(JPanelTank paneltank:listPanelTank)
 			{
-			System.out.println("Aff a tank");
+//			System.out.println("Aff a tank");
 			paneltank.affTime(t);
 			}
 
@@ -191,7 +191,7 @@ public class JPanelContent extends JPanel
 		// rien
 		}
 
-	//	private void addParameters() {
+	//	private void addBoutonsAddParentAndChild() {
 	//
 	//		// JXCollapsiblePane
 	//		box.setBorder(new LineBorder(Color.black));
