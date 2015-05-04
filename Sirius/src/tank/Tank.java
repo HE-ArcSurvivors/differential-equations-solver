@@ -102,13 +102,17 @@ public String getFormula()
 		String cString = Double.toString(C);
 
 		return "y="+outString+"^{-1}*"+inString+"+"+cString+"*e^{-t*"+outString+"}";
-	}	public void delete()
-		{
-		for(Tank tank:listTankParent)
+	}
+
+	public void delete()
+	{
+		for(Tank tank: listTankParent)
 			{
 			tank = null;
 			}
-		}	/*------------------------------*\
+	}
+
+	/*------------------------------*\
 	|*	    List of Substances		*|
 	\*------------------------------*/
 
@@ -132,7 +136,7 @@ public String getFormula()
 		else if (substance.getState() == Substance.LIQUID)
 			{
 			return mapLiquide.put(substance, quantity) != null;
-			
+			}
 
 		return false;
 		}

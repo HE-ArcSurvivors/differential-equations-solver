@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import javax.swing.Box;
 import javax.swing.JPanel;
 
+import layout.JPanelContent;
+
 public class JPanelBottom extends JPanel
 	{
 
@@ -14,8 +16,9 @@ public class JPanelBottom extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelBottom()
+	public JPanelBottom(JPanelContent jpanelcontent)
 		{
+		jpanelbottomsimulationline = new JPanelBottomSimulationLine(jpanelcontent);
 		geometry();
 		control();
 		appearance();
@@ -47,7 +50,6 @@ public class JPanelBottom extends JPanel
 		{
 
 		jpanelbottomequationline = new JPanelBottomEquationLine();
-		jpanelbottomsimulationline = new JPanelBottomSimulationLine();
 
 		Box boxV = Box.createVerticalBox();
 

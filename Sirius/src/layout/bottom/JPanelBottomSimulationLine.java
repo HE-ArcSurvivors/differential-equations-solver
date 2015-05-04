@@ -1,6 +1,5 @@
 package layout.bottom;
 
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -14,6 +13,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import layout.JPanelContent;
 import differentialEquationSolving.JFrameStopCondition;
 import differentialEquationSolving.JPanelStopCondition;
 import differentialEquationSolving.SimulationSingleton;
@@ -26,7 +26,8 @@ public class JPanelBottomSimulationLine extends JPanel
 	\*------------------------------------------------------------------*/
 
 
-	public JPanelBottom(JPanelContent jpanelcontent)		{
+	public JPanelBottomSimulationLine(JPanelContent jpanelcontent)
+	{
 		this.jpanelcontent = jpanelcontent;
 		geometry();
 		control();
@@ -49,8 +50,6 @@ public class JPanelBottomSimulationLine extends JPanel
 
 		jframestopcondition = new JFrameStopCondition(JPanelStopCondition.TIME);
 		jframestopcondition.setVisible(false);
-
-
 
 		add(startSimulation);
 		add(stopCondition);
@@ -129,6 +128,6 @@ public class JPanelBottomSimulationLine extends JPanel
 	private JLabel formule;
 
 	private JFrameStopCondition jframestopcondition;
-
 	private JPanelContent jpanelcontent;
+
 	}
