@@ -94,6 +94,14 @@ public class Tank implements Iterable<Tank>
 		return this.listTankParent.iterator();
 		}
 
+	public void delete()
+		{
+		for(Tank tank:listTankParent)
+			{
+			tank = null;
+			}
+		}
+
 	/*------------------------------*\
 	|*	    List of Substances		*|
 	\*------------------------------*/
@@ -279,5 +287,6 @@ public class Tank implements Iterable<Tank>
 	private double in;
 	private double out;
 	private double C;
+
 
 	}

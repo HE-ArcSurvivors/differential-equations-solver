@@ -37,6 +37,9 @@ public class JFrameLayout extends JFrame
 
 		SimulationSingleton.getInstance().setMainTank(r2);
 
+		r1 = null;
+		r2 = null;
+
 
 		geometry();
 		control();

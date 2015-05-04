@@ -1,6 +1,9 @@
 
 package layout;
 
+import java.awt.Container;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class JPanelContent extends JPanel
 	public JPanelContent()
 		{
 		//tank1 = new JPanelTank(new Tank(false, 200, 5));
-		listPanelTank = new LinkedList<JPanelTank>();
+		//listPanelTank = new LinkedList<JPanelTank>();
 		//tank1.setLocation(10, 150); // default pos
 		geometry();
 		control();
@@ -100,12 +103,72 @@ public class JPanelContent extends JPanel
 	//				- collapsibelPane.getHeight() / 2);
 	//	}
 
+	public List<JPanelTank> constructPannelsTank()
+		{
+		Tank mainTank = SimulationSingleton.getInstance().getMainTank();
+
+		List<Tank> pileTank = new LinkedList<Tank>();
+		pileTank.add(mainTank);
+
+		List<JPanelTank> listPanelTank = new LinkedList<JPanelTank>();
+
+		//Technique d'affichage temporaire
+
+		int h = 10;
+		while(!pileTank.isEmpty())
+			{
+			int i = pileTank.size() - 1;
+
+			Tank tank = pileTank.get(i);
+			pileTank.remove(i);
+
+			if (tank != null)
+				{
+				pileTank.addAll(tank.getlistTankParent());
+
+				final JPanelTank panelTank = new JPanelTank(tank);
+
+				add(panelTank);
+				listPanelTank.add(panelTank);
+
+				//nécessaire d'être implémenté ici ?
+				panelTank.getBoutonDelete().addMouseListener(new MouseAdapter()
+					{
+						@Override
+						public void mousePressed(MouseEvent arg0)
+							{
+							Container tmp = panelTank.getParent();
+							panelTank.deleteTank();
+							panelTank.getParent().remove(panelTank);
+							tmp.repaint();
+							}
+
+					});
+
+				panelTank.setLocation(0, h); //TODO !
+				h += panelTank.getHeight() + 10;
+
+				tank = null;
+
+				System.out.println("IT'S A TANK !");
+				}
+			}
+
+		mainTank = null;
+		System.out.println(listPanelTank);
+		return listPanelTank;
+		}
+
 	public void affTime(double t)
 		{
+		//removeAll();
 		for(JPanelTank paneltank:listPanelTank)
 			{
+			System.out.println("Aff a tank");
 			paneltank.affTime(t);
 			}
+
+		repaint();
 		}
 
 	/*------------------------------*\
@@ -127,30 +190,7 @@ public class JPanelContent extends JPanel
 		setLayout(null);
 
 		// JComponent : Instanciation
-		mainTank = SimulationSingleton.getInstance().getMainTank();
-
-		List<Tank> pileTank = new LinkedList<Tank>();
-		pileTank.add(mainTank);
-
-		//Technique d'affichage temporaire
-		int h = 10;
-		while(!pileTank.isEmpty())
-			{
-			int i = pileTank.size()-1;
-
-			Tank tank = pileTank.get(i);
-			pileTank.remove(i);
-
-			pileTank.addAll(tank.getlistTankParent());
-
-			JPanelTank panelTank = new JPanelTank(tank);
-
-			add(panelTank);
-			listPanelTank.add(panelTank);
-
-			panelTank.setLocation(0, h); //TODO !
-			h+=panelTank.getHeight()+10;
-			}
+		listPanelTank = constructPannelsTank();
 
 		}
 
@@ -215,8 +255,6 @@ public class JPanelContent extends JPanel
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
-	// Tools
-	private Tank mainTank;
 	private List<JPanelTank> listPanelTank;
 	//private JPanelTank tank1;
 	//

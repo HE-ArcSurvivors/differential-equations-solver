@@ -5,10 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import substance.Substance;
 import tank.Tank;
+import differentialEquationSolving.SimulationSingleton;
 
 public class JPanelTank extends JPanel
 	{
@@ -43,6 +45,10 @@ public class JPanelTank extends JPanel
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
+	public JButton getBoutonDelete()
+		{
+		return this.boutonDelete;
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
@@ -60,11 +66,19 @@ public class JPanelTank extends JPanel
 		return jpanelSeparation;
 		}
 
+	private void setFixeSize(JPanel jpanel, int width, int maxHeight)
+		{
+		jpanel.setMinimumSize(new Dimension(width, 0));
+		jpanel.setMaximumSize(new Dimension(width, maxHeight));
+		jpanel.setPreferredSize(new Dimension(width, 0));
+		}
+
 	private void geometry()
 		{
 		// JComponent : Instanciation
 		int maxHeight = 500;
 
+		boutonDelete = new JButton("D");
 
 		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
 		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
@@ -79,23 +93,18 @@ public class JPanelTank extends JPanel
 			{
 			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
 
-			jpanelSolid.setPreferredSize(new Dimension(60, 0));
-			jpanelSolid.setMinimumSize(new Dimension(60, 0));
-			jpanelSolid.setMaximumSize(new Dimension(60, maxHeight));
-			jpanelLiquid.setPreferredSize(new Dimension(60, 0));
-			jpanelLiquid.setMinimumSize(new Dimension(60, 0));
-			jpanelLiquid.setMaximumSize(new Dimension(60, maxHeight));
+			setFixeSize(jpanelSolid, 60, maxHeight);
+			setFixeSize(jpanelLiquid, 60, maxHeight);
 			}
 
-		jpanelgraduation.setPreferredSize(new Dimension(50, 0));
-		jpanelgraduation.setMinimumSize(new Dimension(50, 0));
-		jpanelgraduation.setMaximumSize(new Dimension(50, maxHeight));
 
+		setFixeSize(jpanelgraduation, 50, maxHeight);
 
 		jpanelTap = new JPannelTap();
-		jpanelTap.setPreferredSize(new Dimension(60, 0));
-		jpanelTap.setMinimumSize(new Dimension(60, 0));
-		jpanelTap.setMaximumSize(new Dimension(60, maxHeight));
+		setFixeSize(jpanelTap, 60, maxHeight);
+
+		jpanelDelete = createSeparation(20);
+		jpanelDelete.add(boutonDelete);
 
 			// Layout : Specification
 			{
@@ -106,13 +115,14 @@ public class JPanelTank extends JPanel
 
 			add(createSeparation(10));
 			add(jpanelLiquid);
-			add(createSeparation(20));
 
 			if (!tank.isInfini())
 				{
-				add(jpanelContentTank);
 				add(createSeparation(20));
+				add(jpanelContentTank);
 				}
+
+			add(jpanelDelete);
 
 			add(jpanelTap);
 			}
@@ -123,7 +133,34 @@ public class JPanelTank extends JPanel
 
 	private void control()
 		{
-		// rien
+		//		boutonDelete.addMouseListener(new MouseAdapter()
+		//			{
+		//
+		//				@Override
+		//				public void mousePressed(MouseEvent e)
+		//					{
+		//					tank.delete();
+		//					tank = null;
+		//					SimulationSingleton.getInstance().delete();
+		//					repaint();
+		//					}
+		//
+		//			});
+		}
+
+	public void deleteTank()
+		{
+
+		if (SimulationSingleton.getInstance().getMainTank() == tank)
+			{
+			System.out.println("delete main");
+			SimulationSingleton.getInstance().deleteMainTank();
+			}
+
+		tank.delete();
+		tank = null;
+
+		repaint();
 		}
 
 	private void appearance()
@@ -141,8 +178,10 @@ public class JPanelTank extends JPanel
 	private JPanelSubstances jpanelSolid;
 	private JPanelSubstances jpanelLiquid;
 	private JPannelContentTank jpanelContentTank;
+	private JPanel jpanelDelete;
 
 	private JPannelTap jpanelTap;
+	private JButton boutonDelete;
 
 	private int initialWidth;
 
