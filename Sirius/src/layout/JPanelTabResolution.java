@@ -2,7 +2,12 @@ package layout;
 
 import java.awt.FlowLayout;
 
+import javax.swing.Box;
 import javax.swing.JPanel;
+
+import layout.tabresolution.JPanelResolutionData;
+import layout.tabresolution.JPanelResolutionSchema;
+import layout.tabresolution.JPanelResolutionSolving;
 
 public class JPanelTabResolution extends JPanel
 	{
@@ -34,21 +39,30 @@ public class JPanelTabResolution extends JPanel
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
+	public void reload()
+		{
+			jpanelresolutiondata.reload();
+			jpanelresolutionsolving.reload();
+		}
+
 	private void geometry()
 		{
 			// JComponent : Instanciation
+			jpanelresolutionschema = new JPanelResolutionSchema();
+			jpanelresolutiondata = new JPanelResolutionData();
+			jpanelresolutionsolving = new JPanelResolutionSolving();
 
-			// Layout : Specification
-			{
-			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
-			setLayout(flowlayout);
+			Box boxH = Box.createHorizontalBox();
+			boxH.add(jpanelresolutiondata);
+			boxH.add(jpanelresolutionsolving);
 
-			// flowlayout.setHgap(20);
-			// flowlayout.setVgap(20);
-			}
+			boxH.setAlignmentX(LEFT_ALIGNMENT);
+			boxH.setAlignmentY(TOP_ALIGNMENT);
 
-		// JComponent : add
-
+			FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
+			setAlignmentY(TOP_ALIGNMENT);
+			setLayout(layout);
+			add(boxH);
 		}
 
 	private void control()
@@ -66,5 +80,8 @@ public class JPanelTabResolution extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
+	private JPanelResolutionSchema jpanelresolutionschema;
+	private JPanelResolutionData jpanelresolutiondata;
+	private JPanelResolutionSolving jpanelresolutionsolving;
 
 	}

@@ -1,6 +1,7 @@
 
 package tank;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 import substance.Substance;
+import tools.MathTools;
+import differentialEquationSolving.SimulationSingleton;
 
 public class Tank implements Iterable<Tank>
 	{
@@ -26,6 +29,8 @@ public class Tank implements Iterable<Tank>
 		this.infini = infini;
 		this.capacite = capacite;
 		this.debit = debit;
+
+		this.name = "";
 		}
 
 	/*------------------------------------------------------------------*\
@@ -33,18 +38,12 @@ public class Tank implements Iterable<Tank>
 	\*------------------------------------------------------------------*/
 
 	/*------------------------------*\
-	|*	   Rï¿½solution d'ï¿½quation	*|
+	|*	   Résolution d'équation	*|
 	\*------------------------------*/
 
 	public double equaDiff(double t, Substance substance)
 		{
-		in = 0;
-
-		for(Tank element:listTankParent)
-			{
-			in += element.getDebit() * element.getValueSubstance(substance);
-			}
-
+		in = getInflowTotal(substance);
 		out = debit / getContent(t);
 		C = this.getValueSubstance(substance) - Math.pow(out, -1) * in;
 
@@ -78,8 +77,8 @@ public class Tank implements Iterable<Tank>
 			}
 		System.out.println();
 		System.out.println("Contenu : " + getContent(t));
-		System.out.println("Dï¿½bit : " + getDebit());
-		System.out.println("Quantitï¿½ de " + substance.getName() + " : " + equaDiff(t, substance));
+		System.out.println("Débit : " + getDebit());
+		System.out.println("Quantité de " + substance.getName() + " : " + equaDiff(t, substance));
 		System.out.println();
 		}
 
@@ -94,23 +93,28 @@ public class Tank implements Iterable<Tank>
 		return this.listTankParent.iterator();
 		}
 
-public String getFormula()
-	{
-		//Math.pow(out, -1) * in + C * Math.exp(-t * out);
-		String outString = Double.toString(out);
-		String inString = Double.toString(in);
-		String cString = Double.toString(C);
+	public String getFormula(double t)
+		{
 
-		return "y="+outString+"^{-1}*"+inString+"+"+cString+"*e^{-t*"+outString+"}";
-	}
+		DecimalFormat dfsigned = new DecimalFormat("+#,##0.00;-#");
+
+		long gcm = MathTools.gcm((long)getDebit(), (long)getContent());
+		String outSimplifyFraction = "\\frac{" + getDebit() / gcm + "}{" + getContent() / gcm + "}";
+
+		Substance sub = SimulationSingleton.getInstance().getSubstanceAt(1);
+		Double inflow = getInflowTotal(sub);
+		Double value = inflow * getContent() / getDebit();
+
+		return "y("+t+") = "+value+" "+dfsigned.format(C)+" * e^{-"+t+"*"+outSimplifyFraction+"}";
+		}
 
 	public void delete()
-	{
-		for(Tank tank: listTankParent)
+		{
+		for(Tank tank:listTankParent)
 			{
 			tank = null;
 			}
-	}
+		}
 
 	/*------------------------------*\
 	|*	    List of Substances		*|
@@ -133,10 +137,7 @@ public String getFormula()
 			{
 			return mapSubstance.put(substance, quantity) != null;
 			}
-		else if (substance.getState() == Substance.LIQUID)
-			{
-			return mapLiquide.put(substance, quantity) != null;
-			}
+		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.put(substance, quantity) != null; }
 
 		return false;
 		}
@@ -163,6 +164,11 @@ public String getFormula()
 	public void setDebit(double debit)
 		{
 		this.debit = debit;
+		}
+
+	public void setName(String name)
+		{
+		this.name = name;
 		}
 
 	/*------------------------------*\
@@ -221,7 +227,6 @@ public String getFormula()
 		return listTankParent;
 		}
 
-
 	public Map<Substance, Double> getTypeSubstances(double t, int substanceType)
 		{
 		Map<Substance, Double> mapTypeSubstances = new HashMap<Substance, Double>();
@@ -275,6 +280,36 @@ public String getFormula()
 		return in;
 		}
 
+	public double getInflowTotal(Substance substance)
+		{
+		double inflow = 0;
+
+		for(Tank element:listTankParent)
+			{
+			inflow += element.getDebit() * element.getValueSubstance(substance);
+			}
+
+		return inflow;
+		}
+
+	public double getInflowSubstance(Substance substance)
+		{
+		double total = 0;
+
+		for(Tank element:listTankParent)
+			{
+			total += element.getValueSubstance(substance);
+			}
+
+		return total;
+		}
+
+
+	public String getName()
+		{
+		return this.name;
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
@@ -293,10 +328,11 @@ public String getFormula()
 	private Map<Substance, Double> mapLiquide;
 	private List<Tank> listTankParent;
 
+	private String name;
+
 	//Tools
 	private double in;
 	private double out;
 	private double C;
-
 
 	}

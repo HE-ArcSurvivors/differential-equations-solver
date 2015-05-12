@@ -1,11 +1,9 @@
 package layout;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import layout.bottom.JPanelBottom;
 import layout.toolsbar.JPanelOutils;
 
 public class JPanelTabSimulation extends JPanel
@@ -44,10 +42,10 @@ public class JPanelTabSimulation extends JPanel
 			jpaneloutil = new JPanelOutils();
 			jpanelcontent = new JPanelContent();
 			jpanelbottom = new JPanelBottom(jpanelcontent);
-			jpanelbottom.setMinimumSize(new Dimension(this.getWidth(),100));
-			jpanelbottom.setSize(new Dimension(this.getWidth(),100));
-			jpanelbottom.setMaximumSize(new Dimension(this.getWidth(),100));
-			jpanelbottom.setPreferredSize(new Dimension(this.getWidth(),100));
+//			jpanelbottom.setMinimumSize(new Dimension(this.getWidth(),100));
+//			jpanelbottom.setSize(new Dimension(this.getWidth(),100));
+//			jpanelbottom.setMaximumSize(new Dimension(this.getWidth(),100));
+//			jpanelbottom.setPreferredSize(new Dimension(this.getWidth(),100));
 
 			// Layout : Specification
 			{
