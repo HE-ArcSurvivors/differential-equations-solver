@@ -1,9 +1,6 @@
 
 package layout;
 
-import java.awt.Container;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -131,31 +128,17 @@ public class JPanelContent extends JPanel
 				add(panelTank);
 				listPanelTank.add(panelTank);
 
-				//nécessaire d'être implémenté ici ?
-				panelTank.getBoutonDelete().addMouseListener(new MouseAdapter()
-					{
-						@Override
-						public void mousePressed(MouseEvent arg0)
-							{
-							Container tmp = panelTank.getParent();
-							panelTank.deleteTank();
-							panelTank.getParent().remove(panelTank);
-							tmp.repaint();
-							}
-
-					});
-
 				panelTank.setLocation(0, h); //TODO !
 				h += panelTank.getHeight() + 10;
 
 				tank = null;
 
-				System.out.println("IT'S A TANK !");
+//				System.out.println("IT'S A TANK !");
 				}
 			}
 
 		mainTank = null;
-		System.out.println(listPanelTank);
+//		System.out.println(listPanelTank);
 		return listPanelTank;
 		}
 
@@ -164,7 +147,7 @@ public class JPanelContent extends JPanel
 		//removeAll();
 		for(JPanelTank paneltank:listPanelTank)
 			{
-			System.out.println("Aff a tank");
+//			System.out.println("Aff a tank");
 			paneltank.affTime(t);
 			}
 
@@ -208,7 +191,7 @@ public class JPanelContent extends JPanel
 		// rien
 		}
 
-	//	private void addParameters() {
+	//	private void addBoutonsAddParentAndChild() {
 	//
 	//		// JXCollapsiblePane
 	//		box.setBorder(new LineBorder(Color.black));
