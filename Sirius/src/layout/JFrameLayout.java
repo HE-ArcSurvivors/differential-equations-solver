@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import substance.Substance;
 import tank.Tank;
@@ -27,7 +29,10 @@ public class JFrameLayout extends JFrame
 		SimulationSingleton.getInstance().addSubstance(sel);
 
 		this.r1 = new Tank(false, 500, 5);
+		this.r1.setName("ParentTank");
 		this.r2 = new Tank(false, 200, 5);
+		this.r2.setName("MainTank");
+
 		this.r1.addSubstance(sel, 2);
 		this.r1.addSubstance(eau, 500);
 
@@ -69,7 +74,7 @@ public class JFrameLayout extends JFrame
 			panelResolution = new JPanelTabResolution();
 
 			tabbedPane.addTab("Simulation",panelSimulation);
-			tabbedPane.addTab("RÃ©solution",panelResolution);
+			tabbedPane.addTab("Résolution",panelResolution);
 
 			// Layout : Specification
 			{
@@ -83,6 +88,18 @@ public class JFrameLayout extends JFrame
 
 	private void control()
 		{
+		tabbedPane.addChangeListener(new ChangeListener()
+			{
+				@Override
+				public void stateChanged(ChangeEvent e)
+					{
+					System.out.println("Changement");
+					if(tabbedPane.getSelectedIndex() == tabbedPane.indexOfComponent(panelResolution))
+						{
+							panelResolution.reload();
+						}
+					}
+			});
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		}
 

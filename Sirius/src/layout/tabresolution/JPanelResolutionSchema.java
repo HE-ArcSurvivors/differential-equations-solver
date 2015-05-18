@@ -1,24 +1,18 @@
+package layout.tabresolution;
 
-package layout.bottom;
+import java.awt.FlowLayout;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-
-import javax.swing.Box;
 import javax.swing.JPanel;
 
-import layout.JPanelContent;
-
-public class JPanelBottom extends JPanel
+public class JPanelResolutionSchema extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelBottom(JPanelContent jpanelcontent)
+	public JPanelResolutionSchema()
 		{
-		jpanelbottomsimulationline = new JPanelBottomSimulationLine(jpanelcontent);
 		geometry();
 		control();
 		appearance();
@@ -40,41 +34,31 @@ public class JPanelBottom extends JPanel
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
-	@Override
-	protected void paintComponent(Graphics g)
-		{
-		super.paintComponent(g);
-		}
-
 	private void geometry()
 		{
+			// JComponent : Instanciation
 
-		jpanelbottomequationline = new JPanelBottomEquationLine();
+			// Layout : Specification
+			{
+			FlowLayout flowlayout = new FlowLayout(FlowLayout.LEFT);
+			setLayout(flowlayout);
 
-		Box boxV = Box.createVerticalBox();
+			// flowlayout.setHgap(20);
+			// flowlayout.setVgap(20);
+			}
 
-		boxV.add(jpanelbottomsimulationline);
-		boxV.add(Box.createVerticalGlue());
-		boxV.add(jpanelbottomequationline);
-
-		setLayout(new BorderLayout());
-		add(boxV,BorderLayout.WEST);
+		// JComponent : add
 
 		}
 
 	private void control()
 		{
-
+		// rien
 		}
 
 	private void appearance()
 		{
-
-		}
-
-	public void setEquationVisible(boolean visible)
-		{
-			jpanelbottomequationline.setVisible(visible);
+		// rien
 		}
 
 	/*------------------------------------------------------------------*\
@@ -82,7 +66,6 @@ public class JPanelBottom extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	private JPanelBottomEquationLine jpanelbottomequationline;
-	private JPanelBottomSimulationLine jpanelbottomsimulationline;
+
 
 	}

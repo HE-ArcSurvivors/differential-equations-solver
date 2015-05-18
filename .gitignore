@@ -84,3 +84,5 @@ Administration/Scénario/~$Présentation du Scénario.odp
 Sirius/.classpath
 Sirius/.project
 *.orig
+Sirius/.settings/
+Sirius/src/Basic/

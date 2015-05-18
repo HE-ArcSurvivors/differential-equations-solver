@@ -1,6 +1,7 @@
 
 package tank;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 import substance.Substance;
+import tools.MathTools;
+import differentialEquationSolving.SimulationSingleton;
 
 public class Tank implements Iterable<Tank>
 	{
@@ -26,6 +29,8 @@ public class Tank implements Iterable<Tank>
 		this.infini = infini;
 		this.capacite = capacite;
 		this.debit = debit;
+
+		this.name = "";
 		}
 
 	/*------------------------------------------------------------------*\
@@ -33,18 +38,12 @@ public class Tank implements Iterable<Tank>
 	\*------------------------------------------------------------------*/
 
 	/*------------------------------*\
-	|*	   RÔøΩsolution d'ÔøΩquation	*|
+	|*	   RÈsolution d'Èquation	*|
 	\*------------------------------*/
 
 	public double equaDiff(double t, Substance substance)
 		{
-		in = 0;
-
-		for(Tank element:listTankParent)
-			{
-			in += element.getDebit() * element.getValueSubstance(substance);
-			}
-
+		in = getInflowTotal(substance);
 		out = debit / getContent(t);
 		C = this.getValueSubstance(substance) - Math.pow(out, -1) * in;
 
@@ -78,8 +77,8 @@ public class Tank implements Iterable<Tank>
 			}
 		System.out.println();
 		System.out.println("Contenu : " + getContent(t));
-		System.out.println("DÔøΩbit : " + getDebit());
-		System.out.println("QuantitÔøΩ de " + substance.getName() + " : " + equaDiff(t, substance));
+		System.out.println("DÈbit : " + getDebit());
+		System.out.println("QuantitÈ de " + substance.getName() + " : " + equaDiff(t, substance));
 		System.out.println();
 		}
 
@@ -95,19 +94,24 @@ public class Tank implements Iterable<Tank>
 		return this.listTankParent.iterator();
 		}
 
-	public String getFormula()
+	public String getFormula(double t)
 		{
-		//Math.pow(out, -1) * in + C * Math.exp(-t * out);
-		String outString = Double.toString(out);
-		String inString = Double.toString(in);
-		String cString = Double.toString(C);
 
-		return "y=" + outString + "^{-1}*" + inString + "+" + cString + "*e^{-t*" + outString + "}";
+		DecimalFormat dfsigned = new DecimalFormat("+#,##0.00;-#");
+
+		long gcm = MathTools.gcm((long)getDebit(), (long)getContent());
+		String outSimplifyFraction = "\\frac{" + getDebit() / gcm + "}{" + getContent() / gcm + "}";
+
+		Substance sub = SimulationSingleton.getInstance().getSubstanceAt(1);
+		Double inflow = getInflowTotal(sub);
+		Double value = inflow * getContent() / getDebit();
+
+		return "y("+t+") = "+value+" "+dfsigned.format(C)+" * e^{-"+t+"*"+outSimplifyFraction+"}";
 		}
 
 	public void delete()
 		{
-		//si il se d√©verse dans un tank il s'enl√®ve de la liste de parent de ce dernier
+		//si il se déverse dans un tank il s'enlève de la liste de parent de ce dernier
 		if (tankChild != null)
 			{
 			System.out.println("remove a child");
@@ -170,6 +174,11 @@ public class Tank implements Iterable<Tank>
 	public void setDebit(double debit)
 		{
 		this.debit = debit;
+		}
+
+	public void setName(String name)
+		{
+		this.name = name;
 		}
 
 	/*------------------------------*\
@@ -281,6 +290,36 @@ public class Tank implements Iterable<Tank>
 		return in;
 		}
 
+	public double getInflowTotal(Substance substance)
+		{
+		double inflow = 0;
+
+		for(Tank element:listTankParent)
+			{
+			inflow += element.getDebit() * element.getValueSubstance(substance);
+			}
+
+		return inflow;
+		}
+
+	public double getInflowSubstance(Substance substance)
+		{
+		double total = 0;
+
+		for(Tank element:listTankParent)
+			{
+			total += element.getValueSubstance(substance);
+			}
+
+		return total;
+		}
+
+
+	public String getName()
+		{
+		return this.name;
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
@@ -300,6 +339,8 @@ public class Tank implements Iterable<Tank>
 	private List<Tank> listTankParent;
 
 	private Tank tankChild;
+
+	private String name;
 
 	//Tools
 	private double in;
