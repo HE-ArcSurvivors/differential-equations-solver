@@ -34,7 +34,7 @@ public class JPanelTank extends JPanel {
 
 	public JPanelTank(Tank tank)
 		{
-		this.initialWidth = 400;
+		this.initialWidth = 524;
 		this.tank = tank;
 		geometry();
 		control();
@@ -186,11 +186,8 @@ public class JPanelTank extends JPanel {
 		int maxHeight = 500;
 
 		boutonDelete = new JButton("X");
-
 		boutonAddParent = new JButton("+");
 		
-		
-
 		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
 		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank,
 				Substance.LIQUID, tank.isInfini());
