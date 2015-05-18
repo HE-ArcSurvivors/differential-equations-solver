@@ -82,7 +82,7 @@ public class JPanelResolutionData extends JPanel
 
 		for(Substance sub:SimulationSingleton.getInstance().getSubstanceList())
 			{
-			latex += "\\text{Quantité de \"" + sub.getName() + "\" dans le réservoir principal: " + tank.getValueSubstance(sub) + "}\\\\";
+			latex += "\\text{Quantité de ``" + sub.getName() + "'' dans le réservoir principal: " + tank.getValueSubstance(sub) + "}\\\\";
 			System.out.println(sub.getName() + " : " + tank.getValueSubstance(sub));
 			}
 
@@ -95,14 +95,14 @@ public class JPanelResolutionData extends JPanel
 
 			for(Substance sub:SimulationSingleton.getInstance().getSubstanceList())
 				{
-				latex += "\\text{Quantité de \"" + sub.getName() + "\" dans le réservoir " + t.getName() + ": " + t.getValueSubstance(sub) + "}\\\\";
+				latex += "\\text{Quantité de ``" + sub.getName() + "'' dans le réservoir " + t.getName() + ": " + t.getValueSubstance(sub) + "}\\\\";
 				}
 			}
 
 		latex += "\\\\ \\\\ \\\\ \\boldsymbol{\\text{CALCULS PRÉALABLES}}\\\\ \\\\ \\\\";
-		latex += "\\text{Entrée de \"" + substance.getName() + "\": }" + tank.getInflow() + " * " + tank.getInflowSubstance(substance) + " = " + tank.getInflowTotal(substance) + "\\\\";
+		latex += "\\text{Entrée de ``" + substance.getName() + "'': }" + tank.getInflow() + " * " + tank.getInflowSubstance(substance) + " = " + tank.getInflowTotal(substance) + "\\\\";
 
-		latex += "\\text{Sortie de \"" + substance.getName() + "\":} \\frac{\\text{Débit sortant}}{\\text{Contenu}} \\Rightarrow ";
+		latex += "\\text{Sortie de ``" + substance.getName() + "'':} \\frac{\\text{Débit sortant}}{\\text{Contenu}} \\Rightarrow ";
 		latex += "\\frac{" + tank.getDebit() + "}{" + tank.getContent() + "} * y(t)\\\\";
 		latex += "\\text{Vitesse de variation: Entrée - Sortie(t)} \\Rightarrow ";
 		latex += "y'(t) = " + SimulationSingleton.getInstance().getMainTank().getInflowTotal(substance) + " - \\frac{" + tank.getDebit() + "}{" + tank.getContent() + "} * y(t)\\\\";

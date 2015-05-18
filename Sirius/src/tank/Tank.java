@@ -38,7 +38,7 @@ public class Tank implements Iterable<Tank>
 	\*------------------------------------------------------------------*/
 
 	/*------------------------------*\
-	|*	   Résolution d'équation	*|
+	|*	   Rï¿½solution d'ï¿½quation	*|
 	\*------------------------------*/
 
 	public double equaDiff(double t, Substance substance)
@@ -77,8 +77,8 @@ public class Tank implements Iterable<Tank>
 			}
 		System.out.println();
 		System.out.println("Contenu : " + getContent(t));
-		System.out.println("Débit : " + getDebit());
-		System.out.println("Quantité de " + substance.getName() + " : " + equaDiff(t, substance));
+		System.out.println("Dï¿½bit : " + getDebit());
+		System.out.println("Quantitï¿½ de " + substance.getName() + " : " + equaDiff(t, substance));
 		System.out.println();
 		}
 
