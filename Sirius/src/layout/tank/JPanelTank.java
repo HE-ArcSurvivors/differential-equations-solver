@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import layout.JPanelContent;
 import substance.Substance;
 import tank.Tank;
 import differentialEquationSolving.SimulationSingleton;
@@ -83,9 +84,6 @@ public class JPanelTank extends JPanel
 
 		boutonDelete = new JButton("D");
 
-		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
-		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
-
 		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
 
 		if (tank.isInfini())
@@ -95,11 +93,10 @@ public class JPanelTank extends JPanel
 		else
 			{
 			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
-
-			setFixeSize(jpanelSolid, 60, maxHeight);
-			setFixeSize(jpanelLiquid, 60, maxHeight);
 			}
 
+		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
+		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
 
 		setFixeSize(jpanelgraduation, 50, maxHeight);
 
@@ -121,6 +118,9 @@ public class JPanelTank extends JPanel
 
 			if (!tank.isInfini())
 				{
+				setFixeSize(jpanelSolid, 60, maxHeight);
+				setFixeSize(jpanelLiquid, 60, maxHeight);
+
 				add(createSeparation(20));
 				add(jpanelContentTank);
 				}
@@ -139,23 +139,24 @@ public class JPanelTank extends JPanel
 		final JPanelTank panelTank = this;
 		boutonDelete.addMouseListener(new MouseAdapter()
 			{
+
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
-					Container tmp = panelTank.getParent();
-					deleteTank();
-					panelTank.getParent().remove(panelTank);
-					tmp.repaint();
+					if (!SimulationSingleton.getInstance().isStarted())
+						{
+						Container tmp = panelTank.getParent();
+						deleteTank();
+						((JPanelContent)panelTank.getParent()).refresh();
+						tmp.repaint();
+						}
 					}
 
 			});
 		}
 
-
-
 	public void deleteTank()
 		{
-
 		if (SimulationSingleton.getInstance().getMainTank() == tank)
 			{
 			System.out.println("delete main");

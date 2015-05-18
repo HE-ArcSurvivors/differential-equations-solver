@@ -19,9 +19,7 @@ public class JPanelContent extends JPanel
 
 	public JPanelContent()
 		{
-		//tank1 = new JPanelTank(new Tank(false, 200, 5));
-		//listPanelTank = new LinkedList<JPanelTank>();
-		//tank1.setLocation(10, 150); // default pos
+
 		geometry();
 		control();
 		appearance();
@@ -117,13 +115,14 @@ public class JPanelContent extends JPanel
 			int i = pileTank.size() - 1;
 
 			Tank tank = pileTank.get(i);
+			//tank.printTank(0, SimulationSingleton.getInstance().getSubstanceList().get(0));
 			pileTank.remove(i);
 
 			if (tank != null)
 				{
 				pileTank.addAll(tank.getlistTankParent());
 
-				final JPanelTank panelTank = new JPanelTank(tank);
+				JPanelTank panelTank = new JPanelTank(tank);
 
 				add(panelTank);
 				listPanelTank.add(panelTank);
@@ -138,7 +137,6 @@ public class JPanelContent extends JPanel
 			}
 
 		mainTank = null;
-		System.out.println(listPanelTank);
 		return listPanelTank;
 		}
 
@@ -153,6 +151,18 @@ public class JPanelContent extends JPanel
 
 		repaint();
 		}
+
+	public void refresh()
+	{
+		removeAll();
+
+		listPanelTank = constructPannelsTank();
+
+		repaint();
+		updateUI();
+	}
+
+
 
 	/*------------------------------*\
 	|*				Set				*|
@@ -239,6 +249,7 @@ public class JPanelContent extends JPanel
 	\*------------------------------------------------------------------*/
 
 	private List<JPanelTank> listPanelTank;
+
 	//private JPanelTank tank1;
 	//
 	//	JXCollapsiblePane collapsibelPane = new JXCollapsiblePane(

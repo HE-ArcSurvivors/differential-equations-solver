@@ -85,6 +85,7 @@ public class Tank implements Iterable<Tank>
 
 	public boolean addTankParent(Tank tankParent)
 		{
+		tankParent.tankChild = this;
 		return listTankParent.add(tankParent);
 		}
 
@@ -94,23 +95,32 @@ public class Tank implements Iterable<Tank>
 		return this.listTankParent.iterator();
 		}
 
-public String getFormula()
-	{
+	public String getFormula()
+		{
 		//Math.pow(out, -1) * in + C * Math.exp(-t * out);
 		String outString = Double.toString(out);
 		String inString = Double.toString(in);
 		String cString = Double.toString(C);
 
-		return "y="+outString+"^{-1}*"+inString+"+"+cString+"*e^{-t*"+outString+"}";
-	}
+		return "y=" + outString + "^{-1}*" + inString + "+" + cString + "*e^{-t*" + outString + "}";
+		}
 
 	public void delete()
-	{
-		for(Tank tank: listTankParent)
+		{
+		//si il se déverse dans un tank il s'enlève de la liste de parent de ce dernier
+		if (tankChild != null)
+			{
+			System.out.println("remove a child");
+
+			tankChild.listTankParent.remove(this);
+			tankChild = null;
+			}
+
+		for(Tank tank:listTankParent)
 			{
 			tank = null;
 			}
-	}
+		}
 
 	/*------------------------------*\
 	|*	    List of Substances		*|
@@ -133,10 +143,7 @@ public String getFormula()
 			{
 			return mapSubstance.put(substance, quantity) != null;
 			}
-		else if (substance.getState() == Substance.LIQUID)
-			{
-			return mapLiquide.put(substance, quantity) != null;
-			}
+		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.put(substance, quantity) != null; }
 
 		return false;
 		}
@@ -221,7 +228,6 @@ public String getFormula()
 		return listTankParent;
 		}
 
-
 	public Map<Substance, Double> getTypeSubstances(double t, int substanceType)
 		{
 		Map<Substance, Double> mapTypeSubstances = new HashMap<Substance, Double>();
@@ -293,10 +299,11 @@ public String getFormula()
 	private Map<Substance, Double> mapLiquide;
 	private List<Tank> listTankParent;
 
+	private Tank tankChild;
+
 	//Tools
 	private double in;
 	private double out;
 	private double C;
-
 
 	}

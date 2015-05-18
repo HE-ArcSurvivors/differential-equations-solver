@@ -102,6 +102,9 @@ public class JPanelStopCondition extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
+					//start the simulation
+					SimulationSingleton.getInstance().setisStarted(true);
+
 					jframestopcondition.setStateCondition(currentState);
 					jframestopcondition.setVisible(false);
 					}
