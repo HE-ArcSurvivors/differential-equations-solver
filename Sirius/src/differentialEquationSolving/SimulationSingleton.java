@@ -18,6 +18,7 @@ public class SimulationSingleton
 	private SimulationSingleton()
 		{
 		listSubstance = new ArrayList<Substance>();
+		isStarted = false;
 		}
 
 	//Get the only object available
@@ -31,37 +32,47 @@ public class SimulationSingleton
 		}
 
 	public List<Substance> getSubstanceList()
-	{
+		{
 		return listSubstance;
-	}
+		}
 
 	public Substance getSubstanceAt(int i)
-	{
+		{
 		return listSubstance.get(i);
-	}
+		}
 
 	public boolean addSubstance(Substance substance)
-	{
+		{
 		return listSubstance.add(substance);
-	}
+		}
 
 	public Tank getMainTank()
-	{
+		{
 		return mainTank;
-	}
+		}
 
 	public void setMainTank(Tank tank)
-	{
+		{
 		mainTank = tank;
-	}
+		}
 
-	private Tank mainTank;
-	private List<Substance> listSubstance;
+	public boolean isStarted()
+		{
+		return isStarted;
+		}
 
-	//test
+	public void setisStarted(boolean started)
+		{
+		isStarted = started;
+		}
+
 	public void deleteMainTank()
 		{
 		mainTank = null;
 		}
+
+	private Tank mainTank;
+	private List<Substance> listSubstance;
+	private boolean isStarted;
 
 	}

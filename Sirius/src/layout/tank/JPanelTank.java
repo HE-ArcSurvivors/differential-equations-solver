@@ -32,8 +32,9 @@ public class JPanelTank extends JPanel {
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelTank(Tank tank) {
-		this.initialWidth = 530;
+	public JPanelTank(Tank tank)
+		{
+		this.initialWidth = 400;
 		this.tank = tank;
 		geometry();
 		control();
@@ -45,7 +46,8 @@ public class JPanelTank extends JPanel {
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
-	public void affTime(double t) {
+	public void affTime(double t)
+		{
 		jpanelSolid.updateFromTank(t);
 		jpanelLiquid.updateFromTank(t);
 	}
@@ -57,9 +59,10 @@ public class JPanelTank extends JPanel {
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
-	public JButton getBoutonDelete() {
+	public JButton getBoutonDelete()
+		{
 		return this.boutonDelete;
-	}
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
@@ -147,7 +150,6 @@ public class JPanelTank extends JPanel {
 
 	}
 	
-	
 	private void updateSimulationFromUser() {
 		
 		double value = Double.parseDouble(tankSubstanceValueList[0].getText());
@@ -171,14 +173,15 @@ public class JPanelTank extends JPanel {
 		return jpanelSeparation;
 	}
 
-	private void setFixeSize(JPanel jpanel, int width, int maxHeight) {
+	private void setFixeSize(JPanel jpanel, int width, int maxHeight)
+		{
 		jpanel.setMinimumSize(new Dimension(width, 0));
 		jpanel.setMaximumSize(new Dimension(width, maxHeight));
 		jpanel.setPreferredSize(new Dimension(width, 0));
 	}
 
-	private void geometry() {
-
+	private void geometry()
+		{
 		// JComponent : Instanciation
 		int maxHeight = 500;
 
@@ -194,15 +197,17 @@ public class JPanelTank extends JPanel {
 
 		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
 
-		if (tank.isInfini()) {
+		if (tank.isInfini())
+			{
 			initialWidth = 250;
-		} else {
-			jpanelContentTank = new JPannelContentTank(tank.getCapacite(),
-					tank.getContent());
+			}
+		else
+			{
+			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
+			}
 
-			setFixeSize(jpanelSolid, 60, maxHeight);
-			setFixeSize(jpanelLiquid, 60, maxHeight);
-		}
+		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
+		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
 
 		setFixeSize(jpanelgraduation, 50, maxHeight);
 
@@ -223,7 +228,11 @@ public class JPanelTank extends JPanel {
 			add(createSeparation(10));
 			add(jpanelLiquid);
 
-			if (!tank.isInfini()) {
+			if (!tank.isInfini())
+				{
+				setFixeSize(jpanelSolid, 60, maxHeight);
+				setFixeSize(jpanelLiquid, 60, maxHeight);
+
 				add(createSeparation(20));
 				add(jpanelContentTank);
 			}
@@ -243,16 +252,23 @@ public class JPanelTank extends JPanel {
 
 	}
 
-	private void control() {
+	private void control()
+		{
 		final JPanelTank panelTank = this;
-		boutonDelete.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				Container tmp = panelTank.getParent();
-				deleteTank();
-				panelTank.getParent().remove(panelTank);
-				tmp.repaint();
-			}
+		boutonDelete.addMouseListener(new MouseAdapter()
+			{
+
+				@Override
+				public void mousePressed(MouseEvent arg0)
+					{
+					if (!SimulationSingleton.getInstance().isStarted())
+						{
+						Container tmp = panelTank.getParent();
+						deleteTank();
+						((JPanelContent)panelTank.getParent()).refresh();
+						tmp.repaint();
+						}
+					}
 
 		});
 		
@@ -280,9 +296,10 @@ public class JPanelTank extends JPanel {
 		});
 	}
 
-	public void deleteTank() {
-
-		if (SimulationSingleton.getInstance().getMainTank() == tank) {
+	public void deleteTank()
+		{
+		if (SimulationSingleton.getInstance().getMainTank() == tank)
+			{
 			System.out.println("delete main");
 			SimulationSingleton.getInstance().deleteMainTank();
 		}
@@ -293,7 +310,8 @@ public class JPanelTank extends JPanel {
 		repaint();
 	}
 
-	private void appearance() {
+	private void appearance()
+		{
 		setBackground(Color.LIGHT_GRAY);
 		setSize(initialWidth, 200);
 	}

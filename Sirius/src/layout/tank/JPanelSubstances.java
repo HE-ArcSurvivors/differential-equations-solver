@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 
 import substance.Substance;
 import tank.Tank;
+import differentialEquationSolving.SimulationSingleton;
 
 public class JPanelSubstances extends JPanel
 	{
@@ -216,7 +217,7 @@ public class JPanelSubstances extends JPanel
 				public void mousePressed(MouseEvent e)
 					{
 					Substance tmp = overSubstance(e.getY());
-					if (tmp != null && !pourcentageMode) //TODO: change for many Liquids in infinite mode
+					if (tmp != null && !pourcentageMode && !SimulationSingleton.getInstance().isStarted()) //TODO: change for many Liquids in infinite mode
 						{
 						changingSubstance = tmp;
 						}
@@ -229,7 +230,7 @@ public class JPanelSubstances extends JPanel
 				@Override
 				public void mouseDragged(MouseEvent e)
 					{
-					if (changingSubstance != null)
+					if (changingSubstance != null && !SimulationSingleton.getInstance().isStarted())
 						{
 						//getParent().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 						changeSize(changingSubstance, map_Rectangles.get(changingSubstance), e.getY());
@@ -241,7 +242,7 @@ public class JPanelSubstances extends JPanel
 					{
 					Substance tmp = overSubstance(e.getY());
 
-					if (tmp != null)
+					if (tmp != null && !SimulationSingleton.getInstance().isStarted())
 						{
 						getParent().setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
 						}

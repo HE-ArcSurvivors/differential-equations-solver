@@ -84,6 +84,7 @@ public class Tank implements Iterable<Tank>
 
 	public boolean addTankParent(Tank tankParent)
 		{
+		tankParent.tankChild = this;
 		return listTankParent.add(tankParent);
 		}
 
@@ -110,6 +111,15 @@ public class Tank implements Iterable<Tank>
 
 	public void delete()
 		{
+		//si il se dverse dans un tank il s'enlve de la liste de parent de ce dernier
+		if (tankChild != null)
+			{
+			System.out.println("remove a child");
+
+			tankChild.listTankParent.remove(this);
+			tankChild = null;
+			}
+
 		for(Tank tank:listTankParent)
 			{
 			tank = null;
@@ -327,6 +337,8 @@ public class Tank implements Iterable<Tank>
 	private Map<Substance, Double> mapSubstance;
 	private Map<Substance, Double> mapLiquide;
 	private List<Tank> listTankParent;
+
+	private Tank tankChild;
 
 	private String name;
 
