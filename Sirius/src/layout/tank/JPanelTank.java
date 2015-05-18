@@ -28,14 +28,11 @@ public class JPanelTank extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelTank(Tank tank)
-		{
-		this.initialWidth = 530;
 		this.tank = tank;
-
 		geometry();
 		control();
 		appearance();
+
 		}
 
 	/*------------------------------------------------------------------*\
@@ -55,15 +52,13 @@ public class JPanelTank extends JPanel
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
-
-	public JButton getBoutonDelete()
-		{
-		return this.boutonDelete;
+	public JButton getBoutonDelete() {		return this.boutonDelete;
 		}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
+
 
 	private JPanel createSeparation(int width)
 		{
@@ -84,9 +79,8 @@ public class JPanelTank extends JPanel
 		jpanel.setPreferredSize(new Dimension(width, 0));
 		}
 
-	private void geometry()
-		{
-		int maxHeight = 500;
+		private void geometry()
+		{		int maxHeight = 500;
 
 		collapsiblePane = new JXCollapsiblePane(Direction.TRAILING);
 		collapsiblePane.setAlignmentX(LEFT_ALIGNMENT);
@@ -101,24 +95,18 @@ public class JPanelTank extends JPanel
 		buttonSettings.setText("");
 
 		boutonDelete = new JButton("X");
-		//boutonAddParent = new JButton("+");
-
+		boutonAddParent = new JButton("+");
 		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
-		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
+		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank,Substance.LIQUID, tank.isInfini());
 
 		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
 
 		if (tank.isInfini())
 			{
 			initialWidth = 250;
-			}
-		else
-			{
-			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
 
-			setFixeSize(jpanelSolid, 60, maxHeight);
-			setFixeSize(jpanelLiquid, 60, maxHeight);
-			}
+jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
+		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
 
 		setFixeSize(jpanelgraduation, 50, maxHeight);
 
@@ -126,22 +114,25 @@ public class JPanelTank extends JPanel
 		setFixeSize(jpanelTap, 60, maxHeight);
 
 		jpanelDelete = createSeparation(20);
+		jpanelDelete.add(boutonAddParent);
 		jpanelDelete.add(boutonDelete);
 		jpanelDelete.add(buttonSettings);
 		setFixeSize(jpanelDelete, 30, maxHeight);
 
+		{
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-		add(jpanelgraduation);
-		add(jpanelSolid);
+			add(jpanelSolid);
 
-		add(createSeparation(10));
-		add(jpanelLiquid);
+			add(jpanelLiquid);
 
-		if (!tank.isInfini())
-			{
-			add(createSeparation(20));
-			add(jpanelContentTank);
+			if (!tank.isInfini())
+				{
+				setFixeSize(jpanelSolid, 60, maxHeight);
+				setFixeSize(jpanelLiquid, 60, maxHeight);
+
+				add(createSeparation(20));
+				add(jpanelContentTank);
 			}
 
 		add(jpanelDelete);
@@ -150,42 +141,72 @@ public class JPanelTank extends JPanel
 
 		}
 
-	private void control()
-		{
-		final JPanelTank panelTank = this;
+final JPanelTank panelTank = this;
+		boutonDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				Container tmp = panelTank.getParent();
+				deleteTank();
+				panelTank.getParent().remove(panelTank);
+				tmp.repaint();
+			}
 		boutonDelete.addMouseListener(new MouseAdapter()
 			{
+
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
-					Container tmp = panelTank.getParent();
-					deleteTank();
-					panelTank.getParent().remove(panelTank);
-					tmp.repaint();
+					if (!SimulationSingleton.getInstance().isStarted())
+						{
+						Container tmp = panelTank.getParent();
+						deleteTank();
+						((JPanelContent)panelTank.getParent()).refresh();
+						tmp.repaint();
+						}
 					}
-			});
-		}
 
+		});
+		
+		boutonAddParent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+
+				Tank parentTank = new Tank(false, 0, 0);
+				Substance eau = new Substance("Eau", (float)0.6, Substance.LIQUID);
+
+				parentTank.setName("Added Parent by user");
+				parentTank.addSubstance(eau, 500);
+
+				tank.addTankParent(parentTank);
+
+				SimulationSingleton.getInstance().setMainTank(tank);
+				
+				System.out.println(""+parentTank.getName());
+				
+				Container tmp = panelTank.getParent();
+				tmp.repaint();
+				
+			}
+
+		});
 	public void deleteTank()
 		{
 
-		if (SimulationSingleton.getInstance().getMainTank() == tank)
-			{
-			System.out.println("delete main");
+		if (SimulationSingleton.getInstance().getMainTank() == tank) {			System.out.println("delete main");
 			SimulationSingleton.getInstance().deleteMainTank();
-			}
+		}
 
 		tank.delete();
 		tank = null;
 
 		repaint();
-		}
+	}
 
 	private void appearance()
 		{
 		setBackground(Color.LIGHT_GRAY);
 		setSize(initialWidth, 200);
-		}
+	}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|

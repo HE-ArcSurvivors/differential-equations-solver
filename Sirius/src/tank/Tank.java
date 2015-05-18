@@ -38,8 +38,7 @@ public class Tank implements Iterable<Tank>
 	\*------------------------------------------------------------------*/
 
 	/*------------------------------*\
-	|*	   Rï¿½solution d'ï¿½quation	*|
-	\*------------------------------*/
+	|*	   Résolution d'équation	*|	\*------------------------------*/
 
 	public double equaDiff(double t, Substance substance)
 		{
@@ -77,13 +76,12 @@ public class Tank implements Iterable<Tank>
 			}
 		System.out.println();
 		System.out.println("Contenu : " + getContent(t));
-		System.out.println("Dï¿½bit : " + getDebit());
-		System.out.println("Quantitï¿½ de " + substance.getName() + " : " + equaDiff(t, substance));
-		System.out.println();
+		System.out.println("Quantité de " + substance.getName() + " : " + equaDiff(t, substance));		System.out.println();
 		}
 
 	public boolean addTankParent(Tank tankParent)
 		{
+		tankParent.tankChild = this;
 		return listTankParent.add(tankParent);
 		}
 
@@ -110,6 +108,15 @@ public class Tank implements Iterable<Tank>
 
 	public void delete()
 		{
+		//si il se déverse dans un tank il s'enlve de la liste de parent de ce dernier
+		if (tankChild != null)
+			{
+			System.out.println("remove a child");
+
+			tankChild.listTankParent.remove(this);
+			tankChild = null;
+			}
+
 		for(Tank tank:listTankParent)
 			{
 			tank = null;
@@ -327,6 +334,8 @@ public class Tank implements Iterable<Tank>
 	private Map<Substance, Double> mapSubstance;
 	private Map<Substance, Double> mapLiquide;
 	private List<Tank> listTankParent;
+
+	private Tank tankChild;
 
 	private String name;
 

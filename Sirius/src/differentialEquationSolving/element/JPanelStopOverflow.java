@@ -49,7 +49,7 @@ public class JPanelStopOverflow extends JPanel
 	private void geometry()
 		{
 		// JComponent : Instanciation
-		stopOverflow = new JRadioButton("Arrêt débordement");
+		stopOverflow = new JRadioButton("ArrÃªt dÃ©bordement");
 		stopOverflow.setSelected(false);
 		stopOverflow.setPreferredSize(new Dimension(200, 20));
 
@@ -90,7 +90,7 @@ public class JPanelStopOverflow extends JPanel
 		if(!value)
 			{
 			stopOverflow.setEnabled(false);
-			jlabelPossible.setText("Cet événement n'arrivera pas");
+			jlabelPossible.setText("Cet Ã©vÃ©nement n'arrivera pas");
 			possible = value;
 			}
 	}

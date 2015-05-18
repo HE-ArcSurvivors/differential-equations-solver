@@ -1,6 +1,8 @@
 package layout.toolsbar;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +14,10 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import substance.Substance;
 import tools.MagasinImage;
@@ -71,20 +76,37 @@ public class JPanelOutilSubstance extends JPanel
 			substance_field = new JTextField(substance.getName());
 			substance_field.setVisible(false);
 
+			substance_color = new JLabel("couleur");
+
+			sliderColor = new JSlider(0,100);
+			sliderColor.setPreferredSize(new Dimension(90, 30));
+			sliderColor.setValue((int)(substance.getHue_color()*100));
+
 			this.stateEdit = false;
 
 			// Layout
-			Box boxH = Box.createHorizontalBox();
-			boxH.add(substance_name);
-			boxH.add(substance_field);
-			boxH.add(Box.createHorizontalStrut(10));
-			boxH.add(buttonEdit);
-			boxH.add(buttonValidate);
+			Box boxH_line1 = Box.createHorizontalBox();
+			boxH_line1.setAlignmentX(Component.LEFT_ALIGNMENT);
+			boxH_line1.add(substance_name);
+			boxH_line1.add(substance_field);
+			boxH_line1.add(Box.createHorizontalStrut(10));
+			boxH_line1.add(buttonEdit);
+			boxH_line1.add(buttonValidate);
+
+			Box boxH_line2 = Box.createHorizontalBox();
+			boxH_line2.setAlignmentX(Component.LEFT_ALIGNMENT);
+			boxH_line2.add(substance_color);
+			boxH_line2.add(sliderColor);
+
+
+			Box boxV = Box.createVerticalBox();
+			boxV.add(boxH_line1);
+			boxV.add(boxH_line2);
 
 			setLayout(new FlowLayout(FlowLayout.LEFT));
 
 			// JComponent : add
-			add(boxH);
+			add(boxV);
 		}
 
 	private void control()
@@ -122,6 +144,22 @@ public class JPanelOutilSubstance extends JPanel
 					validateEdit();
 					}
 			});
+
+		final JPanelOutilSubstance me = this;
+		sliderColor.addChangeListener(new ChangeListener()
+			{
+
+			@Override
+			public void stateChanged(ChangeEvent e)
+				{
+				substance.setHue_color((float)sliderColor.getValue()/100);
+				SwingUtil.repaintAllParent(me);
+
+				int rgb = Color.HSBtoRGB(substance.getHue_color(), 1, 1);
+				Color color = new Color(rgb);
+				substance_name.setForeground(color);
+				}
+		});
 		}
 
 	private void validateEdit()
@@ -160,6 +198,10 @@ public class JPanelOutilSubstance extends JPanel
 
 	private JButton buttonEdit;
 	private JButton buttonValidate;
+
+	private JLabel substance_color;
+	private JSlider sliderColor;
+
 	private boolean stateEdit;
 
 	}
