@@ -13,6 +13,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import layout.JPanelContent;
+
 import org.jdesktop.swingx.JXCollapsiblePane;
 import org.jdesktop.swingx.JXCollapsiblePane.Direction;
 
@@ -28,11 +30,13 @@ public class JPanelTank extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
+	public JPanelTank(Tank tank)
+		{
+		this.initialWidth = 400;
 		this.tank = tank;
 		geometry();
 		control();
 		appearance();
-
 		}
 
 	/*------------------------------------------------------------------*\
@@ -43,7 +47,7 @@ public class JPanelTank extends JPanel
 		{
 		jpanelSolid.updateFromTank(t);
 		jpanelLiquid.updateFromTank(t);
-		}
+	}
 
 	/*------------------------------*\
 	|*				Set				*|
@@ -52,35 +56,37 @@ public class JPanelTank extends JPanel
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
-	public JButton getBoutonDelete() {		return this.boutonDelete;
+
+	public JButton getBoutonDelete()
+		{
+		return this.boutonDelete;
 		}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
-
-	private JPanel createSeparation(int width)
-		{
-		int maxHeight = 500;
-		JPanel jpanelSeparation;
-		jpanelSeparation = new JPanel();
-		jpanelSeparation.setBackground(Color.LIGHT_GRAY);
-		jpanelSeparation.setPreferredSize(new Dimension(width, 0));
-		jpanelSeparation.setMinimumSize(new Dimension(width, 0));
-		jpanelSeparation.setMaximumSize(new Dimension(width, maxHeight));
-		return jpanelSeparation;
-		}
+	private JPanel createSeparation(int width) {
+	int maxHeight = 500;
+	JPanel jpanelSeparation;
+	jpanelSeparation = new JPanel();
+	jpanelSeparation.setBackground(Color.LIGHT_GRAY);
+	jpanelSeparation.setPreferredSize(new Dimension(width, 0));
+	jpanelSeparation.setMinimumSize(new Dimension(width, 0));
+	jpanelSeparation.setMaximumSize(new Dimension(width, maxHeight));
+	return jpanelSeparation;
+}
 
 	private void setFixeSize(JPanel jpanel, int width, int maxHeight)
 		{
 		jpanel.setMinimumSize(new Dimension(width, 0));
 		jpanel.setMaximumSize(new Dimension(width, maxHeight));
 		jpanel.setPreferredSize(new Dimension(width, 0));
-		}
+	}
 
-		private void geometry()
-		{		int maxHeight = 500;
+	private void geometry()
+		{
+		int maxHeight = 500;
 
 		collapsiblePane = new JXCollapsiblePane(Direction.TRAILING);
 		collapsiblePane.setAlignmentX(LEFT_ALIGNMENT);
@@ -96,16 +102,19 @@ public class JPanelTank extends JPanel
 
 		boutonDelete = new JButton("X");
 		boutonAddParent = new JButton("+");
-		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
-		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank,Substance.LIQUID, tank.isInfini());
 
 		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
 
 		if (tank.isInfini())
 			{
 			initialWidth = 250;
+			}
+		else
+			{
+			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
+			}
 
-jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
+		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
 		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
 
 		setFixeSize(jpanelgraduation, 50, maxHeight);
@@ -115,41 +124,35 @@ jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
 
 		jpanelDelete = createSeparation(20);
 		jpanelDelete.add(boutonAddParent);
-		jpanelDelete.add(boutonDelete);
 		jpanelDelete.add(buttonSettings);
+		jpanelDelete.add(boutonDelete);
 		setFixeSize(jpanelDelete, 30, maxHeight);
 
-		{
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-			add(jpanelSolid);
+		add(jpanelgraduation);
+		add(jpanelSolid);
 
-			add(jpanelLiquid);
+		add(createSeparation(10));
+		add(jpanelLiquid);
 
-			if (!tank.isInfini())
-				{
-				setFixeSize(jpanelSolid, 60, maxHeight);
-				setFixeSize(jpanelLiquid, 60, maxHeight);
+		if (!tank.isInfini())
+			{
+			setFixeSize(jpanelSolid, 60, maxHeight);
+			setFixeSize(jpanelLiquid, 60, maxHeight);
 
-				add(createSeparation(20));
-				add(jpanelContentTank);
-			}
+			add(createSeparation(20));
+			add(jpanelContentTank);
+		}
 
 		add(jpanelDelete);
 		add(jpanelTap);
 		add(collapsiblePane);
-
 		}
 
-final JPanelTank panelTank = this;
-		boutonDelete.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				Container tmp = panelTank.getParent();
-				deleteTank();
-				panelTank.getParent().remove(panelTank);
-				tmp.repaint();
-			}
+		private void control()
+		{
+		final JPanelTank panelTank = this;
 		boutonDelete.addMouseListener(new MouseAdapter()
 			{
 
@@ -166,7 +169,23 @@ final JPanelTank panelTank = this;
 					}
 
 		});
-		
+		boutonDelete.addMouseListener(new MouseAdapter()
+			{
+
+				@Override
+				public void mousePressed(MouseEvent arg0)
+					{
+					if (!SimulationSingleton.getInstance().isStarted())
+						{
+						Container tmp = panelTank.getParent();
+						deleteTank();
+						((JPanelContent)panelTank.getParent()).refresh();
+						tmp.repaint();
+						}
+					}
+
+		});
+
 		boutonAddParent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -180,17 +199,19 @@ final JPanelTank panelTank = this;
 				tank.addTankParent(parentTank);
 
 				SimulationSingleton.getInstance().setMainTank(tank);
-				
+
 				System.out.println(""+parentTank.getName());
-				
+
 				Container tmp = panelTank.getParent();
 				tmp.repaint();
-				
+
 			}
 
 		});
+	}
+
 	public void deleteTank()
-		{
+	{
 
 		if (SimulationSingleton.getInstance().getMainTank() == tank) {			System.out.println("delete main");
 			SimulationSingleton.getInstance().deleteMainTank();
@@ -203,7 +224,7 @@ final JPanelTank panelTank = this;
 	}
 
 	private void appearance()
-		{
+	{
 		setBackground(Color.LIGHT_GRAY);
 		setSize(initialWidth, 200);
 	}
@@ -234,4 +255,4 @@ final JPanelTank panelTank = this;
 	// in
 	private Tank tank;
 
-	}
+}
