@@ -77,7 +77,7 @@ public class JPanelOutils extends JPanel
 	private void appearance()
 		{
 		int height = this.getHeight();
-		setPreferredSize(new Dimension(150,height));
+		setPreferredSize(new Dimension(160,height));
 		}
 
 	/*------------------------------------------------------------------*\

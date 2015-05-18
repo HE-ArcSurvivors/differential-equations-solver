@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.Action;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -96,13 +97,20 @@ public class JPanelTank extends JPanel
 		collapsiblePane.setCollapsed(true);
 
 		Action toggleAction = collapsiblePane.getActionMap().get(JXCollapsiblePane.TOGGLE_ACTION);
-		buttonSettings = new JButton();
+		buttonSettings = new JButton("");
 		buttonSettings.setAction(toggleAction);
 		buttonSettings.setIcon(MagasinImage.iconSettings);
 		buttonSettings.setText("");
+		buttonSettings.setContentAreaFilled(false);
+		buttonSettings.setBorder(BorderFactory.createEmptyBorder());
 
 		boutonDelete = new JButton(MagasinImage.iconDelete);
+		boutonDelete.setContentAreaFilled(false);
+		boutonDelete.setBorder(BorderFactory.createEmptyBorder());
+
 		boutonAddParent = new JButton(MagasinImage.iconAdd);
+		boutonAddParent.setContentAreaFilled(false);
+		boutonAddParent.setBorder(BorderFactory.createEmptyBorder());
 
 		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
 
