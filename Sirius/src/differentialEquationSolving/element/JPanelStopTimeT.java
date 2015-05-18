@@ -51,7 +51,7 @@ public class JPanelStopTimeT extends JPanel
 	private void geometry()
 		{
 		// JComponent : Instanciation
-		stopTimeT = new JRadioButton("Arrêt temps t");
+		stopTimeT = new JRadioButton("ArrÃªt temps t");
 		stopTimeT.setSelected(true);
 		stopTimeT.setPreferredSize(new Dimension(150, 20));
 

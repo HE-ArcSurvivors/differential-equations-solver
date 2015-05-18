@@ -48,7 +48,7 @@ public class JPanelStopEmpty extends JPanel
 	private void geometry()
 		{
 		// JComponent : Instanciation
-		stopEmpty = new JRadioButton("Arrêt vide");
+		stopEmpty = new JRadioButton("ArrÃªt vide");
 		stopEmpty.setSelected(false);
 		stopEmpty.setPreferredSize(new Dimension(200, 20));
 
@@ -89,7 +89,7 @@ public class JPanelStopEmpty extends JPanel
 		if(!value)
 			{
 			stopEmpty.setEnabled(false);
-			jlabelPossible.setText("Cet événement n'arrivera pas");
+			jlabelPossible.setText("Cet Ã©vÃ©nement n'arrivera pas");
 			possible = value;
 			}
 	}

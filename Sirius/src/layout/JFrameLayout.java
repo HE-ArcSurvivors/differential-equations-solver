@@ -74,7 +74,7 @@ public class JFrameLayout extends JFrame
 			panelResolution = new JPanelTabResolution();
 
 			tabbedPane.addTab("Simulation",panelSimulation);
-			tabbedPane.addTab("Résolution",panelResolution);
+			tabbedPane.addTab("RÃ©solution",panelResolution);
 
 			// Layout : Specification
 			{

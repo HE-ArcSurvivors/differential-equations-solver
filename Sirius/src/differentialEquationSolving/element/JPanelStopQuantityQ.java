@@ -56,7 +56,7 @@ public class JPanelStopQuantityQ extends JPanel
 	private void geometry()
 		{
 		// JComponent : Instanciation
-		stopQuantityQ = new JRadioButton("Arr�t quantit� t");
+		stopQuantityQ = new JRadioButton("Arrêt quantité t");
 		stopQuantityQ.setSelected(false);
 		stopQuantityQ.setPreferredSize(new Dimension(150, 20));
 

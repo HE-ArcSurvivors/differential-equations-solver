@@ -147,6 +147,7 @@ public class JPanelTank extends JPanel {
 
 	}
 	
+	
 	private void updateSimulationFromUser() {
 		
 		double value = Double.parseDouble(tankSubstanceValueList[0].getText());
@@ -183,7 +184,7 @@ public class JPanelTank extends JPanel {
 
 		boutonDelete = new JButton("X");
 
-//		boutonAddParent = new JButton("+");
+		boutonAddParent = new JButton("+");
 		
 		
 
@@ -209,6 +210,7 @@ public class JPanelTank extends JPanel {
 		setFixeSize(jpanelTap, 60, maxHeight);
 
 		jpanelDelete = createSeparation(20);
+		jpanelDelete.add(boutonAddParent);
 		jpanelDelete.add(boutonDelete);
 
 		// Layout : Specification
@@ -238,11 +240,6 @@ public class JPanelTank extends JPanel {
 //		int dx = getWidth();
 //		
 //		System.out.println(dx);
-//		
-//		add(boutonAddParent);
-		
-
-		// JComponent : add
 
 	}
 
@@ -255,6 +252,29 @@ public class JPanelTank extends JPanel {
 				deleteTank();
 				panelTank.getParent().remove(panelTank);
 				tmp.repaint();
+			}
+
+		});
+		
+		boutonAddParent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+
+				Tank parentTank = new Tank(false, 0, 0);
+				Substance eau = new Substance("Eau", (float)0.6, Substance.LIQUID);
+
+				parentTank.setName("Added Parent by user");
+				parentTank.addSubstance(eau, 500);
+
+				tank.addTankParent(parentTank);
+
+				SimulationSingleton.getInstance().setMainTank(tank);
+				
+				System.out.println(""+parentTank.getName());
+				
+				Container tmp = panelTank.getParent();
+				tmp.repaint();
+				
 			}
 
 		});
