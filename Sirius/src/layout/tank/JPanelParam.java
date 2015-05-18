@@ -108,8 +108,18 @@ public class JPanelParam extends JPanel
 		//		tank.setInfini(getTankIsInfinit);
 
 		parent.affTime(0);
-
 		}
+
+	public void update()
+	{
+		contenance.setValue(tank.getCapacite());
+		debit.setValue(tank.getDebit());
+
+		for(Substance sub : mapSubstanceParamLine.keySet())
+		{
+			mapSubstanceParamLine.get(sub).setValue(tank.getValueSubstance(sub));
+		}
+	}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|

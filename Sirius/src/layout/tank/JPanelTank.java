@@ -32,7 +32,7 @@ public class JPanelTank extends JPanel
 
 	public JPanelTank(Tank tank)
 		{
-		this.initialWidth = 400;
+		this.initialWidth = 500;
 		this.tank = tank;
 		geometry();
 		control();
@@ -47,7 +47,7 @@ public class JPanelTank extends JPanel
 		{
 		jpanelSolid.updateFromTank(t);
 		jpanelLiquid.updateFromTank(t);
-	}
+		}
 
 	/*------------------------------*\
 	|*				Set				*|
@@ -66,23 +66,24 @@ public class JPanelTank extends JPanel
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
-	private JPanel createSeparation(int width) {
-	int maxHeight = 500;
-	JPanel jpanelSeparation;
-	jpanelSeparation = new JPanel();
-	jpanelSeparation.setBackground(Color.LIGHT_GRAY);
-	jpanelSeparation.setPreferredSize(new Dimension(width, 0));
-	jpanelSeparation.setMinimumSize(new Dimension(width, 0));
-	jpanelSeparation.setMaximumSize(new Dimension(width, maxHeight));
-	return jpanelSeparation;
-}
+	private JPanel createSeparation(int width)
+		{
+		int maxHeight = 500;
+		JPanel jpanelSeparation;
+		jpanelSeparation = new JPanel();
+		jpanelSeparation.setBackground(Color.LIGHT_GRAY);
+		jpanelSeparation.setPreferredSize(new Dimension(width, 0));
+		jpanelSeparation.setMinimumSize(new Dimension(width, 0));
+		jpanelSeparation.setMaximumSize(new Dimension(width, maxHeight));
+		return jpanelSeparation;
+		}
 
 	private void setFixeSize(JPanel jpanel, int width, int maxHeight)
 		{
 		jpanel.setMinimumSize(new Dimension(width, 0));
 		jpanel.setMaximumSize(new Dimension(width, maxHeight));
 		jpanel.setPreferredSize(new Dimension(width, 0));
-	}
+		}
 
 	private void geometry()
 		{
@@ -100,8 +101,8 @@ public class JPanelTank extends JPanel
 		buttonSettings.setIcon(MagasinImage.iconSettings);
 		buttonSettings.setText("");
 
-		boutonDelete = new JButton("X");
-		boutonAddParent = new JButton("+");
+		boutonDelete = new JButton(MagasinImage.iconDelete);
+		boutonAddParent = new JButton(MagasinImage.iconAdd);
 
 		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
 
@@ -143,14 +144,14 @@ public class JPanelTank extends JPanel
 
 			add(createSeparation(20));
 			add(jpanelContentTank);
-		}
+			}
 
 		add(jpanelDelete);
 		add(jpanelTap);
 		add(collapsiblePane);
 		}
 
-		private void control()
+	private void control()
 		{
 		final JPanelTank panelTank = this;
 		boutonDelete.addMouseListener(new MouseAdapter()
@@ -168,7 +169,7 @@ public class JPanelTank extends JPanel
 						}
 					}
 
-		});
+			});
 		boutonDelete.addMouseListener(new MouseAdapter()
 			{
 
@@ -184,50 +185,55 @@ public class JPanelTank extends JPanel
 						}
 					}
 
-		});
+			});
 
-		boutonAddParent.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
+		boutonAddParent.addMouseListener(new MouseAdapter()
+			{
 
-				Tank parentTank = new Tank(false, 0, 0);
-				Substance eau = new Substance("Eau", (float)0.6, Substance.LIQUID);
+				@Override
+				public void mousePressed(MouseEvent arg0)
+					{
 
-				parentTank.setName("Added Parent by user");
-				parentTank.addSubstance(eau, 500);
+					Tank parentTank = new Tank(false, 0, 0);
+					Substance eau = new Substance("Eau", (float)0.6, Substance.LIQUID);
 
-				tank.addTankParent(parentTank);
+					parentTank.setName("Added Parent by user");
+					parentTank.addSubstance(eau, 500);
 
-				SimulationSingleton.getInstance().setMainTank(tank);
+					tank.addTankParent(parentTank);
 
-				System.out.println(""+parentTank.getName());
+					SimulationSingleton.getInstance().setMainTank(tank);
 
-				Container tmp = panelTank.getParent();
-				tmp.repaint();
+					System.out.println("" + parentTank.getName());
 
-			}
+					Container tmp = panelTank.getParent();
+					tmp.repaint();
 
-		});
-	}
+					}
+
+			});
+		}
 
 	public void deleteTank()
-	{
+		{
 
-		if (SimulationSingleton.getInstance().getMainTank() == tank) {			System.out.println("delete main");
+		if (SimulationSingleton.getInstance().getMainTank() == tank)
+			{
+			System.out.println("delete main");
 			SimulationSingleton.getInstance().deleteMainTank();
-		}
+			}
 
 		tank.delete();
 		tank = null;
 
 		repaint();
-	}
+		}
 
 	private void appearance()
-	{
+		{
 		setBackground(Color.LIGHT_GRAY);
 		setSize(initialWidth, 200);
-	}
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
@@ -255,4 +261,4 @@ public class JPanelTank extends JPanel
 	// in
 	private Tank tank;
 
-}
+	}
