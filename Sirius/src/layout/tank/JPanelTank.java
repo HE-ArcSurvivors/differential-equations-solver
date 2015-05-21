@@ -32,7 +32,7 @@ public class JPanelTank extends JPanel
 
 	public JPanelTank(Tank tank)
 		{
-		this.initialWidth = 400;
+		this.initialWidth = 500;
 		this.tank = tank;
 		geometry();
 		control();
