@@ -76,11 +76,13 @@ public class JPanelOutilSubstance extends JPanel
 			substance_field = new JTextField(substance.getName());
 			substance_field.setVisible(false);
 
-			substance_color = new JLabel("couleur");
+			substance_color = new JLabel("Couleur");
+			substance_color.setVisible(false);
 
 			sliderColor = new JSlider(0,100);
 			sliderColor.setPreferredSize(new Dimension(90, 30));
 			sliderColor.setValue((int)(substance.getHue_color()*100));
+			sliderColor.setVisible(false);
 
 			this.stateEdit = false;
 
@@ -98,7 +100,6 @@ public class JPanelOutilSubstance extends JPanel
 			boxH_line2.add(substance_color);
 			boxH_line2.add(sliderColor);
 
-
 			Box boxV = Box.createVerticalBox();
 			boxV.add(boxH_line1);
 			boxV.add(boxH_line2);
@@ -111,7 +112,6 @@ public class JPanelOutilSubstance extends JPanel
 
 	private void control()
 		{
-
 		substance_field.addKeyListener(new KeyAdapter()
 			{
 				@Override
@@ -177,6 +177,9 @@ public class JPanelOutilSubstance extends JPanel
 
 		buttonValidate.setVisible(!stateEdit);
 		buttonEdit.setVisible(stateEdit);
+
+		substance_color.setVisible(!stateEdit);
+		sliderColor.setVisible(!stateEdit);
 
 		stateEdit = !stateEdit;
 	}

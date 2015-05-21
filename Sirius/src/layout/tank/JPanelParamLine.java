@@ -46,8 +46,12 @@ public class JPanelParamLine extends JPanel
 
 	public double getValue()
 	{
-
 		return Double.parseDouble(textfield.getText());
+	}
+
+	public void setValue(Double value)
+	{
+		textfield.setText(""+value);
 	}
 
 	/*------------------------------*\

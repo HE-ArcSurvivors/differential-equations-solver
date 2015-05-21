@@ -22,7 +22,8 @@ public class MagasinImage
 	public static final ImageIcon iconPlay = ImageLoader.loadSynchroneJar("ressources/iconPlay-20x20.png");
 	public static final ImageIcon iconReload = ImageLoader.loadSynchroneJar("ressources/iconReload-20x20.png");
 	public static final ImageIcon iconSettings = ImageLoader.loadSynchroneJar("ressources/iconSettings-20x20.png");
-
+	public static final ImageIcon iconAdd = ImageLoader.loadSynchroneJar("ressources/iconAdd-20x20.png");
+	public static final ImageIcon iconDelete = ImageLoader.loadSynchroneJar("ressources/iconDelete-20x20.png");
 
 	/*------------------------------------------------------------------*\
 	|*		Version Assynchrone	(non bloquant)							*|
