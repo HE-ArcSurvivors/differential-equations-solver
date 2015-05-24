@@ -92,12 +92,12 @@ public class JPanelParametres extends JPanel
 			add(new JLabel("Infini : "),CC.xy(1, 1));
 			add(infini,CC.xy(2, 1));
 
-			add(new JLabel("Capacité du réservoir (en litre) :"),CC.xy(1, 2));
+			add(new JLabel("CapacitÃ© du rÃ©servoir (en litre) :"),CC.xy(1, 2));
 			add(capacite,CC.xy(2, 2));
 
 			add(createSeparator("Configuration"),CC.xyw(1, 3,2));
 
-			add(new JLabel("Contenance du réservoir (en litre) :"),CC.xy(1, 4));
+			add(new JLabel("Contenance du rÃ©servoir (en litre) :"),CC.xy(1, 4));
 			add(contenance,CC.xy(2, 4));
 
 			add(new JLabel("Pourcentage d'eau :"),CC.xy(1,5));
@@ -106,7 +106,7 @@ public class JPanelParametres extends JPanel
 			add(new JLabel("Pourcentage de substance :"),CC.xy(1,6));
 			add(substance,CC.xy(2,6));
 
-			add(new JLabel("Débit (en l/s)"),CC.xy(1,7));
+			add(new JLabel("DÃ©bit (en l/s)"),CC.xy(1,7));
 			add(debit,CC.xy(2,7));
 		}
 

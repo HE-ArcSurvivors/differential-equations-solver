@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument;
 
 import tools.DoubleDocumentFilter;
-
 import differentialEquationSolving.JPanelStopCondition;
 
 public class JPanelStopTimeT extends JPanel
@@ -51,10 +50,9 @@ public class JPanelStopTimeT extends JPanel
 	private void geometry()
 		{
 		// JComponent : Instanciation
-		stopTimeT = new JRadioButton("Arrêt temps t");
+		stopTimeT = new JRadioButton("ArrÃªt temps t");
 		stopTimeT.setSelected(true);
 		stopTimeT.setPreferredSize(new Dimension(150, 20));
-
 
 		paramTime = new JTextField("0");
 		paramTime.setPreferredSize(new Dimension(50, 10));

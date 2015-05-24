@@ -79,7 +79,7 @@ public class JFrameLayout extends JFrame
 			panelResolution = new JPanelTabResolution();
 
 			tabbedPane.addTab("Simulation",panelSimulation);
-			tabbedPane.addTab("R�solution",panelResolution);
+			tabbedPane.addTab("Résolution",panelResolution);
 
 			// Layout : Specification
 			{
@@ -120,7 +120,7 @@ public class JFrameLayout extends JFrame
 
 	private void appearance()
 		{
-		setSize(800, 600);
+		setSize(1120, 600);
 		setLocationRelativeTo(null); // frame centrer
 		setVisible(true); // last!
 		}
