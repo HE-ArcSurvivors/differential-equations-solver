@@ -1,6 +1,8 @@
 package layout;
 
 import java.awt.BorderLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
@@ -47,6 +49,9 @@ public class JFrameLayout extends JFrame
 		geometry();
 		control();
 		appearance();
+
+		//Update with size
+		panelSimulation.getJpanelContent().refresh();
 		}
 
 	/*------------------------------------------------------------------*\
@@ -74,7 +79,7 @@ public class JFrameLayout extends JFrame
 			panelResolution = new JPanelTabResolution();
 
 			tabbedPane.addTab("Simulation",panelSimulation);
-			tabbedPane.addTab("Résolution",panelResolution);
+			tabbedPane.addTab("Rï¿½solution",panelResolution);
 
 			// Layout : Specification
 			{
@@ -99,6 +104,16 @@ public class JFrameLayout extends JFrame
 							panelResolution.reload();
 						}
 					}
+			});
+		this.addComponentListener(new ComponentAdapter()
+			{
+
+				@Override
+				public void componentResized(ComponentEvent arg0)
+					{
+					panelSimulation.getJpanelContent().refresh();
+					}
+
 			});
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		}

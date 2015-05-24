@@ -20,6 +20,7 @@ public class JPanelContent extends JPanel
 	public JPanelContent()
 		{
 
+		h=w=0;
 		geometry();
 		control();
 		appearance();
@@ -109,7 +110,12 @@ public class JPanelContent extends JPanel
 
 		//Technique d'affichage temporaire
 
-		int h = 10;
+
+		int xPosChild = 0;
+		int yPosChild = 0;
+		int iParent = 0;
+		Tank tankChild = mainTank;
+
 		while(!pileTank.isEmpty())
 			{
 			int i = pileTank.size() - 1;
@@ -127,16 +133,50 @@ public class JPanelContent extends JPanel
 				add(panelTank);
 				listPanelTank.add(panelTank);
 
-				panelTank.setLocation(0, h); //TODO !
-				h += panelTank.getHeight() + 10;
+				int xPos;
+				int yPos;
+
+				if(xPosChild == 0 && yPosChild == 0)
+					{
+						//main
+						System.out.println("---maintank---");
+						xPos = xPosChild = this.getWidth()/2 - (panelTank.getWidth()/2);
+						yPos = yPosChild = this.getHeight() - panelTank.getHeight();
+						tankChild = tank;
+					}
+				else
+					{
+						System.out.println("---childtank---");
+						//he has a child
+//						if(tankChild.getlistTankParent().contains(tank))
+//							{
+							int widthtotaltank = tankChild.getlistTankParent().size()*panelTank.getWidth() + panelTank.getWidth()/2;
+
+							System.out.println("total width : "+ widthtotaltank);
+							System.out.println("start pos X parent : "+((xPosChild + (panelTank.getWidth()/2)) - widthtotaltank/2));
+
+							xPos = ((xPosChild + panelTank.getWidth()/2) - widthtotaltank/2) + iParent*panelTank.getWidth();
+							yPos = yPosChild - panelTank.getHeight() - 10;
+
+							iParent++;
+//							}
+//						else
+//							{
+//
+//							}
+					}
+
+				panelTank.setLocation(xPos, yPos);
+
 
 				tank = null;
 
-//				System.out.println("IT'S A TANK !");
+				System.out.println("Tank => pos : x: "+xPos+ " , y: "+yPos );
 				}
 			}
 
 		mainTank = null;
+		tankChild= null;
 //		System.out.println(listPanelTank);
 		return listPanelTank;
 		}
@@ -179,13 +219,12 @@ public class JPanelContent extends JPanel
 
 	private void geometry()
 		{
-
 		// Layout : Specification
 		setLayout(null);
 
+
 		// JComponent : Instanciation
 		listPanelTank = constructPannelsTank();
-
 		}
 
 	private void control()
@@ -250,6 +289,9 @@ public class JPanelContent extends JPanel
 	\*------------------------------------------------------------------*/
 
 	private List<JPanelTank> listPanelTank;
+
+	private int w;
+	private int h;
 
 	//private JPanelTank tank1;
 	//
