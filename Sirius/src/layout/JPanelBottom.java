@@ -13,9 +13,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import layout.JPanelContent;
-import tools.SwingUtil;
 import tools.MagasinImage;
+import tools.SwingUtil;
 import differentialEquationSolving.JFrameStopCondition;
 import differentialEquationSolving.JLabelFormula;
 import differentialEquationSolving.JPanelStopCondition;
@@ -83,7 +82,7 @@ public class JPanelBottom extends JPanel
 					else
 						{
 						slider.setVisible(true);
-						//start annimation
+						//start animation
 						startanimation();
 						}
 					}
@@ -101,7 +100,6 @@ public class JPanelBottom extends JPanel
 
 		slider.addChangeListener(new ChangeListener()
 			{
-
 				@Override
 				public void stateChanged(ChangeEvent e)
 					{
@@ -143,13 +141,13 @@ public class JPanelBottom extends JPanel
 		else
 			{
 			slider.setValue(value);
+
 			updateUI();
 			repaint();
 			validate();
 			revalidate();
 			SwingUtil.repaintAllParent(this);
 
-			System.out.println("set value : "+value + ", get value :"+slider.getValue());
 			return true;
 			}
 		}
@@ -167,11 +165,11 @@ public class JPanelBottom extends JPanel
 					{
 					while(setValueSlider(value*10) && isStarted)
 						{
-						value ++;
+						value++;
 
 						try
 							{
-							Thread.sleep(10);
+							Thread.sleep(1000);
 							}
 						catch (InterruptedException e)
 							{
@@ -180,9 +178,8 @@ public class JPanelBottom extends JPanel
 						}
 					}
 			});
+
 		thread.run();
-
-
 
 		}
 
