@@ -30,22 +30,30 @@ public class JFrameLayout extends JFrame
 		SimulationSingleton.getInstance().addSubstance(eau);
 		SimulationSingleton.getInstance().addSubstance(sel);
 
-		this.r1 = new Tank(false, 500, 5);
-		this.r1.setName("ParentTank");
-		this.r2 = new Tank(false, 200, 5);
-		this.r2.setName("MainTank");
+		Tank r1 = new Tank(false, 500, 5);
+		r1.setName("ParentTank");
+		Tank r2 = new Tank(false, 200, 5);
+		r2.setName("MainTank");
+		Tank r3 = new Tank(false, 200, 5);
+		r2.setName("Parent2");
 
-		this.r1.addSubstance(sel, 2);
-		this.r1.addSubstance(eau, 500);
+		r1.addSubstance(sel, 2);
+		r1.addSubstance(eau, 500);
 
-		this.r2.addSubstance(sel, 4);
-		this.r2.addSubstance(eau, 100);
+		r2.addSubstance(sel, 4);
+		r2.addSubstance(eau, 100);
+
+		r3.addSubstance(sel, 4);
+		r3.addSubstance(eau, 100);
+
 		r2.addTankParent(r1);
+		r2.addTankParent(r3);
 
 		SimulationSingleton.getInstance().setMainTank(r2);
 
 		r1 = null;
 		r2 = null;
+		r3 = null;
 		geometry();
 		control();
 		appearance();
@@ -135,6 +143,5 @@ public class JFrameLayout extends JFrame
 	private JPanelTabResolution panelResolution;
 
 	// TEST
-	private Tank r1, r2;
 	private Substance eau, sel;
 	}
