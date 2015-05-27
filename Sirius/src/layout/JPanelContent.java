@@ -149,7 +149,7 @@ public class JPanelContent extends JPanel
 //			System.out.println("Aff a tank");
 			paneltank.affTime(t);
 			}
-
+		System.out.println("OK");
 		repaint();
 		}
 
