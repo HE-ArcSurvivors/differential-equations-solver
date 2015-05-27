@@ -31,6 +31,10 @@ public class JPanelTabSimulation extends JPanel
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
+	public JPanelContent getJpanelContent()
+	{
+		return jpanelcontent;
+	}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
