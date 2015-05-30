@@ -1,6 +1,7 @@
 
 package tank;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import substance.Substance;
 import tools.MathTools;
 import differentialEquationSolving.SimulationSingleton;
 
-public class Tank implements Iterable<Tank>
+public class Tank implements Iterable<Tank>, Serializable
 	{
 
 	/*------------------------------------------------------------------*\

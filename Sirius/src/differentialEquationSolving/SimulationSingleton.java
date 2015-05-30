@@ -1,13 +1,20 @@
 
 package differentialEquationSolving;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import substance.Substance;
 import tank.Tank;
 
-public class SimulationSingleton
+public class SimulationSingleton implements Serializable
 	{
 
 	//create an object of SingleObject
@@ -19,6 +26,7 @@ public class SimulationSingleton
 		{
 		listSubstance = new ArrayList<Substance>();
 		isStarted = false;
+		fileName = "";
 		}
 
 	//Get the only object available
@@ -29,6 +37,51 @@ public class SimulationSingleton
 			instance = new SimulationSingleton();
 			}
 		return instance;
+		}
+
+	public static void save(String filename)
+		{
+
+		try
+			{
+			FileOutputStream fos = new FileOutputStream(filename);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			ObjectOutputStream oos = new ObjectOutputStream(bos);
+
+			oos.writeObject(instance);
+			fileName = filename;
+
+			oos.close();
+			bos.close();
+			fos.close();
+			}
+		catch (Exception e)
+			{
+			// TODO Auto-generated catch block
+			System.err.println("Fichier non sauvegardé");
+			}
+		}
+
+	public static void load(String filename)
+		{
+		try
+			{
+			FileInputStream fis = new FileInputStream(filename);
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			ObjectInputStream ois = new ObjectInputStream(bis);
+
+			instance = (SimulationSingleton)ois.readObject();
+			fileName = filename;
+
+			ois.close();
+			bis.close();
+			fis.close();
+			}
+		catch (Exception e)
+			{
+			// TODO Auto-generated catch block
+			System.err.println("Fichier non chargé");
+			}
 		}
 
 	public List<Substance> getSubstanceList()
@@ -51,6 +104,10 @@ public class SimulationSingleton
 		return mainTank;
 		}
 
+	public String getCurrentFileName()
+	{
+		return fileName;
+	}
 	public void setMainTank(Tank tank)
 		{
 		mainTank = tank;
@@ -74,5 +131,6 @@ public class SimulationSingleton
 	private Tank mainTank;
 	private List<Substance> listSubstance;
 	private boolean isStarted;
+	private static String fileName;
 
 	}
