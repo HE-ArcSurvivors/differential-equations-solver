@@ -22,6 +22,7 @@ import org.jdesktop.swingx.JXCollapsiblePane.Direction;
 import substance.Substance;
 import tank.Tank;
 import tools.MagasinImage;
+import tools.SwingUtil;
 import differentialEquationSolving.SimulationSingleton;
 
 public class JPanelTank extends JPanel
@@ -195,6 +196,7 @@ public class JPanelTank extends JPanel
 
 			});
 
+		final JPanelTank me = this;
 		boutonAddParent.addMouseListener(new MouseAdapter()
 			{
 
@@ -203,19 +205,19 @@ public class JPanelTank extends JPanel
 					{
 
 					Tank parentTank = new Tank(false, 0, 0);
-					Substance eau = new Substance("Eau", (float)0.6, Substance.LIQUID);
 
 					parentTank.setName("Added Parent by user");
-					parentTank.addSubstance(eau, 500);
+					parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
 
 					tank.addTankParent(parentTank);
 
-					SimulationSingleton.getInstance().setMainTank(tank);
-
 					System.out.println("" + parentTank.getName());
 
-					Container tmp = panelTank.getParent();
-					tmp.repaint();
+//					Container tmp = panelTank.getParent();
+//					tmp.repaint();
+					me.repaint();
+					updateUI();
+					SwingUtil.repaintAllParent(me);
 
 					}
 
