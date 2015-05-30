@@ -32,37 +32,17 @@ public class JFrameLayout extends JFrame
 
 		setTitle(title+"[Nouveau Fichier]*");
 
-		/* TEST */
 		eau = new Substance("Eau", (float)0.6, Substance.LIQUID);
 		sel = new Substance("Sel", (float)1.0, Substance.SOLID);
-
 		SimulationSingleton.getInstance().addSubstance(eau);
 		SimulationSingleton.getInstance().addSubstance(sel);
 
-		Tank r1 = new Tank(false, 500, 5);
-		r1.setName("ParentTank");
-		Tank r2 = new Tank(false, 200, 5);
-		r2.setName("MainTank");
-		Tank r3 = new Tank(false, 200, 5);
-		r2.setName("Parent2");
-
-		r1.addSubstance(sel, 2);
+		Tank r1 = new Tank(false, 500, 0);
+		r1.setName("MainTank");
 		r1.addSubstance(eau, 500);
-
-		r2.addSubstance(sel, 4);
-		r2.addSubstance(eau, 100);
-
-		r3.addSubstance(sel, 4);
-		r3.addSubstance(eau, 100);
-
-		r2.addTankParent(r1);
-		r2.addTankParent(r3);
-
-		SimulationSingleton.getInstance().setMainTank(r2);
-
+		r1.addSubstance(sel,5);
+		SimulationSingleton.getInstance().setMainTank(r1);
 		r1 = null;
-		r2 = null;
-		r3 = null;
 
 		geometry();
 		control();

@@ -123,7 +123,7 @@ public class JPanelSubstances extends JPanel
 					{
 					type = "g";
 					}
-				content = map_Substances.get(substance) + type;
+				content = String.format("%.2f"+type, map_Substances.get(substance));
 				}
 
 			int x = 5; //(int)(rect.getX() + rect.getWidth() / 2)-12;

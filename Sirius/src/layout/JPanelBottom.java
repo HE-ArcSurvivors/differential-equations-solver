@@ -102,6 +102,7 @@ public class JPanelBottom extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
+					SimulationSingleton.getInstance().setStarted(false);
 					startSimulation.setVisible(true);
 					stopSimulation.setVisible(false);
 					sliderAnimation.stopAnimation();

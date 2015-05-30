@@ -57,7 +57,6 @@ public class SimulationSingleton implements Serializable
 			}
 		catch (Exception e)
 			{
-			// TODO Auto-generated catch block
 			System.err.println("Fichier non sauvegardé");
 			}
 		}
@@ -79,7 +78,6 @@ public class SimulationSingleton implements Serializable
 			}
 		catch (Exception e)
 			{
-			// TODO Auto-generated catch block
 			System.err.println("Fichier non chargé");
 			}
 		}
@@ -118,7 +116,7 @@ public class SimulationSingleton implements Serializable
 		return isStarted;
 		}
 
-	public void setisStarted(boolean started)
+	public void setStarted(boolean started)
 		{
 		isStarted = started;
 		}

@@ -183,13 +183,10 @@ public class JPanelContent extends JPanel
 
 	public void affTime(double t)
 		{
-		//removeAll();
 		for(JPanelTank paneltank:listPanelTank)
 			{
-//			System.out.println("Aff a tank");
 			paneltank.affTime(t);
 			}
-		System.out.println("OK");
 		repaint();
 		}
 
