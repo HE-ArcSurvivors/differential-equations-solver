@@ -297,7 +297,6 @@ public class JPanelSubstances extends JPanel
 		while(it.hasNext())
 			{
 			Entry<Substance, Double> ligne = it.next();
-			Substance substance = ligne.getKey();
 			Double qte = ligne.getValue();
 			total += qte;
 			}

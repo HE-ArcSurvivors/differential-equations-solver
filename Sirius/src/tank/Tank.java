@@ -109,7 +109,7 @@ public class Tank implements Iterable<Tank>, Serializable
 
 	public void delete()
 		{
-		//si il se d�verse dans un tank il s'enl�ve de la liste de parent de ce dernier
+		//si il se déverse dans un tank il s'enlève de la liste de parent de ce dernier
 		if (tankChild != null)
 			{
 			System.out.println("remove a child");

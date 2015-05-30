@@ -6,7 +6,6 @@ import javax.swing.Box;
 import javax.swing.JPanel;
 
 import layout.tabresolution.JPanelResolutionData;
-import layout.tabresolution.JPanelResolutionSchema;
 import layout.tabresolution.JPanelResolutionSolving;
 
 public class JPanelTabResolution extends JPanel
@@ -48,7 +47,7 @@ public class JPanelTabResolution extends JPanel
 	private void geometry()
 		{
 			// JComponent : Instanciation
-			jpanelresolutionschema = new JPanelResolutionSchema();
+			//jpanelresolutionschema = new JPanelResolutionSchema();
 			jpanelresolutiondata = new JPanelResolutionData();
 			jpanelresolutionsolving = new JPanelResolutionSolving();
 
@@ -80,7 +79,7 @@ public class JPanelTabResolution extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	private JPanelResolutionSchema jpanelresolutionschema;
+	//private JPanelResolutionSchema jpanelresolutionschema;
 	private JPanelResolutionData jpanelresolutiondata;
 	private JPanelResolutionSolving jpanelresolutionsolving;
 
