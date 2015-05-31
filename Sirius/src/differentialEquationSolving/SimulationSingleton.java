@@ -27,6 +27,7 @@ public class SimulationSingleton implements Serializable
 		listSubstance = new ArrayList<Substance>();
 		isStarted = false;
 		fileName = "";
+		simulationActive = true;
 		}
 
 	//Get the only object available
@@ -78,9 +79,20 @@ public class SimulationSingleton implements Serializable
 			}
 		catch (Exception e)
 			{
+			System.err.println(e);
 			System.err.println("Fichier non chargé");
 			}
 		}
+
+	public void simulationActive(boolean active)
+	{
+		this.simulationActive = active;
+	}
+
+	public boolean isActive()
+	{
+		return this.simulationActive;
+	}
 
 	public List<Substance> getSubstanceList()
 		{
@@ -130,5 +142,6 @@ public class SimulationSingleton implements Serializable
 	private List<Substance> listSubstance;
 	private boolean isStarted;
 	private static String fileName;
+	private boolean simulationActive;
 
 	}

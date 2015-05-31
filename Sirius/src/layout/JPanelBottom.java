@@ -2,6 +2,7 @@
 package layout;
 
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -51,8 +52,10 @@ public class JPanelBottom extends JPanel
 
 		slider = new JSlider(0, 0);
 		slider.setVisible(false);
-		//		slider.setPaintTicks(true);
-		//      slider.setPaintLabels(true);
+//		slider.setMajorTickSpacing(5);
+//		slider.setMinorTickSpacing(5);
+//		slider.setPaintTicks(true);
+//		slider.setPaintLabels(true);
 
 		sliderAnimation = new SimulationAnimation(slider);
 
@@ -115,6 +118,9 @@ public class JPanelBottom extends JPanel
 				public void actionPerformed(ActionEvent e)
 					{
 					jframestopcondition.setVisible(true);
+					startSimulation.setVisible(true);
+					stopSimulation.setVisible(false);
+					sliderAnimation.stopAnimation();
 					}
 			});
 
@@ -136,10 +142,10 @@ public class JPanelBottom extends JPanel
 
 		jframestopcondition.addComponentListener(new ComponentAdapter()
 			{
-
 				@Override
 				public void componentHidden(ComponentEvent e)
 					{
+					slider.setValue(0);
 					slider.setMaximum((int)(jframestopcondition.getTime() * 10));
 					slider.setVisible(slider.getMaximum() != 0);
 					formule.setFormula("");
@@ -177,6 +183,14 @@ public class JPanelBottom extends JPanel
 
 			return true;
 			}
+		}
+
+	@Override
+	protected void paintComponent(Graphics g)
+		{
+		super.paintComponent(g);
+		startSimulation.setEnabled(SimulationSingleton.getInstance().isActive());
+		stopCondition.setEnabled(SimulationSingleton.getInstance().isActive());
 		}
 
 	/*------------------------------------------------------------------*\
