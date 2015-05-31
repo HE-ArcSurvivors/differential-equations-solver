@@ -78,6 +78,13 @@ public class JPanelContent extends JPanel
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
+//	@Override
+//	protected void paintComponent(Graphics g)
+//		{
+//		super.paintComponent(g);
+//		constructPannelsTank();
+//		}
+
 	// public Tank getMainContainer()
 	// {
 	// Tank mainContainer = panelParametresContainer.getConteneur();

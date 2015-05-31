@@ -8,9 +8,13 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import substance.Substance;
 import tank.Tank;
@@ -54,6 +58,11 @@ public class JPanelParam extends JPanel
 		box = Box.createVerticalBox();
 		box.setAlignmentX(LEFT_ALIGNMENT);
 		mapSubstanceParamLine = new HashMap<Substance, JPanelParamLine>();
+
+		TitledBorder borderTitle = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),"Paramètres");
+		borderTitle.setTitleJustification(TitledBorder.RIGHT);
+		Border border = BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(20,20, 20, 20),borderTitle);
+		setBorder(border);
 
 		//tankIsInfinit = new JCheckBox();
 		//	sub_box1.add(new JXLabel("Infini: "));
