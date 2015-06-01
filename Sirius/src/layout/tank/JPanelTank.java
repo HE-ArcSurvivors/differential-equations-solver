@@ -181,7 +181,6 @@ public class JPanelTank extends JPanel
 						tmp.repaint();
 						}
 					}
-
 			});
 
 		boutonAddParent.addMouseListener(new MouseAdapter()
