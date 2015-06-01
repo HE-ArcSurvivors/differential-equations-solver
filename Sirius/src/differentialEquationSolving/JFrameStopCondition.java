@@ -88,6 +88,8 @@ public class JFrameStopCondition extends JFrame
 				t = SimulationSingleton.getInstance().getMainTank().timeEmpty();
 				break;
 			default:
+				System.out.println("Default");
+				t = 0;
 				break;
 			}
 			return t;
