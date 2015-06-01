@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -15,13 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import layout.JPanelContent;
-
-import org.jdesktop.swingx.JXCollapsiblePane;
-import org.jdesktop.swingx.JXCollapsiblePane.Direction;
-
 import substance.Substance;
 import tank.Tank;
 import tools.MagasinImage;
+import tools.SwingUtil;
 import differentialEquationSolving.SimulationSingleton;
 
 public class JPanelTank extends JPanel
@@ -90,17 +86,17 @@ public class JPanelTank extends JPanel
 		{
 		int maxHeight = 500;
 
-		collapsiblePane = new JXCollapsiblePane(Direction.TRAILING);
-		collapsiblePane.setAlignmentX(LEFT_ALIGNMENT);
 		jpanelparam = new JPanelParam(this, tank);
-		collapsiblePane.add(jpanelparam);
-		collapsiblePane.setCollapsed(true);
+		jpanelparam.setVisible(false);
 
-		Action toggleAction = collapsiblePane.getActionMap().get(JXCollapsiblePane.TOGGLE_ACTION);
+//		collapsiblePane = new JXCollapsiblePane(Direction.TRAILING);
+//		collapsiblePane.setAlignmentX(LEFT_ALIGNMENT);
+//		collapsiblePane.add(jpanelparam);
+//		collapsiblePane.setCollapsed(true);
+//		collapsiblePane.setAnimated(false);
+
 		buttonSettings = new JButton("");
-		buttonSettings.setAction(toggleAction);
 		buttonSettings.setIcon(MagasinImage.iconSettings);
-		buttonSettings.setText("");
 		buttonSettings.setContentAreaFilled(false);
 		buttonSettings.setBorder(BorderFactory.createEmptyBorder());
 
@@ -156,31 +152,24 @@ public class JPanelTank extends JPanel
 
 		add(jpanelDelete);
 		add(jpanelTap);
-		add(collapsiblePane);
+		add(jpanelparam);
 		}
 
 	private void control()
 		{
 		final JPanelTank panelTank = this;
-		boutonDelete.addMouseListener(new MouseAdapter()
-			{
 
+		buttonSettings.addMouseListener(new MouseAdapter()
+			{
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
-					if (!SimulationSingleton.getInstance().isStarted())
-						{
-						Container tmp = panelTank.getParent();
-						deleteTank();
-						((JPanelContent)panelTank.getParent()).refresh();
-						tmp.repaint();
-						}
+					jpanelparam.setVisible(!jpanelparam.isVisible());
 					}
-
 			});
+
 		boutonDelete.addMouseListener(new MouseAdapter()
 			{
-
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
@@ -197,26 +186,23 @@ public class JPanelTank extends JPanel
 
 		boutonAddParent.addMouseListener(new MouseAdapter()
 			{
-
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
 
-					Tank parentTank = new Tank(false, 0, 0);
-					Substance eau = new Substance("Eau", (float)0.6, Substance.LIQUID);
+					Tank parentTank = new Tank(false, 100, 0);
 
 					parentTank.setName("Added Parent by user");
-					parentTank.addSubstance(eau, 500);
+					parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
+					parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(1), 0);
 
 					tank.addTankParent(parentTank);
 
-					SimulationSingleton.getInstance().setMainTank(tank);
+					System.out.println("Nouveau tank : " + parentTank.getName());
 
-					System.out.println("" + parentTank.getName());
-
-					Container tmp = panelTank.getParent();
-					tmp.repaint();
-
+					repaint();
+					updateUI();
+					SwingUtil.repaintAllParent(panelTank);
 					}
 
 			});
@@ -260,7 +246,7 @@ public class JPanelTank extends JPanel
 
 	private int initialWidth;
 
-	private JXCollapsiblePane collapsiblePane;
+	//private JXCollapsiblePane collapsiblePane;
 	private JPanelParam jpanelparam;
 	private JButton buttonSettings;
 

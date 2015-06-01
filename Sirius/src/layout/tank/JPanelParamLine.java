@@ -1,9 +1,11 @@
+
 package layout.tank;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -11,6 +13,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
 
 import tools.DoubleDocumentFilter;
+import tools.MagasinImage;
 
 public class JPanelParamLine extends JPanel
 	{
@@ -22,19 +25,22 @@ public class JPanelParamLine extends JPanel
 	public JPanelParamLine(String labelString, double defaultValue)
 		{
 		label = new JLabel(labelString);
-		label.setMaximumSize(new Dimension(70,15));
-		label.setMinimumSize(new Dimension(70,15));
-		label.setPreferredSize(new Dimension(70,15));
+		label.setMaximumSize(new Dimension(70, 15));
+		label.setMinimumSize(new Dimension(70, 15));
+		label.setPreferredSize(new Dimension(70, 15));
+
+		labelWarning = new JLabel("");
 
 		textfield = new JTextField("" + defaultValue);
-		textfield.setMaximumSize(new Dimension(50,20));
-		textfield.setMinimumSize(new Dimension(50,20));
-		textfield.setPreferredSize(new Dimension(50,20));
+		textfield.setMaximumSize(new Dimension(50, 20));
+		textfield.setMinimumSize(new Dimension(50, 20));
+		textfield.setPreferredSize(new Dimension(50, 20));
 		((AbstractDocument)((JTextComponent)textfield).getDocument()).setDocumentFilter(new DoubleDocumentFilter());
 
 		Box boxH = Box.createHorizontalBox();
 		boxH.add(label);
 		boxH.add(textfield);
+		boxH.add(labelWarning);
 
 		setLayout(new BorderLayout());
 		add(boxH, BorderLayout.CENTER);
@@ -45,13 +51,37 @@ public class JPanelParamLine extends JPanel
 	\*------------------------------------------------------------------*/
 
 	public double getValue()
-	{
-		return Double.parseDouble(textfield.getText());
-	}
+		{
+		if (!textfield.getText().equals(""))
+			{
+			return Double.parseDouble(textfield.getText());
+			}
+		else
+			{
+			textfield.setText(0.0+"");
+			return 0.0;
+			}
+		}
 
 	public void setValue(Double value)
+		{
+		textfield.setText("" + value);
+		}
+
+	public void setLabel(String string)
 	{
-		textfield.setText(""+value);
+		label.setText(string);
+	}
+
+	public void setWarning(String string)
+		{
+		labelWarning.setIcon(MagasinImage.iconWarning);
+		labelWarning.setToolTipText(string);
+		}
+
+	public void setIcon(ImageIcon img)
+	{
+		labelWarning.setIcon(img);
 	}
 
 	/*------------------------------*\
@@ -73,5 +103,6 @@ public class JPanelParamLine extends JPanel
 	// Tools
 	private JLabel label;
 	private JTextField textfield;
+	private JLabel labelWarning;
 
 	}

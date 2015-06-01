@@ -1,7 +1,9 @@
 
 package substance;
 
-public class Substance extends Object
+import java.io.Serializable;
+
+public class Substance extends Object implements Serializable
 	{
 
 	/*------------------------------------------------------------------*\

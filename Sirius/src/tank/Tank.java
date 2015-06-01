@@ -1,6 +1,7 @@
 
 package tank;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import substance.Substance;
 import tools.MathTools;
 import differentialEquationSolving.SimulationSingleton;
 
-public class Tank implements Iterable<Tank>
+public class Tank implements Iterable<Tank>, Serializable
 	{
 
 	/*------------------------------------------------------------------*\
@@ -108,7 +109,7 @@ public class Tank implements Iterable<Tank>
 
 	public void delete()
 		{
-		//si il se d�verse dans un tank il s'enl�ve de la liste de parent de ce dernier
+		//si il se déverse dans un tank il s'enlève de la liste de parent de ce dernier
 		if (tankChild != null)
 			{
 			System.out.println("remove a child");

@@ -78,6 +78,13 @@ public class JPanelContent extends JPanel
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
+//	@Override
+//	protected void paintComponent(Graphics g)
+//		{
+//		super.paintComponent(g);
+//		constructPannelsTank();
+//		}
+
 	// public Tank getMainContainer()
 	// {
 	// Tank mainContainer = panelParametresContainer.getConteneur();
@@ -183,13 +190,10 @@ public class JPanelContent extends JPanel
 
 	public void affTime(double t)
 		{
-		//removeAll();
 		for(JPanelTank paneltank:listPanelTank)
 			{
-//			System.out.println("Aff a tank");
 			paneltank.affTime(t);
 			}
-		System.out.println("OK");
 		repaint();
 		}
 
