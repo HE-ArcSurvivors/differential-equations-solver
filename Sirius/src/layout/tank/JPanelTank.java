@@ -187,7 +187,6 @@ public class JPanelTank extends JPanel
 						tmp.repaint();
 						}
 					}
-
 			});
 
 		boutonAddParent.addMouseListener(new MouseAdapter()
@@ -196,7 +195,7 @@ public class JPanelTank extends JPanel
 				public void mousePressed(MouseEvent arg0)
 					{
 
-					Tank parentTank = new Tank(false, 100, 0);
+					Tank parentTank = new Tank(false, 1000, 0);
 
 					parentTank.setName("Added Parent by user");
 					parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
