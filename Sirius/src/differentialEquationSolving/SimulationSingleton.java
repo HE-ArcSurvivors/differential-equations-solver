@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import substance.Substance;
 import tank.Tank;
 
@@ -58,6 +60,7 @@ public class SimulationSingleton implements Serializable
 			}
 		catch (Exception e)
 			{
+			System.err.println(e);
 			System.err.println("Fichier non sauvegardé");
 			}
 		}
@@ -81,6 +84,11 @@ public class SimulationSingleton implements Serializable
 			{
 			System.err.println(e);
 			System.err.println("Fichier non chargé");
+
+			JOptionPane.showMessageDialog(null,
+				    "Le fichier n'a pas été chargé correctement.",
+				    "Fichier incorrect",
+				    JOptionPane.WARNING_MESSAGE);
 			}
 		}
 
