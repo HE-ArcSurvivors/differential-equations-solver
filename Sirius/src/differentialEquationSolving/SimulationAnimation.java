@@ -54,6 +54,7 @@ public class SimulationAnimation extends JPanel implements ActionListener
 	{
 		timer.stop();
 	}
+
 	public void step()
 		{
 		if (slider.getValue() == slider.getMaximum())

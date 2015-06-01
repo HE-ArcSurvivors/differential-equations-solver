@@ -93,6 +93,7 @@ public class JPanelStopCondition extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
+					jframestopcondition.setStateCondition(CANCEL);
 					jframestopcondition.setVisible(false);
 					}
 			});
@@ -102,8 +103,6 @@ public class JPanelStopCondition extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					//Start the Simulation
-					SimulationSingleton.getInstance().setStarted(true);
 					jframestopcondition.setStateCondition(currentState);
 					jframestopcondition.setVisible(false);
 					}
@@ -196,5 +195,6 @@ public class JPanelStopCondition extends JPanel
 	public static final int QUANTITY = 1;
 	public static final int OVERFLOW = 2;
 	public static final int EMPTY = 3;
+	public static final int CANCEL = 4;
 
 	}
