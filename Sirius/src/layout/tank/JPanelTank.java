@@ -108,7 +108,9 @@ public class JPanelTank extends JPanel
 		boutonAddParent.setContentAreaFilled(false);
 		boutonAddParent.setBorder(BorderFactory.createEmptyBorder());
 
-		jpanelgraduation = new JPanelGraduation(tank.getCapacite());
+		jpanelGraduationSolid = new JPanelGraduation(tank.getCapacite());
+		
+		jpanelGraduationLiquid = new JPanelGraduation(tank.getCapacite());
 
 		if (tank.isInfini())
 			{
@@ -118,11 +120,13 @@ public class JPanelTank extends JPanel
 			{
 			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
 			}
+		
+		setFixeSize(jpanelGraduationLiquid, 35, maxHeight);
 
 		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
 		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
 
-		setFixeSize(jpanelgraduation, 50, maxHeight);
+		setFixeSize(jpanelGraduationSolid, 50, maxHeight);
 
 		jpanelTap = new JPannelTap();
 		setFixeSize(jpanelTap, 60, maxHeight);
@@ -135,11 +139,13 @@ public class JPanelTank extends JPanel
 
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-		add(jpanelgraduation);
+		add(jpanelGraduationSolid);
 		add(jpanelSolid);
 
 		add(createSeparation(10));
 		add(jpanelLiquid);
+		
+		add(jpanelGraduationLiquid);
 
 		if (!tank.isInfini())
 			{
@@ -234,9 +240,10 @@ public class JPanelTank extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	private JPanelGraduation jpanelgraduation;
+	private JPanelGraduation jpanelGraduationSolid;
 	private JPanelSubstances jpanelSolid;
 	private JPanelSubstances jpanelLiquid;
+	private JPanelGraduation jpanelGraduationLiquid;
 	private JPannelContentTank jpanelContentTank;
 	private JPanel jpanelDelete;
 
