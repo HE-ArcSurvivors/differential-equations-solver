@@ -43,9 +43,17 @@ public class JPanelBottom extends JPanel
 
 	private void geometry()
 		{
+
 		startSimulation = new JButton(MagasinImage.iconPlay);
+
 		stopSimulation = new JButton(MagasinImage.iconStop);
 		stopSimulation.setVisible(false);
+
+		pauseSimulation = new JButton(MagasinImage.iconPause);
+		pauseSimulation.setVisible(false);
+
+		replaySimulation = new JButton(MagasinImage.iconBackward);
+		replaySimulation.setVisible(false);
 
 		stopCondition = new JButton(MagasinImage.iconSettings);
 
@@ -64,6 +72,8 @@ public class JPanelBottom extends JPanel
 		setLayout(flowlayout);
 
 		add(startSimulation);
+		add(pauseSimulation);
+		add(replaySimulation);
 		add(stopSimulation);
 		add(stopCondition);
 		add(slider);
@@ -75,8 +85,10 @@ public class JPanelBottom extends JPanel
 
 	private void control()
 		{
+
 		startSimulation.addActionListener(new ActionListener()
 			{
+
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
@@ -93,10 +105,21 @@ public class JPanelBottom extends JPanel
 
 		stopSimulation.addActionListener(new ActionListener()
 			{
+
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
 					stopAnimation();
+					}
+			});
+
+		pauseSimulation.addActionListener(new ActionListener()
+			{
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+					{
+					pauseAnimation();
 					}
 			});
 
@@ -111,8 +134,19 @@ public class JPanelBottom extends JPanel
 					}
 			});
 
+		replaySimulation.addActionListener(new ActionListener()
+			{
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+					{
+					restartAnimation();
+					}
+			});
+
 		slider.addChangeListener(new ChangeListener()
 			{
+
 				@Override
 				public void stateChanged(ChangeEvent e)
 					{
@@ -122,12 +156,19 @@ public class JPanelBottom extends JPanel
 					DecimalFormat df = new DecimalFormat("0.00");
 					result.setFormula("\\text{=" + df.format(SimulationSingleton.getInstance().getMainTank().equaDiff(t / 10, SimulationSingleton.getInstance().getSubstanceAt(1))) + "}");
 
-					jpanelcontent.affTime(t / 10);
+					//jpanelcontent.affTime(t / 10);
+
+					if (slider.getValue() == slider.getMaximum())
+						{
+						replaySimulation.setVisible(true);
+						pauseSimulation.setVisible(false);
+						}
 					}
 			});
 
 		jframestopcondition.addComponentListener(new ComponentAdapter()
 			{
+
 				@Override
 				public void componentHidden(ComponentEvent e)
 					{
@@ -144,8 +185,8 @@ public class JPanelBottom extends JPanel
 	private void resetSimulation()
 		{
 		slider.setValue(0);
-		formule.setFormula("");
-		result.setFormula("");
+		formule.setVisible(false);
+		result.setVisible(false);
 		}
 
 	private void appearance()
@@ -161,21 +202,57 @@ public class JPanelBottom extends JPanel
 		stopCondition.setEnabled(SimulationSingleton.getInstance().isActive());
 		}
 
+	public void resizeEvent()
+		{
+		if (SimulationSingleton.getInstance().isStarted())
+			{
+			pauseAnimation();
+			}
+		}
+
 	private void startAnimation()
 		{
+		formule.setVisible(true);
+		result.setVisible(true);
+
 		SimulationSingleton.getInstance().setStarted(true);
 		startSimulation.setVisible(false);
+		stopCondition.setVisible(false);
+
 		stopSimulation.setVisible(true);
+		pauseSimulation.setVisible(true);
+
 		slider.setVisible(true);
 		sliderAnimation.startAnimation();
+		}
+
+	private void pauseAnimation()
+		{
+		sliderAnimation.stopAnimation();
+		startSimulation.setVisible(true);
+		pauseSimulation.setVisible(false);
 		}
 
 	private void stopAnimation()
 		{
 		SimulationSingleton.getInstance().setStarted(false);
 		sliderAnimation.stopAnimation();
+
 		startSimulation.setVisible(true);
+		stopCondition.setVisible(true);
+
+		replaySimulation.setVisible(false);
 		stopSimulation.setVisible(false);
+		pauseSimulation.setVisible(false);
+
+		slider.setVisible(false);
+		resetSimulation();
+		}
+
+	private void restartAnimation()
+		{
+		stopAnimation();
+		startAnimation();
 		}
 
 	/*------------------------------------------------------------------*\
@@ -186,6 +263,8 @@ public class JPanelBottom extends JPanel
 	private JButton startSimulation;
 	private JButton stopCondition;
 	private JButton stopSimulation;
+	private JButton pauseSimulation;
+	private JButton replaySimulation;
 	private JSliderSimulation slider;
 
 	private JLabelFormula formule;

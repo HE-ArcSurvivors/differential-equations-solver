@@ -30,13 +30,15 @@ public class JSliderSimulation extends JSlider
 	public void setMaximum(int max)
 	{
 		super.setMaximum(max);
-		setMajorTickSpacing(max/ 10);
-		setMinorTickSpacing(max);
 
 		if(max != 0)
 		{
 			Hashtable<Integer, JLabel> table = new Hashtable<Integer, JLabel>();
-			for(int i = 0; i <= max; i+=max/10)
+
+			setMajorTickSpacing(max / 5);
+			setMinorTickSpacing(max / 20);
+
+			for(int i = 0; i <= max; i+=max / 5)
 				{
 					table.put(i, new JLabel(i/10+""));
 				}

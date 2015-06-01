@@ -29,7 +29,6 @@ public class JFrameLayout extends JFrame
 
 	public JFrameLayout()
 		{
-
 		setTitle(title+"[Nouveau Fichier]*");
 
 		eau = new Substance("Eau", (float)0.6, Substance.LIQUID);
@@ -37,27 +36,38 @@ public class JFrameLayout extends JFrame
 		SimulationSingleton.getInstance().addSubstance(eau);
 		SimulationSingleton.getInstance().addSubstance(sel);
 
-		Tank r1 = new Tank(false, 500, 0);
-		r1.setName("MainTank");
+//		Tank r1 = new Tank(false, 500, 0);
+//		r1.setName("MainTank");
+//		r1.addSubstance(eau, 500);
+//		r1.addSubstance(sel,5);
+//		SimulationSingleton.getInstance().setMainTank(r1);
+//
+//		Tank r2 = new Tank(false, 600, 0);
+//		r2.setName("Tank");
+//		r2.addSubstance(eau, 500);
+//		r2.addSubstance(sel,5);
+//
+//		Tank r3 = new Tank(false, 700, 0);
+//		r3.setName("Tank2");
+//		r3.addSubstance(eau, 500);
+//		r3.addSubstance(sel, 5);
+//
+//		r1.addTankParent(r2);
+//		r2.addTankParent(r3);
+
+		Tank r1 = new Tank(false, 500, 5);
+		r1.setName("ParentTank");
+		Tank r2 = new Tank(false, 200, 5);
+		r2.setName("MainTank");
+
+		r1.addSubstance(sel, 2);
 		r1.addSubstance(eau, 500);
-		r1.addSubstance(sel,5);
-		SimulationSingleton.getInstance().setMainTank(r1);
 
+		r2.addSubstance(sel, 4);
+		r2.addSubstance(eau, 100);
+		r2.addTankParent(r1);
 
-		Tank r2 = new Tank(false, 600, 0);
-		r2.setName("Tank");
-		r2.addSubstance(eau, 500);
-		r2.addSubstance(sel,5);
-
-
-		Tank r3 = new Tank(false, 700, 0);
-		r3.setName("Tank2");
-		r3.addSubstance(eau, 500);
-		r3.addSubstance(sel, 5);
-
-
-		r1.addTankParent(r2);
-		r2.addTankParent(r3);
+		SimulationSingleton.getInstance().setMainTank(r2);
 
 		geometry();
 		control();
@@ -177,6 +187,7 @@ public class JFrameLayout extends JFrame
 						{
 						panelResolution.reload();
 						}
+					panelSimulation.changeTabEvent();
 					}
 			});
 		this.addComponentListener(new ComponentAdapter()
