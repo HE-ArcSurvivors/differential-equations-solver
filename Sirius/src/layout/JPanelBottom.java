@@ -11,12 +11,11 @@ import java.text.DecimalFormat;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import layout.atom.JSliderSimulation;
 import tools.MagasinImage;
-import tools.SwingUtil;
 import differentialEquationSolving.JFrameStopCondition;
 import differentialEquationSolving.JLabelFormula;
 import differentialEquationSolving.JPanelStopCondition;
@@ -50,12 +49,8 @@ public class JPanelBottom extends JPanel
 
 		stopCondition = new JButton(MagasinImage.iconSettings);
 
-		slider = new JSlider(0, 0);
+		slider = new JSliderSimulation(0, 0);
 		slider.setVisible(false);
-//		slider.setMajorTickSpacing(5);
-//		slider.setMinorTickSpacing(5);
-//		slider.setPaintTicks(true);
-//		slider.setPaintLabels(true);
 
 		sliderAnimation = new SimulationAnimation(slider);
 
@@ -91,11 +86,7 @@ public class JPanelBottom extends JPanel
 						}
 					else
 						{
-						startSimulation.setVisible(false);
-						stopSimulation.setVisible(true);
-
-						slider.setVisible(true);
-						sliderAnimation.startAnimation();
+						startAnimation();
 						}
 					}
 			});
@@ -105,28 +96,23 @@ public class JPanelBottom extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					SimulationSingleton.getInstance().setStarted(false);
-					startSimulation.setVisible(true);
-					stopSimulation.setVisible(false);
-					sliderAnimation.stopAnimation();
+					stopAnimation();
 					}
 			});
 
 		stopCondition.addActionListener(new ActionListener()
 			{
+
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
+					stopAnimation();
 					jframestopcondition.setVisible(true);
-					startSimulation.setVisible(true);
-					stopSimulation.setVisible(false);
-					sliderAnimation.stopAnimation();
 					}
 			});
 
 		slider.addChangeListener(new ChangeListener()
 			{
-
 				@Override
 				public void stateChanged(ChangeEvent e)
 					{
@@ -145,44 +131,26 @@ public class JPanelBottom extends JPanel
 				@Override
 				public void componentHidden(ComponentEvent e)
 					{
-					slider.setValue(0);
+					resetSimulation();
 					slider.setMaximum((int)(jframestopcondition.getTime() * 10));
-					slider.setVisible(slider.getMaximum() != 0);
-					formule.setFormula("");
-					result.setFormula("");
 					if (slider.getMaximum() != 0)
 						{
-						sliderAnimation.startAnimation();
-						startSimulation.setVisible(false);
-						stopSimulation.setVisible(true);
+						startAnimation();
 						}
 					}
 			});
 		}
 
+	private void resetSimulation()
+		{
+		slider.setValue(0);
+		formule.setFormula("");
+		result.setFormula("");
+		}
+
 	private void appearance()
 		{
 
-		}
-
-	public boolean setValueSlider(int value)
-		{
-		if (value > slider.getMaximum())
-			{
-			return false;
-			}
-		else
-			{
-			slider.setValue(value);
-
-			updateUI();
-			repaint();
-			validate();
-			revalidate();
-			SwingUtil.repaintAllParent(this);
-
-			return true;
-			}
 		}
 
 	@Override
@@ -193,6 +161,23 @@ public class JPanelBottom extends JPanel
 		stopCondition.setEnabled(SimulationSingleton.getInstance().isActive());
 		}
 
+	private void startAnimation()
+		{
+		SimulationSingleton.getInstance().setStarted(true);
+		startSimulation.setVisible(false);
+		stopSimulation.setVisible(true);
+		slider.setVisible(true);
+		sliderAnimation.startAnimation();
+		}
+
+	private void stopAnimation()
+		{
+		SimulationSingleton.getInstance().setStarted(false);
+		sliderAnimation.stopAnimation();
+		startSimulation.setVisible(true);
+		stopSimulation.setVisible(false);
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
@@ -201,7 +186,7 @@ public class JPanelBottom extends JPanel
 	private JButton startSimulation;
 	private JButton stopCondition;
 	private JButton stopSimulation;
-	private JSlider slider;
+	private JSliderSimulation slider;
 
 	private JLabelFormula formule;
 	private JLabelFormula result;

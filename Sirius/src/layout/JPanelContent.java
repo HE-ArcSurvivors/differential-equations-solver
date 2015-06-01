@@ -253,7 +253,6 @@ public class JPanelContent extends JPanel
 
 	private void control()
 		{
-
 		//addParameters();
 		//addMouseMotionListener(ma);
 		//addMouseListener(ma);
