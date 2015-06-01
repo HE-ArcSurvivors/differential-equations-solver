@@ -1,3 +1,4 @@
+
 package layout;
 
 import java.awt.BorderLayout;
@@ -34,9 +35,9 @@ public class JPanelTabSimulation extends JPanel
 	|*				Get				*|
 	\*------------------------------*/
 	public JPanelContent getJpanelContent()
-	{
+		{
 		return jpanelcontent;
-	}
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
@@ -44,14 +45,14 @@ public class JPanelTabSimulation extends JPanel
 
 	private void geometry()
 		{
-			// JComponent : Instanciation
-			jpaneloutil = new JPanelOutils();
-			jpanelcontent = new JPanelContent();
-			jpanelbottom = new JPanelBottom(jpanelcontent);
-//			jpanelbottom.setMinimumSize(new Dimension(this.getWidth(),100));
-//			jpanelbottom.setSize(new Dimension(this.getWidth(),100));
-//			jpanelbottom.setMaximumSize(new Dimension(this.getWidth(),100));
-//			jpanelbottom.setPreferredSize(new Dimension(this.getWidth(),100));
+		// JComponent : Instanciation
+		jpaneloutil = new JPanelOutils();
+		jpanelcontent = new JPanelContent();
+		jpanelbottom = new JPanelBottom(jpanelcontent);
+			//			jpanelbottom.setMinimumSize(new Dimension(this.getWidth(),100));
+			//			jpanelbottom.setSize(new Dimension(this.getWidth(),100));
+			//			jpanelbottom.setMaximumSize(new Dimension(this.getWidth(),100));
+			//			jpanelbottom.setPreferredSize(new Dimension(this.getWidth(),100));
 
 			// Layout : Specification
 			{
@@ -62,22 +63,23 @@ public class JPanelTabSimulation extends JPanel
 			// borderLayout.setVgap(20);
 			}
 
-			// JComponent : add
-			add(jpanelcontent,BorderLayout.CENTER);
-			add(jpaneloutil,BorderLayout.WEST);
-			add(jpanelbottom,BorderLayout.SOUTH);
+		// JComponent : add
+		add(jpanelcontent, BorderLayout.CENTER);
+		add(jpaneloutil, BorderLayout.WEST);
+		add(jpanelbottom, BorderLayout.SOUTH);
 		}
 
 	private void control()
 		{
-			addComponentListener(new ComponentAdapter()
-				{
-				        @Override
-						public void componentResized(ComponentEvent e) {
-							//NEED TO CHECK FOR RESIZE EVENT
-							jpanelbottom.resizeEvent();
-				        }
-				});
+		addComponentListener(new ComponentAdapter()
+			{
+
+				@Override
+				public void componentResized(ComponentEvent e)
+					{
+					jpanelbottom.resizeEvent();
+					}
+			});
 		}
 
 	private void appearance()
@@ -85,13 +87,18 @@ public class JPanelTabSimulation extends JPanel
 		// rien
 		}
 
+	public void changeTabEvent()
+		{
+		jpanelbottom.resizeEvent();
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	private JPanelOutils 	jpaneloutil;
-	private JPanelContent 	jpanelcontent;
-	private JPanelBottom	jpanelbottom;
+	private JPanelOutils jpaneloutil;
+	private JPanelContent jpanelcontent;
+	private JPanelBottom jpanelbottom;
 
 	}
