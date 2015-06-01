@@ -1,6 +1,7 @@
 
 package layout;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class JPanelContent extends JPanel
 	public JPanelContent()
 		{
 
-		h=w=0;
+		h = w = 0;
 		geometry();
 		control();
 		appearance();
@@ -78,12 +79,12 @@ public class JPanelContent extends JPanel
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
-//	@Override
-//	protected void paintComponent(Graphics g)
-//		{
-//		super.paintComponent(g);
-//		constructPannelsTank();
-//		}
+	//	@Override
+	//	protected void paintComponent(Graphics g)
+	//		{
+	//		super.paintComponent(g);
+	//		constructPannelsTank();
+	//		}
 
 	// public Tank getMainContainer()
 	// {
@@ -113,78 +114,100 @@ public class JPanelContent extends JPanel
 		List<Tank> pileTank = new LinkedList<Tank>();
 		pileTank.add(mainTank);
 
-		List<JPanelTank> listPanelTank = new LinkedList<JPanelTank>();
+		//tout les tanks a afficher et leur panels
+		HashMap<Tank, JPanelTank> mapAffTank = new HashMap<Tank, JPanelTank>();
+		HashMap<Tank, Integer> mapIParentTank = new HashMap<Tank, Integer>();
 
-		//Technique d'affichage temporaire
-
+		//affichage
 
 		int xPosChild = 0;
 		int yPosChild = 0;
 		int iParent = 0;
-		Tank tankChild = mainTank;
 
 		while(!pileTank.isEmpty())
 			{
 			int i = pileTank.size() - 1;
 
 			Tank tank = pileTank.get(i);
-			//tank.printTank(0, SimulationSingleton.getInstance().getSubstanceList().get(0));
 			pileTank.remove(i);
 
 			if (tank != null)
 				{
-				pileTank.addAll(tank.getlistTankParent());
 
+				pileTank.addAll(tank.getlistTankParent());
 				JPanelTank panelTank = new JPanelTank(tank);
 
-				add(panelTank);
-				listPanelTank.add(panelTank);
+				int xPos = 0;
+				int yPos = 0;
 
-				int xPos;
-				int yPos;
-
-				if(xPosChild == 0 && yPosChild == 0)
+				if (xPosChild == 0 && yPosChild == 0)
 					{
-						//main
-						System.out.println("---maintank---");
-						xPos = xPosChild = this.getWidth()/2 - (panelTank.getWidth()/2);
-						yPos = yPosChild = this.getHeight() - panelTank.getHeight();
-						tankChild = tank;
+					//main
+					System.out.println("---maintank---");
+					xPos = xPosChild = this.getWidth() / 2 - (panelTank.getWidth() / 2);
+					yPos = yPosChild = this.getHeight() - panelTank.getHeight();
 					}
 				else
 					{
-						System.out.println("---childtank---");
-						//he has a child
-//						if(tankChild.getlistTankParent().contains(tank))
-//							{
-							int widthtotaltank = tankChild.getlistTankParent().size()*panelTank.getWidth() + panelTank.getWidth()/2;
+					System.out.println("---childtank---");
+					//he is a child
+					if (mapAffTank.keySet().contains(tank.getTankChild()))
+						{
+						JPanelTank panelTankChild = mapAffTank.get(tank.getTankChild());
+						int xChild = panelTankChild.getX();
+						int yChild = panelTankChild.getY();
 
-							System.out.println("total width : "+ widthtotaltank);
-							System.out.println("start pos X parent : "+((xPosChild + (panelTank.getWidth()/2)) - widthtotaltank/2));
+						iParent = 0;
+						if (mapIParentTank.keySet().contains(tank.getTankChild()))
+							{
+							iParent = mapIParentTank.get(tank.getTankChild());
+							}
 
-							xPos = ((xPosChild + panelTank.getWidth()/2) - widthtotaltank/2) + iParent*panelTank.getWidth();
-							yPos = yPosChild - panelTank.getHeight() - 10;
+						int widthtotaltank = tank.getlistTankParent().size() * panelTank.getWidth();
 
-							iParent++;
-//							}
-//						else
-//							{
-//
-//							}
+						if (tank.getlistTankParent().size() == 0)
+							{
+							widthtotaltank += panelTank.getWidth()/2;
+							}
+						else
+							{
+							widthtotaltank -= panelTank.getWidth()/2;
+							}
+
+						System.out.println("nb parent : " + tank.getlistTankParent().size() + " , total width : " + widthtotaltank);
+						System.out.println("start pos X parent : " + ((xChild + (panelTank.getWidth() / 2)) - widthtotaltank / 2));
+
+						//xPos = ((xChild + panelTank.getWidth()/2) - widthtotaltank/2) + iParent*panelTank.getWidth();
+						xPos = xChild + iParent * panelTank.getWidth() - widthtotaltank;
+						yPos = yChild - panelTank.getHeight() - 10;
+
+						iParent++;
+
+						}
+					else
+						{
+						System.out.println("error");
+						}
 					}
 
 				panelTank.setLocation(xPos, yPos);
 
+				mapAffTank.put(tank, panelTank);
+				mapIParentTank.put(tank.getTankChild(), iParent);
 
-				tank = null;
-
-				System.out.println("Tank => pos : x: "+xPos+ " , y: "+yPos );
+				System.out.println("Tank => pos : x: " + xPos + " , y: " + yPos);
 				}
 			}
 
 		mainTank = null;
-		tankChild= null;
-//		System.out.println(listPanelTank);
+
+		//affichage sur la scene
+		for(JPanelTank panelTank:mapAffTank.values())
+			{
+			add(panelTank);
+			}
+
+		//		System.out.println(listPanelTank);
 		return listPanelTank;
 		}
 
@@ -198,16 +221,14 @@ public class JPanelContent extends JPanel
 		}
 
 	public void refresh()
-	{
+		{
 		removeAll();
 
 		listPanelTank = constructPannelsTank();
 
 		repaint();
 		updateUI();
-	}
-
-
+		}
 
 	/*------------------------------*\
 	|*				Set				*|
@@ -225,7 +246,6 @@ public class JPanelContent extends JPanel
 		{
 		// Layout : Specification
 		setLayout(null);
-
 
 		// JComponent : Instanciation
 		listPanelTank = constructPannelsTank();

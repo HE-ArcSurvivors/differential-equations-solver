@@ -318,6 +318,11 @@ public class Tank implements Iterable<Tank>, Serializable
 		return this.name;
 		}
 
+	public Tank getTankChild()
+		{
+		return this.tankChild;
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
