@@ -1,6 +1,8 @@
 package layout;
 
 import java.awt.BorderLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JPanel;
 
@@ -68,7 +70,14 @@ public class JPanelTabSimulation extends JPanel
 
 	private void control()
 		{
-		// rien
+			addComponentListener(new ComponentAdapter()
+				{
+				        @Override
+						public void componentResized(ComponentEvent e) {
+							//NEED TO CHECK FOR RESIZE EVENT
+							jpanelbottom.resizeEvent();
+				        }
+				});
 		}
 
 	private void appearance()
