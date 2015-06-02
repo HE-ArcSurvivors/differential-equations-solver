@@ -86,16 +86,9 @@ public class JPanelBottom extends JPanel
 	private void control()
 		{
 
-		addComponentListener(new ComponentAdapter()
-			{
-			        @Override
-					public void componentResized(ComponentEvent e) {
-						//NEED TO CHECK FOR RESIZE EVENT
-			        }
-			});
-
 		startSimulation.addActionListener(new ActionListener()
 			{
+
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
@@ -112,6 +105,7 @@ public class JPanelBottom extends JPanel
 
 		stopSimulation.addActionListener(new ActionListener()
 			{
+
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
@@ -121,6 +115,7 @@ public class JPanelBottom extends JPanel
 
 		pauseSimulation.addActionListener(new ActionListener()
 			{
+
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
@@ -130,6 +125,7 @@ public class JPanelBottom extends JPanel
 
 		stopCondition.addActionListener(new ActionListener()
 			{
+
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
@@ -140,15 +136,17 @@ public class JPanelBottom extends JPanel
 
 		replaySimulation.addActionListener(new ActionListener()
 			{
-			@Override
-			public void actionPerformed(ActionEvent e)
-				{
-				restartAnimation();
-				}
-		});
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+					{
+					restartAnimation();
+					}
+			});
 
 		slider.addChangeListener(new ChangeListener()
 			{
+
 				@Override
 				public void stateChanged(ChangeEvent e)
 					{
@@ -160,7 +158,7 @@ public class JPanelBottom extends JPanel
 
 					//jpanelcontent.affTime(t / 10);
 
-					if(slider.getValue() == slider.getMaximum())
+					if (slider.getValue() == slider.getMaximum())
 						{
 						replaySimulation.setVisible(true);
 						pauseSimulation.setVisible(false);
@@ -170,12 +168,13 @@ public class JPanelBottom extends JPanel
 
 		jframestopcondition.addComponentListener(new ComponentAdapter()
 			{
+
 				@Override
 				public void componentHidden(ComponentEvent e)
 					{
 					resetSimulation();
 					slider.setMaximum((int)(jframestopcondition.getTime() * 10));
-					if(slider.getMaximum() != 0)
+					if (slider.getMaximum() != 0)
 						{
 						startAnimation();
 						}
@@ -203,6 +202,14 @@ public class JPanelBottom extends JPanel
 		stopCondition.setEnabled(SimulationSingleton.getInstance().isActive());
 		}
 
+	public void resizeEvent()
+		{
+		if (SimulationSingleton.getInstance().isStarted())
+			{
+			pauseAnimation();
+			}
+		}
+
 	private void startAnimation()
 		{
 		formule.setVisible(true);
@@ -220,11 +227,11 @@ public class JPanelBottom extends JPanel
 		}
 
 	private void pauseAnimation()
-	{
+		{
 		sliderAnimation.stopAnimation();
 		startSimulation.setVisible(true);
 		pauseSimulation.setVisible(false);
-	}
+		}
 
 	private void stopAnimation()
 		{
@@ -243,10 +250,10 @@ public class JPanelBottom extends JPanel
 		}
 
 	private void restartAnimation()
-	{
+		{
 		stopAnimation();
 		startAnimation();
-	}
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|

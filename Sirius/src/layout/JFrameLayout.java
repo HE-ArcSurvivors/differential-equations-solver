@@ -187,6 +187,7 @@ public class JFrameLayout extends JFrame
 						{
 						panelResolution.reload();
 						}
+					panelSimulation.changeTabEvent();
 					}
 			});
 		this.addComponentListener(new ComponentAdapter()
