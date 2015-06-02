@@ -52,6 +52,7 @@ public class SimulationSingleton implements Serializable
 			ObjectOutputStream oos = new ObjectOutputStream(bos);
 
 			oos.writeObject(instance);
+			System.out.println(filename);
 			fileName = filename;
 
 			oos.close();

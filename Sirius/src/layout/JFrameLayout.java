@@ -192,7 +192,6 @@ public class JFrameLayout extends JFrame
 			});
 		this.addComponentListener(new ComponentAdapter()
 			{
-
 				@Override
 				public void componentResized(ComponentEvent arg0)
 					{
@@ -216,7 +215,7 @@ public class JFrameLayout extends JFrame
 		fd.setDirectory("C:\\");
 		fd.setFile("*.glou");
 		fd.setVisible(true);
-		String name = fd.getFile();
+		String name = fd.getDirectory()+fd.getFile();
 
 		if (name != null)
 			{
@@ -237,7 +236,7 @@ public class JFrameLayout extends JFrame
 		fd.setDirectory("C:\\");
 		fd.setFile("*.glou");
 		fd.setVisible(true);
-		String name = fd.getFile();
+		String name = fd.getDirectory()+fd.getFile();
 
 		if (name != null)
 			{
