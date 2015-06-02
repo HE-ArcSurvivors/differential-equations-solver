@@ -14,7 +14,7 @@ import substance.Substance;
 import tools.MathTools;
 import differentialEquationSolving.SimulationSingleton;
 
-public class Tank implements Iterable<Tank>, Serializable
+public class Tank implements Iterable<Tank> ,Serializable
 	{
 
 	/*------------------------------------------------------------------*\
@@ -47,7 +47,14 @@ public class Tank implements Iterable<Tank>, Serializable
 		out = debit / getContent(t);
 		C = this.getValueSubstance(substance) - Math.pow(out, -1) * in;
 
-		return Math.pow(out, -1) * in + C * Math.exp(-t * out);
+		if (out == 0)
+			{
+			return in * t;
+			}
+		else
+			{
+			return Math.pow(out, -1) * in + C * Math.exp(-t * out);
+			}
 		}
 
 	public double timeQuantityQ(double quantity)
@@ -77,7 +84,8 @@ public class Tank implements Iterable<Tank>, Serializable
 			}
 		System.out.println();
 		System.out.println("Contenu : " + getContent(t));
-		System.out.println("Quantit� de " + substance.getName() + " : " + equaDiff(t, substance));		System.out.println();
+		System.out.println("Quantit� de " + substance.getName() + " : " + equaDiff(t, substance));
+		System.out.println();
 		}
 
 	public boolean addTankParent(Tank tankParent)
@@ -104,7 +112,7 @@ public class Tank implements Iterable<Tank>, Serializable
 		Double inflow = getInflowTotal(sub);
 		Double value = inflow * getContent() / getDebit();
 
-		return "y("+t+") = "+value+" "+dfsigned.format(C)+" * e^{-"+t+"*"+outSimplifyFraction+"}";
+		return "y(" + t + ") = " + value + " " + dfsigned.format(C) + " * e^{-" + t + "*" + outSimplifyFraction + "}";
 		}
 
 	public void delete()
@@ -212,7 +220,7 @@ public class Tank implements Iterable<Tank>, Serializable
 
 	public double getValueSubstance(Substance substance)
 		{
-			if (substance.getState() == Substance.SOLID)
+		if (substance.getState() == Substance.SOLID)
 			{
 			return mapSubstance.get(substance);
 			}
@@ -311,7 +319,6 @@ public class Tank implements Iterable<Tank>, Serializable
 
 		return total;
 		}
-
 
 	public String getName()
 		{
