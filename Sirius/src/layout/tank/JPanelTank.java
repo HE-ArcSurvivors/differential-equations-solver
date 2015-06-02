@@ -194,6 +194,9 @@ public class JPanelTank extends JPanel
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
+					
+					if (tank.getTankChild() == null)
+					{
 
 					Tank parentTank = new Tank(false, 1000, 0);
 
@@ -208,6 +211,12 @@ public class JPanelTank extends JPanel
 					repaint();
 					updateUI();
 					SwingUtil.repaintAllParent(panelTank);
+					}
+					else
+					{
+						
+						System.out.println("Ce niveau n'est pas encore disponible");
+					}
 					}
 
 			});

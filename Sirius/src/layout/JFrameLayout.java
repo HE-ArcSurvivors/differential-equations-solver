@@ -2,7 +2,10 @@
 package layout;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FileDialog;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -16,6 +19,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import layout.tank.JPanelTank;
 import substance.Substance;
 import tank.Tank;
 import differentialEquationSolving.SimulationSingleton;
@@ -29,7 +33,7 @@ public class JFrameLayout extends JFrame
 
 	public JFrameLayout()
 		{
-		setTitle(title+"[Nouveau Fichier]*");
+		setNewTitle("[Nouveau Fichier]*");
 
 		eau = new Substance("Eau", (float)0.6, Substance.LIQUID);
 		sel = new Substance("Sel", (float)1.0, Substance.SOLID);
@@ -74,7 +78,14 @@ public class JFrameLayout extends JFrame
 		appearance();
 
 		//Update with size
+		
 		panelSimulation.getJpanelContent().refresh();
+		
+		//TODO make the slider work
+		
+		panelSimulation.scrollPaneContent.setBounds(50, 30, 300, 50);
+		panelSimulation.scrollPaneContent.setPreferredSize(new Dimension(10, 10));
+		
 		}
 
 	/*------------------------------------------------------------------*\
@@ -123,6 +134,17 @@ public class JFrameLayout extends JFrame
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Fichiers");
 		menuBar.add(menu);
+		
+		JMenuItem newBoard = new JMenuItem("Nouveau");
+		newBoard.addActionListener(new ActionListener()
+			{
+
+				@Override
+				public void actionPerformed(ActionEvent e)
+					{
+					newBoard();
+					}
+			});
 
 		JMenuItem save = new JMenuItem("Enregistrer");
 		save.addActionListener(new ActionListener()
@@ -167,6 +189,7 @@ public class JFrameLayout extends JFrame
 					System.exit(0);
 					}
 			});
+		menu.add(newBoard);
 		menu.add(load);
 		menu.add(save);
 		menu.add(saveAs);
@@ -204,10 +227,45 @@ public class JFrameLayout extends JFrame
 
 	private void appearance()
 		{
-		setSize(1120, 600);
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		int xSize = ((int) tk.getScreenSize().getWidth());
+		int ySize = ((int) tk.getScreenSize().getHeight());
+		setSize(xSize,ySize);
+//		setSize(1120, 600);
 		setLocationRelativeTo(null); // frame centrer
 		setVisible(true); // last!
 		}
+	
+	private void setNewTitle(String name)
+	{
+		setTitle(title+name);
+	}
+	
+	private void newBoard()
+	{
+		if (!SimulationSingleton.getInstance().isStarted())
+		{
+			String name = "[Nouveau Fichier]*";
+			setNewTitle(name);
+			SimulationSingleton.getInstance().deleteMainTank();
+			
+			Tank r1 = new Tank(false, 500, 5);
+
+			r1.addSubstance(sel, 2);
+			r1.addSubstance(eau, 500);
+
+			SimulationSingleton.getInstance().setMainTank(r1);
+			
+			panelSimulation.getJpanelContent().refresh();
+			
+		}
+		else
+		{
+			System.out.println("simulation en cours, creation non disponible");
+		}
+		
+	}
+	
 
 	private void saveAs()
 		{
@@ -226,14 +284,14 @@ public class JFrameLayout extends JFrame
 					name += (".glou");
 					}
 				SimulationSingleton.save(name);
-				setTitle(title+"["+name+"]");
+				setNewTitle("["+name+"]");
 				}
 		}
 
 	private void open()
 		{
 		FileDialog fd = new FileDialog(JFrameLayout.this, "Ouvrir un fichier existant", FileDialog.LOAD);
-		fd.setDirectory("C:\\");
+		fd.setDirectory("C:\\"); //TODO add test of OS and change path
 		fd.setFile("*.glou");
 		fd.setVisible(true);
 		String name = fd.getDirectory()+fd.getFile();
@@ -241,7 +299,7 @@ public class JFrameLayout extends JFrame
 		if (name != null)
 			{
 			SimulationSingleton.load(name);
-			setTitle(title+"["+name+"]");
+			setNewTitle("["+name+"]");
 			panelSimulation.getJpanelContent().refresh();
 			}
 		}
@@ -256,7 +314,7 @@ public class JFrameLayout extends JFrame
 			{
 			SimulationSingleton.save(SimulationSingleton.getInstance().getCurrentFileName());
 			panelSimulation.getJpanelContent().refresh();
-			setTitle(title+"["+SimulationSingleton.getInstance().getCurrentFileName()+"]");
+			setNewTitle("["+SimulationSingleton.getInstance().getCurrentFileName()+"]");
 			}
 		}
 
