@@ -178,8 +178,8 @@ public class JPanelContent extends JPanel
 						System.out.println("start pos X parent : " + ((xChild + (panelTank.getWidth() / 2)) - widthtotaltank / 2));
 
 						//xPos = ((xChild + panelTank.getWidth()/2) - widthtotaltank/2) + iParent*panelTank.getWidth();
-						xPos = xChild + iParent * panelTank.getWidth() - widthtotaltank;
-						yPos = yChild - panelTank.getHeight() - 10;
+						xPos = xChild + iParent * panelTank.getWidth() - widthtotaltank + 20;
+						yPos = yChild - panelTank.getHeight() - 20;
 
 						iParent++;
 
