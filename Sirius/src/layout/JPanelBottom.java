@@ -88,7 +88,6 @@ public class JPanelBottom extends JPanel
 
 		startSimulation.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{

@@ -1,7 +1,6 @@
 
 package differentialEquationSolving;
 
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,16 +30,9 @@ public class SimulationAnimation extends JPanel implements ActionListener
 	\*------------------------------------------------------------------*/
 
 	@Override
-	public void paint(Graphics g)
-		{
-		super.paintComponent(g);
-		this.step();
-		}
-
-	@Override
 	public void actionPerformed(ActionEvent e)
 		{
-		repaint();
+		this.step();
 		}
 
 	public void startAnimation()
