@@ -21,6 +21,8 @@ public class JPanelContent extends JPanel
 	public JPanelContent()
 		{
 
+		listPanelTank = new LinkedList<JPanelTank>();
+
 		h = w = 0;
 		geometry();
 		control();
@@ -205,9 +207,9 @@ public class JPanelContent extends JPanel
 		for(JPanelTank panelTank:mapAffTank.values())
 			{
 			add(panelTank);
+			listPanelTank.add(panelTank);
 			}
 
-		//		System.out.println(listPanelTank);
 		return listPanelTank;
 		}
 

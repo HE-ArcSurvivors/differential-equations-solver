@@ -155,7 +155,7 @@ public class JPanelBottom extends JPanel
 					DecimalFormat df = new DecimalFormat("0.00");
 					result.setFormula("\\text{=" + df.format(SimulationSingleton.getInstance().getMainTank().equaDiff(t / 10, SimulationSingleton.getInstance().getSubstanceAt(1))) + "}");
 
-					//jpanelcontent.affTime(t / 10);
+					jpanelcontent.affTime(t / 10);
 
 					if (slider.getValue() == slider.getMaximum())
 						{
