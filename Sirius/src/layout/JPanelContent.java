@@ -215,7 +215,6 @@ public class JPanelContent extends JPanel
 			listPanelTank.add(panelTank);
 			}
 
-		//		System.out.println(listPanelTank);
 		return listPanelTank;
 		}
 
