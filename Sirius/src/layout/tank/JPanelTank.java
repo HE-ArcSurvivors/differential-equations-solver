@@ -27,10 +27,12 @@ public class JPanelTank extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelTank(Tank tank)
+	public JPanelTank(Tank tank, boolean leftMode)
 		{
 		this.initialWidth = 500;
 		this.tank = tank;
+		this.isLeftMode = leftMode;
+
 		geometry();
 		control();
 		appearance();
@@ -89,12 +91,6 @@ public class JPanelTank extends JPanel
 		jpanelparam = new JPanelParam(this, tank);
 		jpanelparam.setVisible(false);
 
-//		collapsiblePane = new JXCollapsiblePane(Direction.TRAILING);
-//		collapsiblePane.setAlignmentX(LEFT_ALIGNMENT);
-//		collapsiblePane.add(jpanelparam);
-//		collapsiblePane.setCollapsed(true);
-//		collapsiblePane.setAnimated(false);
-
 		buttonSettings = new JButton("");
 		buttonSettings.setIcon(MagasinImage.iconSettings);
 		buttonSettings.setContentAreaFilled(false);
@@ -109,7 +105,7 @@ public class JPanelTank extends JPanel
 		boutonAddParent.setBorder(BorderFactory.createEmptyBorder());
 
 		jpanelGraduationSolid = new JPanelGraduation(tank.getCapacite());
-		
+
 		jpanelGraduationLiquid = new JPanelGraduation(tank.getCapacite());
 
 		if (tank.isInfini())
@@ -120,16 +116,15 @@ public class JPanelTank extends JPanel
 			{
 			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
 			}
-		
+
 		setFixeSize(jpanelGraduationLiquid, 35, maxHeight);
 
 		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
 		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
+		jpanelTap = new JPannelTap(isLeftMode);
+		setFixeSize(jpanelTap, 60, maxHeight);
 
 		setFixeSize(jpanelGraduationSolid, 50, maxHeight);
-
-		jpanelTap = new JPannelTap();
-		setFixeSize(jpanelTap, 60, maxHeight);
 
 		jpanelDelete = createSeparation(20);
 		jpanelDelete.add(boutonAddParent);
@@ -139,12 +134,18 @@ public class JPanelTank extends JPanel
 
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
+
+		if(isLeftMode)
+			{
+			add(jpanelTap);
+			}
+
 		add(jpanelGraduationSolid);
 		add(jpanelSolid);
 
 		add(createSeparation(10));
 		add(jpanelLiquid);
-		
+
 		add(jpanelGraduationLiquid);
 
 		if (!tank.isInfini())
@@ -157,7 +158,12 @@ public class JPanelTank extends JPanel
 			}
 
 		add(jpanelDelete);
-		add(jpanelTap);
+
+		if(!isLeftMode)
+			{
+			add(jpanelTap);
+			}
+
 		add(jpanelparam);
 		}
 
@@ -194,7 +200,7 @@ public class JPanelTank extends JPanel
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
-					
+
 					if (tank.getTankChild() == null)
 					{
 
@@ -214,7 +220,7 @@ public class JPanelTank extends JPanel
 					}
 					else
 					{
-						
+
 						System.out.println("Ce niveau n'est pas encore disponible");
 					}
 					}
@@ -269,5 +275,6 @@ public class JPanelTank extends JPanel
 
 	// in
 	private Tank tank;
+	private boolean isLeftMode;
 
-	}
+}

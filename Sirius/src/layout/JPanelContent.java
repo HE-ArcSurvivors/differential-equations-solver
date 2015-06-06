@@ -21,6 +21,8 @@ public class JPanelContent extends JPanel
 	public JPanelContent()
 		{
 
+		listPanelTank = new LinkedList<JPanelTank>();
+
 		h = w = 0;
 		geometry();
 		control();
@@ -135,7 +137,7 @@ public class JPanelContent extends JPanel
 				{
 
 				pileTank.addAll(tank.getlistTankParent());
-				JPanelTank panelTank = new JPanelTank(tank);
+				JPanelTank panelTank = new JPanelTank(tank, false);
 
 				int xPos = 0;
 				int yPos = 0;
@@ -164,25 +166,30 @@ public class JPanelContent extends JPanel
 							}
 
 						int widthtotaltank = tank.getlistTankParent().size() * panelTank.getWidth();
+						int decalage = widthtotaltank;
 
 						if (tank.getlistTankParent().size() == 0)
 							{
-							widthtotaltank += panelTank.getWidth()/2;
+							decalage += panelTank.getWidth()/2;
 							}
 						else
 							{
-							widthtotaltank -= panelTank.getWidth()/2;
+							decalage -= panelTank.getWidth()/2;
 							}
 
 						System.out.println("nb parent : " + tank.getlistTankParent().size() + " , total width : " + widthtotaltank);
-						System.out.println("start pos X parent : " + ((xChild + (panelTank.getWidth() / 2)) - widthtotaltank / 2));
+						System.out.println("pos X parent : " + xChild);
 
 						//xPos = ((xChild + panelTank.getWidth()/2) - widthtotaltank/2) + iParent*panelTank.getWidth();
-						xPos = xChild + iParent * panelTank.getWidth() - widthtotaltank + 20;
+						xPos = xChild + iParent * panelTank.getWidth() - decalage + 20;
 						yPos = yChild - panelTank.getHeight() - 20;
 
-						iParent++;
+						if(xPos > xChild)
+							{
+							panelTank = new JPanelTank(tank, true);
+							}
 
+						iParent++;
 						}
 					else
 						{
@@ -205,6 +212,7 @@ public class JPanelContent extends JPanel
 		for(JPanelTank panelTank:mapAffTank.values())
 			{
 			add(panelTank);
+			listPanelTank.add(panelTank);
 			}
 
 		//		System.out.println(listPanelTank);
