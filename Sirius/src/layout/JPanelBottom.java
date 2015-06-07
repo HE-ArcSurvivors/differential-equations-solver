@@ -1,6 +1,7 @@
 
 package layout;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.text.DecimalFormat;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
@@ -44,6 +46,7 @@ public class JPanelBottom extends JPanel
 	private void geometry()
 		{
 
+		centerSimulation = new JButton("Centrer la simulation");
 		startSimulation = new JButton(MagasinImage.iconPlay);
 
 		stopSimulation = new JButton(MagasinImage.iconStop);
@@ -69,22 +72,38 @@ public class JPanelBottom extends JPanel
 		jframestopcondition.setVisible(false);
 
 		FlowLayout flowlayout = new FlowLayout(FlowLayout.LEFT);
-		setLayout(flowlayout);
+		setLayout(new BorderLayout());
 
-		add(startSimulation);
-		add(pauseSimulation);
-		add(replaySimulation);
-		add(stopSimulation);
-		add(stopCondition);
-		add(slider);
-		add(formule);
-		add(result);
-		add(sliderAnimation);
+		Box boxH = Box.createHorizontalBox();
+		boxH.add(startSimulation);
+		boxH.add(pauseSimulation);
+		boxH.add(replaySimulation);
+		boxH.add(stopSimulation);
+		boxH.add(stopCondition);
+		boxH.add(Box.createHorizontalStrut(20));
+		boxH.add(slider);
+		boxH.add(Box.createHorizontalStrut(20));
+		boxH.add(formule);
+		boxH.add(result);
 
+		boxH.add(sliderAnimation);
+		boxH.add(Box.createHorizontalGlue());
+		boxH.add(centerSimulation);
+
+		add(boxH);
 		}
 
 	private void control()
 		{
+
+		centerSimulation.addActionListener(new ActionListener()
+			{
+			@Override
+			public void actionPerformed(ActionEvent e)
+				{
+				jpanelcontent.centerSimulation();
+				}
+		});
 
 		startSimulation.addActionListener(new ActionListener()
 			{
@@ -186,6 +205,7 @@ public class JPanelBottom extends JPanel
 		slider.setValue(0);
 		formule.setVisible(false);
 		result.setVisible(false);
+		jpanelcontent.resetTime();
 		}
 
 	private void appearance()
@@ -264,6 +284,9 @@ public class JPanelBottom extends JPanel
 	private JButton stopSimulation;
 	private JButton pauseSimulation;
 	private JButton replaySimulation;
+
+	private JButton centerSimulation;
+
 	private JSliderSimulation slider;
 
 	private JLabelFormula formule;

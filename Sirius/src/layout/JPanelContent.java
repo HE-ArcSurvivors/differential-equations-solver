@@ -32,41 +32,43 @@ public class JPanelContent extends JPanel
 		scrolY = 0;
 		startPosX = 0;
 		startPosY = 0;
+		t=null;
 		geometry();
 		control();
 		appearance();
 
 		}
-//
-//		class MovingAdapter extends MouseAdapter {
-//
-//			private int x;
-//			private int y;
-//
-//			@Override
-//			public void mousePressed(MouseEvent e) {
-//				x = e.getX();
-//				y = e.getY();
-//			}
-//
-//			@Override
-//			public void mouseDragged(MouseEvent e) {
-//
-////				Tank maintank = SimulationSingleton.getInstance().getMainTank();
-//
-//				int dx = e.getX() - x;
-//				int dy = e.getY() - y;
-//
-//				if (panelTank.contains(x, y)) {
-//					dx = panelTank.getX() + dx;
-//					dy = panelTank.getY() + dy;
-//					panelTank.setLocation(dx, dy);
-//					repaint();
-//				}
-//				x += dx;
-//				y += dy;
-//			}
-//		}
+
+	//
+	//		class MovingAdapter extends MouseAdapter {
+	//
+	//			private int x;
+	//			private int y;
+	//
+	//			@Override
+	//			public void mousePressed(MouseEvent e) {
+	//				x = e.getX();
+	//				y = e.getY();
+	//			}
+	//
+	//			@Override
+	//			public void mouseDragged(MouseEvent e) {
+	//
+	////				Tank maintank = SimulationSingleton.getInstance().getMainTank();
+	//
+	//				int dx = e.getX() - x;
+	//				int dy = e.getY() - y;
+	//
+	//				if (panelTank.contains(x, y)) {
+	//					dx = panelTank.getX() + dx;
+	//					dy = panelTank.getY() + dy;
+	//					panelTank.setLocation(dx, dy);
+	//					repaint();
+	//				}
+	//				x += dx;
+	//				y += dy;
+	//			}
+	//		}
 
 	//	class ScaleHandler implements MouseWheelListener {
 	//		public void mouseWheelMoved(MouseWheelEvent e) {
@@ -256,7 +258,7 @@ public class JPanelContent extends JPanel
 		//affichage sur la scene
 		for(JPanelTank panelTank:mapAffTank.values())
 			{
-			panelTank.setLocation(panelTank.getX() + decalageX+scrolX, panelTank.getY()+decalageY+scrolY);
+			panelTank.setLocation(panelTank.getX() + decalageX + scrolX, panelTank.getY() + decalageY + scrolY);
 			add(panelTank);
 			listPanelTank.add(panelTank);
 			}
@@ -264,13 +266,14 @@ public class JPanelContent extends JPanel
 		return listPanelTank;
 		}
 
-	public void affTime(double t)
+	public void affTime(double time)
 		{
 		for(JPanelTank paneltank:listPanelTank)
 			{
-			paneltank.affTime(t);
+			paneltank.affTime(time);
 			}
 		repaint();
+		this.t = time;
 		}
 
 	public void refresh()
@@ -279,9 +282,24 @@ public class JPanelContent extends JPanel
 
 		listPanelTank = constructPannelsTank();
 
+		if(t!=null)
+			{
+			affTime(t);
+			}
+
 		repaint();
 		updateUI();
+		}
 
+	public void resetTime()
+		{
+		this.t = null;
+		}
+
+	public void centerSimulation()
+		{
+		scrolX = scrolY = 0;
+		refresh();
 		}
 
 	/*------------------------------*\
@@ -308,8 +326,8 @@ public class JPanelContent extends JPanel
 	private void control()
 		{
 		//addParameters();
-//		addMouseMotionListener(ma);
-//		addMouseListener(ma);
+		//		addMouseMotionListener(ma);
+		//		addMouseListener(ma);
 		//addMouseWheelListener(new ScaleHandler());
 
 		addMouseListener(new MouseAdapter()
@@ -338,10 +356,10 @@ public class JPanelContent extends JPanel
 				@Override
 				public void mouseDragged(MouseEvent e)
 					{
-					scrolX += e.getX()-startPosX;
-					scrolY += e.getY()-startPosY;
-					startPosX=e.getX();
-					startPosY=e.getY();
+					scrolX += e.getX() - startPosX;
+					scrolY += e.getY() - startPosY;
+					startPosX = e.getX();
+					startPosY = e.getY();
 
 					getParent().setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 					refresh();
@@ -354,7 +372,6 @@ public class JPanelContent extends JPanel
 					}
 
 			});
-
 
 		}
 
@@ -416,6 +433,8 @@ public class JPanelContent extends JPanel
 	private int w;
 	private int h;
 
+	private Double t;
+
 	private int scrolX;
 	private int scrolY;
 	private int startPosX;
@@ -428,6 +447,6 @@ public class JPanelContent extends JPanel
 	//	JXButton toggle = new JXButton(collapsibelPane.getActionMap().get(
 	//			JXCollapsiblePane.TOGGLE_ACTION));
 	//	Box box = new Box(BoxLayout.Y_AXIS);
-//		MovingAdapter ma = new MovingAdapter();
+	//		MovingAdapter ma = new MovingAdapter();
 
 	}
