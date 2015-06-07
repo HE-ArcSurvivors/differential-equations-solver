@@ -1,7 +1,7 @@
 
 package layout.tabresolution;
 
-import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.text.DecimalFormat;
 
 import javax.swing.JPanel;
@@ -54,9 +54,9 @@ public class JPanelResolutionSolving extends JPanel
 		loadLatexString();
 		label = new JLabelFormula(latex);
 
-		layout = new BorderLayout();
+		FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
 		setLayout(layout);
-		add(label, BorderLayout.CENTER);
+		add(label);
 		}
 
 	private void control()
@@ -66,7 +66,6 @@ public class JPanelResolutionSolving extends JPanel
 
 	private void appearance()
 		{
-		setAlignmentX(LEFT_ALIGNMENT);
 		setAlignmentY(TOP_ALIGNMENT);
 		}
 
@@ -112,6 +111,4 @@ public class JPanelResolutionSolving extends JPanel
 	// Tools
 	private String latex;
 	private JLabelFormula label;
-	private BorderLayout layout;
-
 	}
