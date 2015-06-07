@@ -9,6 +9,8 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
+import tools.MagasinImage;
+
 public class JPannelContentTank extends JPanel
 	{
 
@@ -66,21 +68,36 @@ public class JPannelContentTank extends JPanel
 		{
 		int totalh = this.getHeight();
 
-		double RatioRempli = content / capacite;
 
-		int h = (int)(RatioRempli * totalh);
+		if (content > capacite)
+			{
+			rectContent = new Rectangle2D.Double(0, 0, this.getWidth(), totalh);
+			g2d.setColor(Color.RED);
+			}
+		else
+			{
+			double RatioRempli = content / capacite;
 
-		rectContent = new Rectangle2D.Double(0, totalh - h, this.getWidth(), totalh);
+			int h = (int)(RatioRempli * totalh);
 
-		g2d.setColor(Color.BLUE);
+			rectContent = new Rectangle2D.Double(0, totalh - h, this.getWidth(), totalh);
+			g2d.setColor(Color.BLUE);
+			}
+
+		String contentL = (double)(Math.round(content * 100)) / 100 + " l";
+
 		g2d.fill(rectContent);
 
 		g2d.setColor(Color.BLACK);
-		String contentL = (double)(Math.round(content * 100)) / 100 + " l";
+
 		int x = (int)(rectContent.getWidth() / 2) - 12;
 		int y = (int)((rectContent.getY() + rectContent.getHeight()) / 2);
 		g2d.drawString(contentL, x, y);
 
+		if (content > capacite)
+			{
+			g2d.drawImage(MagasinImage.iconWarning.getImage(), 15, 15, null);
+			}
 		}
 
 	private void geometry()
