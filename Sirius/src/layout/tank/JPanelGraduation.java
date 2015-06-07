@@ -90,12 +90,12 @@ public class JPanelGraduation extends JPanel
 			{
 			g2d.setColor(Color.BLACK);
 
+			L += pasL;
+
 			if (type == Substance.SOLID)
 				{
 				int marginL = 30;
 				int marginR = 12;
-
-				L += pasL;
 
 				if (L % (2 * pasL) == 0 && i != h)
 					{
@@ -113,7 +113,6 @@ public class JPanelGraduation extends JPanel
 				int marginSup = 3;
 				int sizeNumbers = 30;
 
-				L += pasL;
 				if (L % (2 * pasL) == 0 && i != h)
 					{
 					g2d.setFont(arial);
