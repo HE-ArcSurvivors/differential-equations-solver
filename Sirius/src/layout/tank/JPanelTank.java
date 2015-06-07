@@ -205,6 +205,11 @@ public class JPanelTank extends JPanel
 			{
 			boutonAddParent.setEnabled(false);
 			}
+
+		if(SimulationSingleton.getInstance().isStarted())
+			{
+			jpanelparam.setVisible(false);
+			}
 	}
 
 	private void control()

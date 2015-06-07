@@ -16,6 +16,7 @@
 package layout;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -246,7 +247,9 @@ public class JPanelBottom extends JPanel
 
 	private void appearance()
 		{
-
+		setMinimumSize(new Dimension(getWidth(),50));
+		setPreferredSize(new Dimension(getWidth(),50));
+		setMaximumSize(new Dimension(getWidth(),50));
 		}
 
 	@Override
