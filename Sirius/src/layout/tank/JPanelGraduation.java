@@ -38,15 +38,6 @@ public class JPanelGraduation extends JPanel
 		this.arial = new Font("Arial", Font.PLAIN, 10);
 		this.type = type;
 
-		if (type == Substance.SOLID)
-			{
-			pasL = 1;
-			}
-		else
-			{
-			pasL = 1;
-			}
-
 		geometry();
 		control();
 		appearance();
