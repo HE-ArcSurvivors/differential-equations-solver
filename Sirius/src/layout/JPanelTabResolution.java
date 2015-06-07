@@ -1,9 +1,10 @@
 package layout;
 
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 
-import javax.swing.Box;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 
 import layout.tabresolution.JPanelResolutionData;
 import layout.tabresolution.JPanelResolutionSolving;
@@ -48,20 +49,20 @@ public class JPanelTabResolution extends JPanel
 		{
 			// JComponent : Instanciation
 			//jpanelresolutionschema = new JPanelResolutionSchema();
+
 			jpanelresolutiondata = new JPanelResolutionData();
 			jpanelresolutionsolving = new JPanelResolutionSolving();
 
-			Box boxH = Box.createHorizontalBox();
-			boxH.add(jpanelresolutiondata);
-			boxH.add(jpanelresolutionsolving);
+			JScrollPane scrollerData = new JScrollPane(jpanelresolutiondata);
 
-			boxH.setAlignmentX(LEFT_ALIGNMENT);
-			boxH.setAlignmentY(TOP_ALIGNMENT);
+			splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollerData, jpanelresolutionsolving);
+			splitPane.setOneTouchExpandable(true);
+			splitPane.setDividerLocation(0.5);
+			splitPane.setContinuousLayout(true);
 
-			FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
-			setAlignmentY(TOP_ALIGNMENT);
+			BorderLayout layout = new BorderLayout();
 			setLayout(layout);
-			add(boxH);
+			add(splitPane,BorderLayout.CENTER);
 		}
 
 	private void control()
@@ -82,5 +83,7 @@ public class JPanelTabResolution extends JPanel
 	//private JPanelResolutionSchema jpanelresolutionschema;
 	private JPanelResolutionData jpanelresolutiondata;
 	private JPanelResolutionSolving jpanelresolutionsolving;
+
+	private JSplitPane splitPane;
 
 	}

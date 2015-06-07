@@ -50,38 +50,15 @@ public class JPanelTabSimulation extends JPanel
 		jpaneloutil = new JPanelOutils();
 		jpanelcontent = new JPanelContent();
 		jpanelbottom = new JPanelBottom(jpanelcontent);
-			//			jpanelbottom.setMinimumSize(new Dimension(this.getWidth(),100));
-			//			jpanelbottom.setSize(new Dimension(this.getWidth(),100));
-			//			jpanelbottom.setMaximumSize(new Dimension(this.getWidth(),100));
-			//			jpanelbottom.setPreferredSize(new Dimension(this.getWidth(),100));
 
-			// Layout : Specification
-			{
-			BorderLayout borderLayout = new BorderLayout();
-			setLayout(borderLayout);
-
-			// borderLayout.setHgap(20);
-			// borderLayout.setVgap(20);
-			}
-
-//		jpanelcontent.setPreferredSize(new Dimension(10, 10));
+		BorderLayout borderLayout = new BorderLayout();
+		setLayout(borderLayout);
 
 		//TODO make the scroll work
-
-		scrollPaneContent = new JScrollPane();
-
-		scrollPaneContent.setViewportView(jpanelcontent);
-
-//		scrollPaneContent.setHorizontalScrollBarPolicy(ScrollJScrollPaneONTAL_SCROLLBAR_ALWAYS);
-//		scrollPaneContent.setVerticalScrollBarPolicy(ScrollJScrollPaneCAL_SCROLLBAR_ALWAYS);
-
-//		scrollPaneContent.setCorner(JScrollPane.UPPER_LEFT_CORNER, jpanelcontent.);
-//		scrollPaneContent.setCorner(JScrollPane.LOWER_LEFT_CORNER, new Corner());
-//		scrollPaneContent.setCorner(JScrollPane.UPPER_RIGHT_CORNER, new Corner());
+		scrollPaneContent = new JScrollPane(jpanelcontent);
 
 		// JComponent : add
-//		add(jpanelcontent, BorderLayout.CENTER);
-
+		// add(jpanelcontent, BorderLayout.CENTER);
 		add(scrollPaneContent, BorderLayout.CENTER);
 		add(jpaneloutil, BorderLayout.WEST);
 		add(jpanelbottom, BorderLayout.SOUTH);
@@ -120,6 +97,5 @@ public class JPanelTabSimulation extends JPanel
 	private JPanelBottom jpanelbottom;
 
 	public JScrollPane scrollPaneContent;
-
 
 	}
