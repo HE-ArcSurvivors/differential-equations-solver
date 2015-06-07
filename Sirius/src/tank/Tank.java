@@ -80,14 +80,22 @@ public class Tank implements Iterable<Tank> ,Serializable
 		double quantityOut = debit / getContent();
 		double quantityC = this.getValueSubstance(substance) - Math.pow(quantityOut, -1) * quantityIn;
 
-		if (quantityOut == 0)
+		if (substance.getState() == Substance.SOLID)
 			{
-			return quantity / quantityIn;
+			if (quantityOut == 0)
+				{
+				return quantity / quantityIn;
+				}
+			else
+				{
+				return -Math.log((quantity - Math.pow(quantityOut, -1) * quantityIn) / quantityC) / quantityOut;
+				}
 			}
 		else
 			{
-			return -Math.log((quantity - Math.pow(quantityOut, -1) * quantityIn) / quantityC) / quantityOut;
+			return ( quantity - getContent() ) / (getInflow() - debit);
 			}
+
 		}
 
 	public double timeOverflow()
@@ -130,7 +138,6 @@ public class Tank implements Iterable<Tank> ,Serializable
 
 	public String getFormula(double t)
 		{
-
 		DecimalFormat dfsigned = new DecimalFormat("+#,##0.00;-#");
 
 		long gcm = MathTools.gcm((long)getDebit(), (long)getContent());
@@ -252,10 +259,7 @@ public class Tank implements Iterable<Tank> ,Serializable
 			{
 			return mapSubstance.get(substance);
 			}
-		else if (substance.getState() == Substance.LIQUID)
-			{
-			return mapLiquide.get(substance);
-			}
+		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.get(substance); }
 		return 0.0;
 		}
 
@@ -297,6 +301,15 @@ public class Tank implements Iterable<Tank> ,Serializable
 			}
 
 		return mapTypeSubstances;
+		}
+
+	public boolean isQuantityPossible(double quantity, Substance substance)
+		{
+		if (timeQuantityQ(quantity, substance) <= 0)
+			{
+			return false;
+			}
+		return true;
 		}
 
 	public boolean isOverflowPossible()
@@ -369,9 +382,7 @@ public class Tank implements Iterable<Tank> ,Serializable
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
-
 	public boolean visibleParamsStatus;
-
 
 	//Input
 	private boolean infini;

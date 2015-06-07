@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import substance.Substance;
@@ -74,15 +75,15 @@ public class JPanelStopCondition extends JPanel
 		jpanelstopoverflow = new JPanelStopOverflow(this);
 		jpanelstopempty = new JPanelStopEmpty(this);
 
-		if(!SimulationSingleton.getInstance().getMainTank().isOverflowPossible())
-		{
+		if (!SimulationSingleton.getInstance().getMainTank().isOverflowPossible())
+			{
 			jpanelstopoverflow.setPossible(false);
-		}
+			}
 
-		if(!SimulationSingleton.getInstance().getMainTank().isEmptyPossible())
-		{
+		if (!SimulationSingleton.getInstance().getMainTank().isEmptyPossible())
+			{
 			jpanelstopempty.setPossible(false);
-		}
+			}
 
 		Box boxV = Box.createVerticalBox();
 		boxV.add(jpanelstoptimet);
@@ -104,6 +105,7 @@ public class JPanelStopCondition extends JPanel
 		{
 		buttonCancel.addActionListener(new ActionListener()
 			{
+
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
@@ -114,11 +116,28 @@ public class JPanelStopCondition extends JPanel
 
 		buttonOk.addActionListener(new ActionListener()
 			{
+
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
-					jframestopcondition.setStateCondition(currentState);
-					jframestopcondition.setVisible(false);
+					if (currentState == QUANTITY)
+						{
+						if (!SimulationSingleton.getInstance().getMainTank().isQuantityPossible(jpanelstopquantityq.getQuantity(), jpanelstopquantityq.getSubstance()))
+							{
+							JOptionPane.showMessageDialog(null, "Oups, cette condition n'arrivera jamais!", "Condition inatteignable", JOptionPane.ERROR_MESSAGE);
+							}
+						else
+							{
+							System.out.println("SET VISIBLE");
+							jframestopcondition.setStateCondition(currentState);
+							jframestopcondition.setVisible(false);
+							}
+						}
+					else
+						{
+						jframestopcondition.setStateCondition(currentState);
+						jframestopcondition.setVisible(false);
+						}
 					}
 			});
 		}
@@ -149,23 +168,23 @@ public class JPanelStopCondition extends JPanel
 				break;
 			case OVERFLOW:
 				System.out.println("StopOverflow");
-				if(jpanelstopoverflow.isPossible())
-				{
+				if (jpanelstopoverflow.isPossible())
+					{
 					jpanelstoptimet.setSelected(false);
 					jpanelstopquantityq.setSelected(false);
 					jpanelstopoverflow.setSelected(true);
 					jpanelstopempty.setSelected(false);
-				}
+					}
 				break;
 			case EMPTY:
 				System.out.println("StopEmpty");
-				if(jpanelstopempty.isPossible())
-				{
+				if (jpanelstopempty.isPossible())
+					{
 					jpanelstoptimet.setSelected(false);
 					jpanelstopquantityq.setSelected(false);
 					jpanelstopoverflow.setSelected(false);
 					jpanelstopempty.setSelected(true);
-				}
+					}
 				break;
 			default:
 				currentState = 0;
@@ -173,19 +192,19 @@ public class JPanelStopCondition extends JPanel
 			}
 		}
 
-		public double getTime()
+	public double getTime()
 		{
-			return jpanelstoptimet.getTime();
+		return jpanelstoptimet.getTime();
 		}
 
-		public double getQuantity()
+	public double getQuantity()
 		{
-			return jpanelstopquantityq.getQuantity();
+		return jpanelstopquantityq.getQuantity();
 		}
 
-		public Substance getSubstance()
+	public Substance getSubstance()
 		{
-			return jpanelstopquantityq.getSubstance();
+		return jpanelstopquantityq.getSubstance();
 		}
 
 	/*------------------------------------------------------------------*\
