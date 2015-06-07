@@ -271,11 +271,12 @@ public class JPanelBottom extends JPanel
 		result.setVisible(true);
 
 		SimulationSingleton.getInstance().setStarted(true);
+
 		startSimulation.setVisible(false);
 		stopCondition.setVisible(false);
-
 		stopSimulation.setVisible(true);
 		pauseSimulation.setVisible(true);
+		replaySimulation.setVisible(false);
 
 		slider.setVisible(true);
 		sliderAnimation.startAnimation();
@@ -284,8 +285,12 @@ public class JPanelBottom extends JPanel
 	private void pauseAnimation()
 		{
 		sliderAnimation.stopAnimation();
+
 		startSimulation.setVisible(true);
 		pauseSimulation.setVisible(false);
+		replaySimulation.setVisible(false);
+		stopCondition.setVisible(false);
+		stopSimulation.setVisible(true);
 		}
 
 	private void stopAnimation()
@@ -295,7 +300,6 @@ public class JPanelBottom extends JPanel
 
 		startSimulation.setVisible(true);
 		stopCondition.setVisible(true);
-
 		replaySimulation.setVisible(false);
 		stopSimulation.setVisible(false);
 		pauseSimulation.setVisible(false);
