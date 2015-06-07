@@ -16,16 +16,27 @@ public class JPanelGraduation extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelGraduation(double capacite)
+	public JPanelGraduation(double capacite, int type)
 		{
-		this.capacite = capacite;
+		if (type == 1)
+		{
+			this.capacite = capacite;
+	
+			this.arial = new Font("Arial", Font.PLAIN, 10);
+			pasL = 30;
+		}
+		else
+		{
+			this.capacite = capacite;
 
-		this.arial = new Font("Arial", Font.PLAIN, 10);
-		pasL = 5;
+			this.arial = new Font("Arial", Font.PLAIN, 10);
+			pasL = 1;
+		}
 		geometry();
 		control();
 		appearance();
 		}
+
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
