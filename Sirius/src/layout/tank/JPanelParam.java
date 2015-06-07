@@ -151,8 +151,7 @@ public class JPanelParam extends JPanel
 	public void update()
 		{
 		System.out.println("getCapacite : "+tank.getCapacite());
-		System.out.println("getDebit : "+tank.getDebit());
-		contenance.setValue(tank.getCapacite());
+		System.out.println("getDebit : "+tank.getDebit());		contenance.setValue(tank.getCapacite());
 		debit.setValue(tank.getDebit());
 
 		for(Substance sub:mapSubstanceParamLine.keySet())
@@ -169,6 +168,7 @@ public class JPanelParam extends JPanel
 	protected void paintComponent(Graphics g)
 		{
 		super.paintComponent(g);
+
 		update();
 		}
 

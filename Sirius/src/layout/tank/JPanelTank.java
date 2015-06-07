@@ -88,7 +88,7 @@ public class JPanelTank extends JPanel
 		int maxHeight = 500;
 
 		jpanelparam = new JPanelParam(this, tank);
-		jpanelparam.setVisible(false);
+		jpanelparam.setVisible(tank.visibleParamsStatus);
 
 		buttonSettings = new JButton("");
 		buttonSettings.setIcon(MagasinImage.iconSettings);
@@ -175,7 +175,8 @@ public class JPanelTank extends JPanel
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
-					jpanelparam.setVisible(!jpanelparam.isVisible());
+					tank.visibleParamsStatus = !tank.visibleParamsStatus;
+					jpanelparam.setVisible(tank.visibleParamsStatus);
 					}
 			});
 
@@ -250,7 +251,7 @@ public class JPanelTank extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-
+	
 	// Tools
 	private JPanelGraduation jpanelGraduationSolid;
 	private JPanelSubstances jpanelSolid;
