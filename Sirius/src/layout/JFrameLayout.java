@@ -35,7 +35,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import substance.Substance;
-import tank.Tank;
 import differentialEquationSolving.SimulationSingleton;
 
 public class JFrameLayout extends JFrame
@@ -266,23 +265,15 @@ public class JFrameLayout extends JFrame
 	{
 		if (!SimulationSingleton.getInstance().isStarted())
 		{
-			String name = "[Nouveau Fichier]*";
-			setNewTitle(name);
-			SimulationSingleton.getInstance().deleteMainTank();
-
-			Tank r1 = new Tank(false, 500, 5);
-			r1.addSubstance(sel, 2);
-			r1.addSubstance(eau, 500);
-
-			SimulationSingleton.getInstance().setMainTank(r1);
+			String name = "newFile.glou";
+			SimulationSingleton.load(name);
+			setNewTitle("[Nouveau Fichier]*");
 		}
 		else
 		{
 			System.out.println("Simulation en cours, Création non disponible");
 		}
-
 	}
-
 
 	private void saveAs()
 		{
@@ -316,6 +307,7 @@ public class JFrameLayout extends JFrame
 			{
 			SimulationSingleton.load(name);
 			setNewTitle("["+name+"]");
+			SimulationSingleton.getInstance().setStarted(false);
 			panelSimulation.getJPanelContent().refresh();
 			}
 		}
