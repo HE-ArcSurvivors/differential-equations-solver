@@ -32,6 +32,8 @@ public class Tank implements Iterable<Tank> ,Serializable
 		this.debit = debit;
 
 		this.name = "";
+		
+		this.visibleParamsStatus = false;
 		}
 
 	/*------------------------------------------------------------------*\
@@ -352,6 +354,10 @@ public class Tank implements Iterable<Tank> ,Serializable
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
+	
+	public boolean visibleParamsStatus;
+	
+	
 	//Input
 	private boolean infini;
 

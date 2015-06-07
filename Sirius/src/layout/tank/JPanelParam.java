@@ -169,7 +169,7 @@ public class JPanelParam extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-
+	
 	// Input
 	private JPanelTank parent;
 	private Tank tank;
