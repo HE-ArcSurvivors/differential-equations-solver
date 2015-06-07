@@ -1,11 +1,14 @@
 
 package layout;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import layout.tank.JPanelTank;
 import tank.Tank;
@@ -29,34 +32,36 @@ public class JPanelContent extends JPanel
 		appearance();
 
 		}
-
-	//	class MovingAdapter extends MouseAdapter {
-	//
-	//		private int x;
-	//		private int y;
-	//
-	//		@Override
-	//		public void mousePressed(MouseEvent e) {
-	//			x = e.getX();
-	//			y = e.getY();
-	//		}
-	//
-	//		@Override
-	//		public void mouseDragged(MouseEvent e) {
-	//
-	//			int dx = e.getX() - x;
-	//			int dy = e.getY() - y;
-	//
-	//			if (tank1.contains(x, y)) {
-	//				dx = tank1.getX() + dx;
-	//				dy = tank1.getY() + dy;
-	//				tank1.setLocation(dx, dy);
-	//				repaint();
-	//			}
-	//			x += dx;
-	//			y += dy;
-	//		}
-	//	}
+//
+//		class MovingAdapter extends MouseAdapter {
+//	
+//			private int x;
+//			private int y;
+//	
+//			@Override
+//			public void mousePressed(MouseEvent e) {
+//				x = e.getX();
+//				y = e.getY();
+//			}
+//	
+//			@Override
+//			public void mouseDragged(MouseEvent e) {
+//				
+////				Tank maintank = SimulationSingleton.getInstance().getMainTank();
+//	
+//				int dx = e.getX() - x;
+//				int dy = e.getY() - y;
+//	
+//				if (panelTank.contains(x, y)) {
+//					dx = panelTank.getX() + dx;
+//					dy = panelTank.getY() + dy;
+//					panelTank.setLocation(dx, dy);
+//					repaint();
+//				}
+//				x += dx;
+//				y += dy;
+//			}
+//		}
 
 	//	class ScaleHandler implements MouseWheelListener {
 	//		public void mouseWheelMoved(MouseWheelEvent e) {
@@ -137,7 +142,7 @@ public class JPanelContent extends JPanel
 				{
 
 				pileTank.addAll(tank.getlistTankParent());
-				JPanelTank panelTank = new JPanelTank(tank, false);
+				panelTank = new JPanelTank(tank, false);
 
 				int xPos = 0;
 				int yPos = 0;
@@ -235,6 +240,7 @@ public class JPanelContent extends JPanel
 
 		repaint();
 		updateUI();
+		
 		}
 
 	/*------------------------------*\
@@ -261,8 +267,8 @@ public class JPanelContent extends JPanel
 	private void control()
 		{
 		//addParameters();
-		//addMouseMotionListener(ma);
-		//addMouseListener(ma);
+//		addMouseMotionListener(ma);
+//		addMouseListener(ma);
 		//addMouseWheelListener(new ScaleHandler());
 		}
 
@@ -318,6 +324,7 @@ public class JPanelContent extends JPanel
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
+	private JPanelTank panelTank;
 	private List<JPanelTank> listPanelTank;
 
 	private int w;
@@ -330,6 +337,6 @@ public class JPanelContent extends JPanel
 	//	JXButton toggle = new JXButton(collapsibelPane.getActionMap().get(
 	//			JXCollapsiblePane.TOGGLE_ACTION));
 	//	Box box = new Box(BoxLayout.Y_AXIS);
-	//	MovingAdapter ma = new MovingAdapter();
+//		MovingAdapter ma = new MovingAdapter();
 
 	}

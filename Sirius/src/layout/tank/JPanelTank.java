@@ -103,9 +103,9 @@ public class JPanelTank extends JPanel
 		boutonAddParent.setContentAreaFilled(false);
 		boutonAddParent.setBorder(BorderFactory.createEmptyBorder());
 
-		jpanelGraduationSolid = new JPanelGraduation(tank.getCapacite());
+		jpanelGraduationSolid = new JPanelGraduation(tank.getCapacite(), Substance.SOLID);
 
-		jpanelGraduationLiquid = new JPanelGraduation(tank.getCapacite());
+		jpanelGraduationLiquid = new JPanelGraduation(tank.getCapacite(), Substance.LIQUID);
 
 		if (tank.isInfini())
 			{
