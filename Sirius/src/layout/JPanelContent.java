@@ -251,9 +251,9 @@ public class JPanelContent extends JPanel
 		int centerWindowY = this.getHeight() / 2;
 		int decalageY = (centerWindowY - centerSimulationY);
 
-		//		System.out.println("centre Fenetre "+centerWindow);
-		//		System.out.println("min : "+ minPos + "  max : " + maxPos+ "  centre simulation :"+centerSimulation);
-		//		System.out.println("-----declage--- "+decalage);
+		System.out.println("centre Fenetre "+ centerWindowX);
+		System.out.println("min : "+ minPosX + "  max : " + maxPosX+ "  centre simulation :"+centerSimulationX+ " centre ecran:"+centerWindowX);
+		System.out.println("-----declage :  " + decalageX);
 
 		//affichage sur la scene
 		for(JPanelTank panelTank:mapAffTank.values())
