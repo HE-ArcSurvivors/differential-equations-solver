@@ -2,7 +2,6 @@
 package layout;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -74,13 +73,14 @@ public class JPanelBottom extends JPanel
 		jframestopcondition = new JFrameStopCondition(JPanelStopCondition.TIME);
 		jframestopcondition.setVisible(false);
 
-		FlowLayout flowlayout = new FlowLayout(FlowLayout.LEFT);
 		setLayout(new BorderLayout());
 
 		Box boxH = Box.createHorizontalBox();
+		boxH.add(Box.createHorizontalStrut(2));
 		boxH.add(startSimulation);
 		boxH.add(pauseSimulation);
 		boxH.add(replaySimulation);
+		boxH.add(Box.createHorizontalStrut(10));
 		boxH.add(stopSimulation);
 		boxH.add(stopCondition);
 		boxH.add(Box.createHorizontalStrut(20));
