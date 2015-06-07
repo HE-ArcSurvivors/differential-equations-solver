@@ -55,11 +55,11 @@ public class JPanelTabSimulation extends JPanel
 		setLayout(borderLayout);
 
 		//TODO make the scroll work
-		scrollPaneContent = new JScrollPane(jpanelcontent);
+//		scrollPaneContent = new JScrollPane(jpanelcontent);
 
 		// JComponent : add
-		// add(jpanelcontent, BorderLayout.CENTER);
-		add(scrollPaneContent, BorderLayout.CENTER);
+		 add(jpanelcontent, BorderLayout.CENTER);
+//		add(scrollPaneContent, BorderLayout.CENTER);
 		add(jpaneloutil, BorderLayout.WEST);
 		add(jpanelbottom, BorderLayout.SOUTH);
 		}
