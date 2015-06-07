@@ -44,8 +44,11 @@ public class JPanelBottom extends JPanel
 
 	private void geometry()
 		{
-
+		
+		addMainTankToSimulation = new JButton("Ajouter un tank principal");
+		addMainTankToSimulation.setVisible(false);
 		centerSimulation = new JButton("Centrer la simulation");
+		
 		startSimulation = new JButton(MagasinImage.iconPlay);
 
 		stopSimulation = new JButton(MagasinImage.iconStop);
@@ -89,12 +92,22 @@ public class JPanelBottom extends JPanel
 		boxH.add(sliderAnimation);
 		boxH.add(Box.createHorizontalGlue());
 		boxH.add(centerSimulation);
+		boxH.add(addMainTankToSimulation);
 
 		add(boxH);
 		}
 
 	private void control()
 		{
+		
+//		actionPerformed(ActionEvent e) {
+//			if (SimulationSingleton.getInstance().getMainTank()==null)
+//			{
+//				System.out.println("no main tank !");
+//			}
+//	    }
+		
+		
 
 		centerSimulation.addActionListener(new ActionListener()
 			{
@@ -104,6 +117,15 @@ public class JPanelBottom extends JPanel
 				jpanelcontent.centerSimulation();
 				}
 		});
+		
+		addMainTankToSimulation.addActionListener(new ActionListener()
+		{
+		@Override
+		public void actionPerformed(ActionEvent e)
+			{
+			jpanelcontent.centerSimulation();
+			}
+	});
 
 		startSimulation.addActionListener(new ActionListener()
 			{
@@ -286,6 +308,7 @@ public class JPanelBottom extends JPanel
 	private JButton replaySimulation;
 
 	private JButton centerSimulation;
+	private JButton addMainTankToSimulation;
 
 	private JSliderSimulation slider;
 
