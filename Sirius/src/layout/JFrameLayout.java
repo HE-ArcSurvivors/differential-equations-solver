@@ -15,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
+import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -143,6 +144,7 @@ public class JFrameLayout extends JFrame
 					newBoard();
 					}
 			});
+		newBoard.setAccelerator(KeyStroke.getKeyStroke("ctrl N"));
 
 		JMenuItem save = new JMenuItem("Enregistrer");
 		save.addActionListener(new ActionListener()
@@ -154,44 +156,46 @@ public class JFrameLayout extends JFrame
 					save();
 					}
 			});
+		save.setAccelerator(KeyStroke.getKeyStroke("ctrl S"));
 
 		JMenuItem saveAs = new JMenuItem("Enregistrer sous...");
 		saveAs.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
 					saveAs();
 					}
 			});
+		saveAs.setAccelerator(KeyStroke.getKeyStroke("ctrl shift S"));
 
 		JMenuItem load = new JMenuItem("Ouvrir");
 		load.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
 					open();
 					}
 			});
+		load.setAccelerator(KeyStroke.getKeyStroke("ctrl O"));
 
-		JMenuItem item = new JMenuItem("Quitter l'application");
-		item.addActionListener(new ActionListener()
+		JMenuItem exit = new JMenuItem("Quitter l'application");
+		exit.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
 					System.exit(0);
 					}
 			});
+		exit.setAccelerator(KeyStroke.getKeyStroke("ctrl Q"));
+
 		menu.add(newBoard);
 		menu.add(load);
 		menu.add(save);
 		menu.add(saveAs);
-		menu.add(item);
+		menu.add(exit);
 		this.setJMenuBar(menuBar);
 		}
 
@@ -199,7 +203,6 @@ public class JFrameLayout extends JFrame
 		{
 		tabbedPane.addChangeListener(new ChangeListener()
 			{
-
 				@Override
 				public void stateChanged(ChangeEvent e)
 					{
