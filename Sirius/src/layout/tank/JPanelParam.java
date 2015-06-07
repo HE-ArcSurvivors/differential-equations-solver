@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,11 +94,22 @@ public class JPanelParam extends JPanel
 		{
 		validate.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
 					updateSimulationFromUser();
+					}
+			});
+
+		addComponentListener(new ComponentAdapter()
+			{
+
+				@Override
+				public void componentShown(ComponentEvent e)
+					{
+					update();
+					repaint();
+					revalidate();
 					}
 			});
 		}
@@ -137,20 +150,18 @@ public class JPanelParam extends JPanel
 
 	public void update()
 		{
-		System.out.println("update");
-
-		contenance.setValue(tank.getCapacite());
+		System.out.println("getCapacite : "+tank.getCapacite());
+		System.out.println("getDebit : "+tank.getDebit());		contenance.setValue(tank.getCapacite());
 		debit.setValue(tank.getDebit());
 
 		for(Substance sub:mapSubstanceParamLine.keySet())
 			{
+			System.out.println("Substance "+sub.getName()+" : "+tank.getValueSubstance(sub));
 			mapSubstanceParamLine.get(sub).setValue(tank.getValueSubstance(sub));
-
 			}
 
 		revalidate();
 		repaint();
-		updateUI();
 		}
 
 	@Override
@@ -158,21 +169,13 @@ public class JPanelParam extends JPanel
 		{
 		super.paintComponent(g);
 
-		contenance.setValue(tank.getCapacite());
-		debit.setValue(tank.getDebit());
-
-		for(Substance sub:mapSubstanceParamLine.keySet())
-			{
-			mapSubstanceParamLine.get(sub).setLabel(sub.getName());
-			mapSubstanceParamLine.get(sub).setValue(tank.getValueSubstance(sub));
-			}
-
+		update();
 		}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-	
+
 	// Input
 	private JPanelTank parent;
 	private Tank tank;

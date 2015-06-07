@@ -125,8 +125,7 @@ public class JPanelContent extends JPanel
 		HashMap<Tank, JPanelTank> mapAffTank = new HashMap<Tank, JPanelTank>();
 		HashMap<Tank, Integer> mapIParentTank = new HashMap<Tank, Integer>();
 
-		//affichage
-
+		//Construction de l'arbre
 		int xPosChild = 0;
 		int yPosChild = 0;
 		int iParent = 0;
@@ -175,21 +174,20 @@ public class JPanelContent extends JPanel
 
 						if (tank.getlistTankParent().size() == 0)
 							{
-							decalage += panelTank.getWidth()/2;
+							decalage += panelTank.getWidth() / 2;
 							}
 						else
 							{
-							decalage -= panelTank.getWidth()/2;
+							decalage -= panelTank.getWidth() / 2;
 							}
 
 						System.out.println("nb parent : " + tank.getlistTankParent().size() + " , total width : " + widthtotaltank);
 						System.out.println("pos X parent : " + xChild);
 
-						//xPos = ((xChild + panelTank.getWidth()/2) - widthtotaltank/2) + iParent*panelTank.getWidth();
 						xPos = xChild + iParent * panelTank.getWidth() - decalage + 20;
 						yPos = yChild - panelTank.getHeight() - 20;
 
-						if(xPos > xChild)
+						if (xPos > xChild)
 							{
 							panelTank = new JPanelTank(tank, true);
 							}
@@ -213,9 +211,32 @@ public class JPanelContent extends JPanel
 
 		mainTank = null;
 
+		//centrage de la simulation
+		int minPos = xPosChild;
+		int maxPos = xPosChild;
+		for(JPanelTank panelTank:mapAffTank.values())
+			{
+			if (panelTank.getX() + panelTank.getWidth() > maxPos)
+				{
+				maxPos = panelTank.getX() + panelTank.getWidth();
+				}
+			if (panelTank.getX() < minPos)
+				{
+				minPos = panelTank.getX();
+				}
+			}
+		int centerSimulation = minPos + (maxPos - minPos) / 2;
+		int centerWindow = this.getWidth() / 2;
+		int decalage = (centerWindow - centerSimulation);
+
+		//		System.out.println("centre Fenetre "+centerWindow);
+		//		System.out.println("min : "+ minPos + "  max : " + maxPos+ "  centre simulation :"+centerSimulation);
+		//		System.out.println("-----declage--- "+decalage);
+
 		//affichage sur la scene
 		for(JPanelTank panelTank:mapAffTank.values())
 			{
+			panelTank.setLocation(panelTank.getX() + decalage, panelTank.getY());
 			add(panelTank);
 			listPanelTank.add(panelTank);
 			}
