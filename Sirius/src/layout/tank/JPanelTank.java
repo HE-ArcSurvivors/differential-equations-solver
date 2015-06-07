@@ -18,6 +18,7 @@ package layout.tank;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -54,6 +55,16 @@ public class JPanelTank extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
+
+	@Override
+	protected void paintComponent(Graphics g)
+		{
+		super.paintComponent(g);
+
+		boutonDelete.setEnabled(!SimulationSingleton.getInstance().isStarted());
+		buttonSettings.setEnabled(!SimulationSingleton.getInstance().isStarted());
+		boutonAddParent.setEnabled(!SimulationSingleton.getInstance().isStarted());
+		}
 
 	public void affTime(double t)
 		{
@@ -118,13 +129,13 @@ public class JPanelTank extends JPanel
 		boutonAddParent.setBorder(BorderFactory.createEmptyBorder());
 
 		// EMPECHER LA SUPPRESSION DU MAINTANK
-		if(tank == SimulationSingleton.getInstance().getMainTank())
+		if (tank == SimulationSingleton.getInstance().getMainTank())
 			{
 			boutonDelete.setEnabled(false);
 			}
 
 		// EMPECHER L'AJOUT EN DESSUS DU 2ND NIVEAU
-		if(tank.getTankChild() != null)
+		if (tank.getTankChild() != null)
 			{
 			boutonAddParent.setEnabled(false);
 			}
@@ -201,17 +212,21 @@ public class JPanelTank extends JPanel
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
-					tank.visibleParamsStatus = !tank.visibleParamsStatus;
-					jpanelparam.setVisible(tank.visibleParamsStatus);
+					if (!SimulationSingleton.getInstance().isStarted())
+						{
+						tank.visibleParamsStatus = !tank.visibleParamsStatus;
+						jpanelparam.setVisible(tank.visibleParamsStatus);
+						}
 					}
 			});
 
 		boutonDelete.addMouseListener(new MouseAdapter()
 			{
+
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
-					if(tank != SimulationSingleton.getInstance().getMainTank())
+					if (tank != SimulationSingleton.getInstance().getMainTank())
 						{
 						if (!SimulationSingleton.getInstance().isStarted())
 							{
@@ -233,22 +248,21 @@ public class JPanelTank extends JPanel
 
 					if (tank.getTankChild() == null)
 						{
+						if (!SimulationSingleton.getInstance().isStarted())
+							{
 
-						Tank parentTank = new Tank(false, 500, 0);
+							Tank parentTank = new Tank(false, 500, 0);
 
-						parentTank.setName("Added Parent by user");
-						parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
-						parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(1), 0);
+							parentTank.setName("Added Parent by user");
+							parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
+							parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(1), 0);
 
-						tank.addTankParent(parentTank);
+							tank.addTankParent(parentTank);
 
-						System.out.println("Nouveau tank : " + parentTank.getName());
+							System.out.println("Nouveau tank : " + parentTank.getName());
 
-						((JPanelContent)panelTank.getParent()).refresh();
-						}
-					else
-						{
-						System.out.println("Ce niveau n'est pas encore disponible");
+							((JPanelContent)panelTank.getParent()).refresh();
+							}
 						}
 					}
 
