@@ -39,7 +39,8 @@ public class Tank implements Iterable<Tank> ,Serializable
 	\*------------------------------------------------------------------*/
 
 	/*------------------------------*\
-	|*	   R�solution d'�quation	*|	\*------------------------------*/
+	|* 	  Résolution d'équation 	*|
+	\*------------------------------*/
 
 	public double equaDiff(double t, Substance substance)
 		{
