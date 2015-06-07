@@ -66,10 +66,12 @@ public class JPanelParamLine extends JPanel
 
 	public void setValue(Double value)
 		{
-		textfield = new JTextField(new String(""+value));
-		System.out.println(textfield.getText());
-		textfield.validate();
+		textfield.setText("" + value);
+
+		//Just try...
 		textfield.repaint();
+		textfield.revalidate();
+		System.out.println("(JPANELPARAMLINE. L73)I change the value, troll : "+value);
 		}
 
 	public void setLabel(String string)

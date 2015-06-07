@@ -94,6 +94,7 @@ public class JPanelOutilSubstance extends JPanel
 			boxH_line1.add(Box.createHorizontalStrut(10));
 			boxH_line1.add(buttonEdit);
 			boxH_line1.add(buttonValidate);
+			boxH_line1.add(Box.createHorizontalGlue());
 
 			Box boxH_line2 = Box.createHorizontalBox();
 			boxH_line2.setAlignmentX(Component.LEFT_ALIGNMENT);

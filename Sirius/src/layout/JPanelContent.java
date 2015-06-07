@@ -1,14 +1,11 @@
 
 package layout;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import layout.tank.JPanelTank;
 import tank.Tank;
@@ -34,24 +31,24 @@ public class JPanelContent extends JPanel
 		}
 //
 //		class MovingAdapter extends MouseAdapter {
-//	
+//
 //			private int x;
 //			private int y;
-//	
+//
 //			@Override
 //			public void mousePressed(MouseEvent e) {
 //				x = e.getX();
 //				y = e.getY();
 //			}
-//	
+//
 //			@Override
 //			public void mouseDragged(MouseEvent e) {
-//				
+//
 ////				Tank maintank = SimulationSingleton.getInstance().getMainTank();
-//	
+//
 //				int dx = e.getX() - x;
 //				int dy = e.getY() - y;
-//	
+//
 //				if (panelTank.contains(x, y)) {
 //					dx = panelTank.getX() + dx;
 //					dy = panelTank.getY() + dy;
@@ -212,22 +209,37 @@ public class JPanelContent extends JPanel
 		mainTank = null;
 
 		//centrage de la simulation
-		int minPos = xPosChild;
-		int maxPos = xPosChild;
+		int minPosX = xPosChild;
+		int maxPosX = xPosChild;
+		int minPosY = yPosChild;
+		int maxPosY = yPosChild;
 		for(JPanelTank panelTank:mapAffTank.values())
 			{
-			if (panelTank.getX() + panelTank.getWidth() > maxPos)
+			if (panelTank.getX() + panelTank.getWidth() > maxPosX)
 				{
-				maxPos = panelTank.getX() + panelTank.getWidth();
+				maxPosX = panelTank.getX() + panelTank.getWidth();
 				}
-			if (panelTank.getX() < minPos)
+			else if (panelTank.getX() < minPosX)
 				{
-				minPos = panelTank.getX();
+				minPosX = panelTank.getX();
+				}
+
+			if (panelTank.getY() + panelTank.getHeight() > maxPosY)
+				{
+				maxPosY = panelTank.getY() + panelTank.getHeight();
+				}
+			else if (panelTank.getY() < minPosY)
+				{
+				minPosY = panelTank.getY();
 				}
 			}
-		int centerSimulation = minPos + (maxPos - minPos) / 2;
-		int centerWindow = this.getWidth() / 2;
-		int decalage = (centerWindow - centerSimulation);
+		int centerSimulationX = minPosX + (maxPosX - minPosX) / 2;
+		int centerWindowX = this.getWidth() / 2;
+		int decalageX = (centerWindowX - centerSimulationX);
+
+		int centerSimulationY = minPosY + (maxPosY - minPosY) / 2;
+		int centerWindowY = this.getHeight() / 2;
+		int decalageY = (centerWindowY - centerSimulationY);
 
 		//		System.out.println("centre Fenetre "+centerWindow);
 		//		System.out.println("min : "+ minPos + "  max : " + maxPos+ "  centre simulation :"+centerSimulation);
@@ -236,7 +248,7 @@ public class JPanelContent extends JPanel
 		//affichage sur la scene
 		for(JPanelTank panelTank:mapAffTank.values())
 			{
-			panelTank.setLocation(panelTank.getX() + decalage, panelTank.getY());
+			panelTank.setLocation(panelTank.getX() + decalageX, panelTank.getY() + decalageY);
 			add(panelTank);
 			listPanelTank.add(panelTank);
 			}
@@ -261,7 +273,7 @@ public class JPanelContent extends JPanel
 
 		repaint();
 		updateUI();
-		
+
 		}
 
 	/*------------------------------*\
