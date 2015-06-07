@@ -57,9 +57,20 @@ public class Tank implements Iterable<Tank> ,Serializable
 			}
 		}
 
-	public double timeQuantityQ(double quantity)
+	public double timeQuantityQ(double quantity, Substance substance)
 		{
-		return -Math.log((quantity - Math.pow(out, -1) * in) / C) / out;
+		double quantityIn = getInflowTotal(substance);
+		double quantityOut = debit / getContent();
+		double quantityC = this.getValueSubstance(substance) - Math.pow(quantityOut, -1) * quantityIn;
+
+		if (quantityOut == 0)
+			{
+			return quantity / quantityIn;
+			}
+		else
+			{
+			return -Math.log((quantity - Math.pow(quantityOut, -1) * quantityIn) / quantityC) / quantityOut;
+			}
 		}
 
 	public double timeOverflow()
@@ -224,7 +235,10 @@ public class Tank implements Iterable<Tank> ,Serializable
 			{
 			return mapSubstance.get(substance);
 			}
-		else if (substance.getState() == Substance.LIQUID) { return mapLiquide.get(substance); }
+		else if (substance.getState() == Substance.LIQUID)
+			{
+			return mapLiquide.get(substance);
+			}
 		return 0.0;
 		}
 
