@@ -28,7 +28,7 @@ public class JPanelTank extends JPanel
 
 	public JPanelTank(Tank tank, boolean leftMode)
 		{
-		this.initialWidth = 500;
+		this.initialWidth = 510;
 		this.tank = tank;
 		this.isLeftMode = leftMode;
 
@@ -205,7 +205,7 @@ public class JPanelTank extends JPanel
 					if (tank.getTankChild() == null)
 						{
 
-						Tank parentTank = new Tank(false, 1000, 0);
+						Tank parentTank = new Tank(false, 500, 0);
 
 						parentTank.setName("Added Parent by user");
 						parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
