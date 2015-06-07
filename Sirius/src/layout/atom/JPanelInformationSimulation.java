@@ -1,24 +1,23 @@
-package layout;
+
+package layout.atom;
 
 import java.awt.FlowLayout;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Graphics;
 
-import javax.swing.Box;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
-public class JPanelHelp extends JPanel
+import tools.MagasinImage;
+import differentialEquationSolving.SimulationSingleton;
+
+public class JPanelInformationSimulation extends JPanel
 	{
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelHelp()
+	public JPanelInformationSimulation()
 		{
 		geometry();
 		control();
@@ -41,44 +40,48 @@ public class JPanelHelp extends JPanel
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
+	@Override
+	protected void paintComponent(Graphics g)
+		{
+		super.paintComponent(g);
+
+		label.setVisible(SimulationSingleton.getInstance().isStarted());
+		icon.setVisible(SimulationSingleton.getInstance().isStarted());
+		}
+
 	private void geometry()
 		{
 			// JComponent : Instanciation
-			buttonValidate = new JButton("OK");
 
 			// Layout : Specification
+			{
 			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
 			setLayout(flowlayout);
 
-			Box box = Box.createVerticalBox();
-			box.add(new JLabel("En cas de problème lors de l'utilisation de notre application,"));
-			box.add(new JLabel("veuillez contacter le support Banana par e-mail : "));
-			box.add(Box.createVerticalStrut(20));
-			box.add(new JLabel("banana.help@gmail.com"));
-			box.add(Box.createVerticalStrut(20));
-			box.add(new JLabel("Notre équipe tentera de répondre à toutes vos questions"));
-			box.add(Box.createVerticalStrut(20));
-			box.add(buttonValidate);
+			// flowlayout.setHgap(20);
+			// flowlayout.setVgap(20);
+			}
 
-			add(box);
+		icon = new JLabel(MagasinImage.iconWarning);
+		icon.setVisible(false);
+
+		label = new JLabel("SIMULATION EN COURS");
+		label.setVisible(false);
+
+		// JComponent : add
+		add(icon);
+		add(label);
+
 		}
 
 	private void control()
 		{
-		buttonValidate.addActionListener(new ActionListener()
-			{
-
-				@Override
-				public void actionPerformed(ActionEvent e)
-					{
-					Window w = SwingUtilities.getWindowAncestor(JPanelHelp.this);
-					w.setVisible(false);
-					}
-			});
+		// rien
 		}
 
 	private void appearance()
 		{
+		// rien
 		}
 
 	/*------------------------------------------------------------------*\
@@ -86,6 +89,7 @@ public class JPanelHelp extends JPanel
 	\*------------------------------------------------------------------*/
 
 	// Tools
-	private JButton buttonValidate;
+	private JLabel label;
+	private JLabel icon;
 
 	}

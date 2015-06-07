@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import layout.atom.JPanelInformationSimulation;
 import layout.tank.JPanelTank;
 import tank.Tank;
 import differentialEquationSolving.SimulationSingleton;
@@ -25,6 +26,9 @@ public class JPanelContent extends JPanel
 	public JPanelContent()
 		{
 		listPanelTank = new LinkedList<JPanelTank>();
+
+		informationSimulation = new JPanelInformationSimulation();
+		informationSimulation.setLocation(100,100);
 
 		scrolX = 0;
 		scrolY = 0;
@@ -183,6 +187,8 @@ public class JPanelContent extends JPanel
 			listPanelTank.add(panelTank);
 			}
 
+		add(informationSimulation);
+
 		return listPanelTank;
 		}
 
@@ -299,6 +305,7 @@ public class JPanelContent extends JPanel
 
 	private JPanelTank panelTank;
 	private List<JPanelTank> listPanelTank;
+	private JPanelInformationSimulation informationSimulation;
 
 	private Double t;
 

@@ -58,6 +58,7 @@ public class JPanelTabSimulation extends JPanel
 		add(jpanelcontent, BorderLayout.CENTER);
 		add(jpaneloutil, BorderLayout.WEST);
 		add(jpanelbottom, BorderLayout.SOUTH);
+
 		}
 
 	private void control()

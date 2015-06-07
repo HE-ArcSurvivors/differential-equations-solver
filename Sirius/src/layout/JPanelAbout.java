@@ -54,9 +54,9 @@ public class JPanelAbout extends JPanel
 
 			Box box = Box.createVerticalBox();
 			box.add(new JLabel("Un programme proposé par Banana Rocket"));
-			box.add(Box.createVerticalStrut(50));
+			box.add(Box.createVerticalStrut(40));
 			box.add(new JLabel(MagasinImage.bananaRocket));
-			box.add(Box.createVerticalStrut(50));
+			box.add(Box.createVerticalStrut(40));
 			box.add(new JLabel("Banana Rocket est une équipe composée de :"));
 			box.add(new JLabel("* Claret-Yakovenko Romain"));
 			box.add(new JLabel("* Divernois Margaux"));
@@ -64,6 +64,8 @@ public class JPanelAbout extends JPanel
 			box.add(Box.createVerticalStrut(30));
 			box.add(new JLabel("Version Release 1.0"));
 			box.add(new JLabel("Projet P2 - Printemps 2015"));
+			box.add(Box.createVerticalStrut(20));
+			box.add(new JLabel("Icons : Copyright © 2014 Drifty (http://drifty.com/)"));
 			box.add(Box.createVerticalStrut(20));
 			box.add(buttonValidate);
 
