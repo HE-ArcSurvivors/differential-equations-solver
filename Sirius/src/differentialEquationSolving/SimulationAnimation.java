@@ -51,8 +51,8 @@ public class SimulationAnimation extends JPanel implements ActionListener
 
 	public void startAnimation()
 		{
-		int delay = slider.getMaximum() - slider.getMinimum();
-		timer.setDelay((int)1.5 * delay);
+		int delay = TOTAL_TIME_ANIMATION / (slider.getMaximum() - slider.getMinimum());
+		timer.setDelay(delay);
 		timer.start();
 		}
 
@@ -91,5 +91,7 @@ public class SimulationAnimation extends JPanel implements ActionListener
 
 	private Timer timer;
 	private JSlider slider;
+
+	private static final int TOTAL_TIME_ANIMATION = 10000;
 	}
 
