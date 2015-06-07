@@ -209,6 +209,26 @@ public class JFrameLayout extends JFrame
 
 					}
 			});
+		
+		JMenuItem videoHelp = new JMenuItem("Aide Video");
+		videoHelp.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+					{
+
+					JPanelVideoHelp helpVideoPanel = new JPanelVideoHelp();
+					JDialog dialog = new JDialog();
+					dialog.setTitle("Aide Video");
+					dialog.setPreferredSize(new Dimension(500,500));
+					dialog.setMinimumSize(new Dimension(500,500));
+					dialog.setMaximumSize(new Dimension(500,500));
+					dialog.setLocationRelativeTo(null);
+					dialog.add(helpVideoPanel);
+					dialog.setVisible(true);
+
+					}
+			});
 
 		menuFiles.add(newBoard);
 		menuFiles.add(load);
@@ -217,6 +237,7 @@ public class JFrameLayout extends JFrame
 		menuFiles.add(exit);
 
 		menuHelp.add(about);
+//		menuHelp.add(videoHelp);
 		menuHelp.add(help);
 
 		this.setJMenuBar(menuBar);
