@@ -269,7 +269,8 @@ public class JPanelSubstances extends JPanel
 
 		Double valueSubstance = map_Substances.get(substance) + variation * ratio;
 
-		Double maxSize = tank.getCapacite()*100 - (calculateContent() - map_Substances.get(substance)); //t
+		Double maxSize = tank.getCapacite() - (calculateContent() - map_Substances.get(substance)); //t
+
 		if (valueSubstance < 0)
 			{
 			valueSubstance = 0.0;
@@ -288,6 +289,7 @@ public class JPanelSubstances extends JPanel
 
 		updateSubstancesInTank();
 		repaint();
+
 		}
 
 	private Double calculateContent()
@@ -328,6 +330,5 @@ public class JPanelSubstances extends JPanel
 	private int typeSubstance;
 
 	private boolean pourcentageMode;
-	private static final int RATIO_SOLID_LIQUID = 1000;
 
 	}
