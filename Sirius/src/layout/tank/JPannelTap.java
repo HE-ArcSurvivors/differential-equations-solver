@@ -16,9 +16,9 @@ public class JPannelTap extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPannelTap()
+	public JPannelTap(boolean isLeftMode)
 		{
-
+		this.isLeftMode = isLeftMode;
 		geometry();
 		control();
 		appearance();
@@ -52,7 +52,14 @@ public class JPannelTap extends JPanel
 
 	private void dessiner(Graphics2D g2d)
 		{
-		g2d.drawImage(MagasinImage.tap.getImage(), 0, this.getHeight()-this.getWidth(), this.getWidth(),this.getWidth(), null);
+		if(isLeftMode)
+			{
+			g2d.drawImage(MagasinImage.tapLeft.getImage(), 0, this.getHeight()-this.getWidth(), this.getWidth(),this.getWidth(), null);
+			}
+		else
+			{
+			g2d.drawImage(MagasinImage.tapRight.getImage(), 0, this.getHeight()-this.getWidth(), this.getWidth(),this.getWidth(), null);
+			}
 		}
 
 	private void geometry()
@@ -85,6 +92,7 @@ public class JPannelTap extends JPanel
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
-	// Tools
+	// in
+	private boolean isLeftMode;
 
 	}

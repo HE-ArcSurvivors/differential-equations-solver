@@ -15,7 +15,8 @@ public class MagasinImage
 	|*		 Version Synchrone (bloquant)								*|
 	\*------------------------------------------------------------------*/
 
-	public static final ImageIcon tap = ImageLoader.loadSynchroneJar("ressources/Robinet.png");
+	public static final ImageIcon tapRight = ImageLoader.loadSynchroneJar("ressources/Robinet_R.png");
+	public static final ImageIcon tapLeft = ImageLoader.loadSynchroneJar("ressources/Robinet_L.png");
 	public static final ImageIcon iconEdit = ImageLoader.loadSynchroneJar("ressources/iconEdit-20x20.png");
 	public static final ImageIcon iconValidate = ImageLoader.loadSynchroneJar("ressources/iconValidate-20x20.png");
 	public static final ImageIcon iconPause = ImageLoader.loadSynchroneJar("ressources/iconPause-20x20.png");

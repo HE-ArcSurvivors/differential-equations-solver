@@ -17,7 +17,6 @@ import layout.JPanelContent;
 import substance.Substance;
 import tank.Tank;
 import tools.MagasinImage;
-import tools.SwingUtil;
 import differentialEquationSolving.SimulationSingleton;
 
 public class JPanelTank extends JPanel
@@ -27,10 +26,12 @@ public class JPanelTank extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelTank(Tank tank)
+	public JPanelTank(Tank tank, boolean leftMode)
 		{
 		this.initialWidth = 500;
 		this.tank = tank;
+		this.isLeftMode = leftMode;
+
 		geometry();
 		control();
 		appearance();
@@ -89,12 +90,6 @@ public class JPanelTank extends JPanel
 		jpanelparam = new JPanelParam(this, tank);
 		jpanelparam.setVisible(false);
 
-//		collapsiblePane = new JXCollapsiblePane(Direction.TRAILING);
-//		collapsiblePane.setAlignmentX(LEFT_ALIGNMENT);
-//		collapsiblePane.add(jpanelparam);
-//		collapsiblePane.setCollapsed(true);
-//		collapsiblePane.setAnimated(false);
-
 		buttonSettings = new JButton("");
 		buttonSettings.setIcon(MagasinImage.iconSettings);
 		buttonSettings.setContentAreaFilled(false);
@@ -109,7 +104,7 @@ public class JPanelTank extends JPanel
 		boutonAddParent.setBorder(BorderFactory.createEmptyBorder());
 
 		jpanelGraduationSolid = new JPanelGraduation(tank.getCapacite());
-		
+
 		jpanelGraduationLiquid = new JPanelGraduation(tank.getCapacite());
 
 		if (tank.isInfini())
@@ -120,16 +115,15 @@ public class JPanelTank extends JPanel
 			{
 			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
 			}
-		
+
 		setFixeSize(jpanelGraduationLiquid, 35, maxHeight);
 
 		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
 		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
+		jpanelTap = new JPannelTap(isLeftMode);
+		setFixeSize(jpanelTap, 60, maxHeight);
 
 		setFixeSize(jpanelGraduationSolid, 50, maxHeight);
-
-		jpanelTap = new JPannelTap();
-		setFixeSize(jpanelTap, 60, maxHeight);
 
 		jpanelDelete = createSeparation(20);
 		jpanelDelete.add(boutonAddParent);
@@ -139,12 +133,17 @@ public class JPanelTank extends JPanel
 
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
+		if (isLeftMode)
+			{
+			add(jpanelTap);
+			}
+
 		add(jpanelGraduationSolid);
 		add(jpanelSolid);
 
 		add(createSeparation(10));
 		add(jpanelLiquid);
-		
+
 		add(jpanelGraduationLiquid);
 
 		if (!tank.isInfini())
@@ -157,7 +156,12 @@ public class JPanelTank extends JPanel
 			}
 
 		add(jpanelDelete);
-		add(jpanelTap);
+
+		if (!isLeftMode)
+			{
+			add(jpanelTap);
+			}
+
 		add(jpanelparam);
 		}
 
@@ -167,6 +171,7 @@ public class JPanelTank extends JPanel
 
 		buttonSettings.addMouseListener(new MouseAdapter()
 			{
+
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
@@ -176,6 +181,7 @@ public class JPanelTank extends JPanel
 
 		boutonDelete.addMouseListener(new MouseAdapter()
 			{
+
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
@@ -191,32 +197,30 @@ public class JPanelTank extends JPanel
 
 		boutonAddParent.addMouseListener(new MouseAdapter()
 			{
+
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
-					
+
 					if (tank.getTankChild() == null)
-					{
+						{
 
-					Tank parentTank = new Tank(false, 1000, 0);
+						Tank parentTank = new Tank(false, 1000, 0);
 
-					parentTank.setName("Added Parent by user");
-					parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
-					parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(1), 0);
+						parentTank.setName("Added Parent by user");
+						parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
+						parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(1), 0);
 
-					tank.addTankParent(parentTank);
+						tank.addTankParent(parentTank);
 
-					System.out.println("Nouveau tank : " + parentTank.getName());
+						System.out.println("Nouveau tank : " + parentTank.getName());
 
-					repaint();
-					updateUI();
-					SwingUtil.repaintAllParent(panelTank);
-					}
+						((JPanelContent)panelTank.getParent()).refresh();
+						}
 					else
-					{
-						
+						{
 						System.out.println("Ce niveau n'est pas encore disponible");
-					}
+						}
 					}
 
 			});
@@ -269,5 +273,6 @@ public class JPanelTank extends JPanel
 
 	// in
 	private Tank tank;
+	private boolean isLeftMode;
 
 	}
