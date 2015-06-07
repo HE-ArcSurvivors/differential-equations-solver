@@ -35,6 +35,7 @@ public class JPanelParamLine extends JPanel
 		textfield.setMaximumSize(new Dimension(50, 20));
 		textfield.setMinimumSize(new Dimension(50, 20));
 		textfield.setPreferredSize(new Dimension(50, 20));
+
 		((AbstractDocument)((JTextComponent)textfield).getDocument()).setDocumentFilter(new DoubleDocumentFilter());
 
 		Box boxH = Box.createHorizontalBox();
@@ -66,6 +67,11 @@ public class JPanelParamLine extends JPanel
 	public void setValue(Double value)
 		{
 		textfield.setText("" + value);
+
+		//Just try...
+		textfield.repaint();
+		textfield.revalidate();
+		System.out.println("(JPANELPARAMLINE. L73)I change the value, troll : "+value);
 		}
 
 	public void setLabel(String string)

@@ -29,8 +29,9 @@ public class JPanelSubstances extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelSubstances(Tank tank, JPannelContentTank panelContentTank, int typeSubstance, boolean pourcentageMode)
+	public JPanelSubstances(Tank tank, JPannelContentTank panelContentTank, JPanelParam panelParam, int typeSubstance, boolean pourcentageMode)
 		{
+		this.panelParam = panelParam;
 		this.pourcentageMode = pourcentageMode;
 		this.typeSubstance = typeSubstance;
 		this.panelContentTank = panelContentTank;
@@ -63,6 +64,7 @@ public class JPanelSubstances extends JPanel
 
 			tank.editSubstance(substance, quantity);
 			}
+		panelParam.update();
 		}
 
 	public void updateFromTank(double t)
@@ -322,6 +324,7 @@ public class JPanelSubstances extends JPanel
 	// in
 	private Tank tank;
 	private JPannelContentTank panelContentTank;
+	private JPanelParam panelParam;
 	private int typeSubstance;
 
 	private boolean pourcentageMode;

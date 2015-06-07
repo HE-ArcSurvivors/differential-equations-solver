@@ -118,8 +118,8 @@ public class JPanelTank extends JPanel
 
 		setFixeSize(jpanelGraduationLiquid, 35, maxHeight);
 
-		jpanelSolid = new JPanelSubstances(tank, null, Substance.SOLID, false);
-		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, Substance.LIQUID, tank.isInfini());
+		jpanelSolid = new JPanelSubstances(tank, null, jpanelparam, Substance.SOLID, false);
+		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, jpanelparam, Substance.LIQUID, tank.isInfini());
 		jpanelTap = new JPannelTap(isLeftMode);
 		setFixeSize(jpanelTap, 60, maxHeight);
 
