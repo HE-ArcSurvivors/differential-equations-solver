@@ -1,6 +1,10 @@
 
 package layout;
 
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +28,10 @@ public class JPanelContent extends JPanel
 		listPanelTank = new LinkedList<JPanelTank>();
 
 		h = w = 0;
+		scrolX = 0;
+		scrolY = 0;
+		startPosX = 0;
+		startPosY = 0;
 		geometry();
 		control();
 		appearance();
@@ -248,7 +256,7 @@ public class JPanelContent extends JPanel
 		//affichage sur la scene
 		for(JPanelTank panelTank:mapAffTank.values())
 			{
-			panelTank.setLocation(panelTank.getX() + decalageX, panelTank.getY() + decalageY);
+			panelTank.setLocation(panelTank.getX() + decalageX+scrolX, panelTank.getY()+decalageY+scrolY);
 			add(panelTank);
 			listPanelTank.add(panelTank);
 			}
@@ -303,6 +311,51 @@ public class JPanelContent extends JPanel
 //		addMouseMotionListener(ma);
 //		addMouseListener(ma);
 		//addMouseWheelListener(new ScaleHandler());
+
+		addMouseListener(new MouseAdapter()
+			{
+
+				@Override
+				public void mouseReleased(MouseEvent e)
+					{
+					startPosX = 0;
+					startPosY = 0;
+					getParent().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					}
+
+				@Override
+				public void mousePressed(MouseEvent e)
+					{
+					startPosX = e.getX();
+					startPosY = e.getY();
+					refresh();
+					}
+			});
+
+		addMouseMotionListener(new MouseMotionListener()
+			{
+
+				@Override
+				public void mouseDragged(MouseEvent e)
+					{
+					scrolX += e.getX()-startPosX;
+					scrolY += e.getY()-startPosY;
+					startPosX=e.getX();
+					startPosY=e.getY();
+
+					getParent().setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+					refresh();
+					}
+
+				@Override
+				public void mouseMoved(MouseEvent e)
+					{
+					//rien
+					}
+
+			});
+
+
 		}
 
 	private void appearance()
@@ -362,6 +415,11 @@ public class JPanelContent extends JPanel
 
 	private int w;
 	private int h;
+
+	private int scrolX;
+	private int scrolY;
+	private int startPosX;
+	private int startPosY;
 
 	//private JPanelTank tank1;
 	//
