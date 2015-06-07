@@ -41,9 +41,6 @@ public class JPanelContent extends JPanel
 		{
 		listPanelTank = new LinkedList<JPanelTank>();
 
-		informationSimulation = new JPanelInformationSimulation();
-		informationSimulation.setLocation(100,100);
-
 		scrolX = 0;
 		scrolY = 0;
 		startPosX = 0;
@@ -226,9 +223,9 @@ public class JPanelContent extends JPanel
 			{
 			affTime(t);
 			}
-
 		repaint();
 		updateUI();
+
 		}
 
 	public void resetTime()
@@ -260,6 +257,8 @@ public class JPanelContent extends JPanel
 		setLayout(null);
 
 		// JComponent : Instanciation
+		informationSimulation = new JPanelInformationSimulation();
+		informationSimulation.setLocation(10,10);
 		listPanelTank = constructPannelsTank();
 		}
 
