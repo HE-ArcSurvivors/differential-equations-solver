@@ -130,7 +130,6 @@ public class JPanelTank extends JPanel
 			}
 
 		jpanelGraduationSolid = new JPanelGraduation(tank.getCapacite(), Substance.SOLID);
-
 		jpanelGraduationLiquid = new JPanelGraduation(tank.getCapacite(), Substance.LIQUID);
 
 		if (tank.isInfini())
@@ -142,14 +141,14 @@ public class JPanelTank extends JPanel
 			jpanelContentTank = new JPannelContentTank(tank.getCapacite(), tank.getContent());
 			}
 
-		setFixeSize(jpanelGraduationLiquid, 35, maxHeight);
-
 		jpanelSolid = new JPanelSubstances(tank, null, jpanelparam, Substance.SOLID, false);
 		jpanelLiquid = new JPanelSubstances(tank, jpanelContentTank, jpanelparam, Substance.LIQUID, tank.isInfini());
+
 		jpanelTap = new JPannelTap(isLeftMode);
 		setFixeSize(jpanelTap, 60, maxHeight);
 
 		setFixeSize(jpanelGraduationSolid, 50, maxHeight);
+		setFixeSize(jpanelGraduationLiquid, 50, maxHeight);
 
 		jpanelDelete = createSeparation(20);
 		jpanelDelete.add(boutonAddParent);
@@ -177,7 +176,6 @@ public class JPanelTank extends JPanel
 			setFixeSize(jpanelSolid, 60, maxHeight);
 			setFixeSize(jpanelLiquid, 60, maxHeight);
 
-			add(createSeparation(20));
 			add(jpanelContentTank);
 			}
 

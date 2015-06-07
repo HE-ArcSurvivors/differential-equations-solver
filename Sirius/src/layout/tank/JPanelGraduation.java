@@ -23,6 +23,8 @@ import java.awt.geom.Line2D;
 
 import javax.swing.JPanel;
 
+import substance.Substance;
+
 public class JPanelGraduation extends JPanel
 	{
 
@@ -32,25 +34,23 @@ public class JPanelGraduation extends JPanel
 
 	public JPanelGraduation(double capacite, int type)
 		{
-		if (type == 1)
-		{
-			this.capacite = capacite;
+		this.capacite = capacite;
+		this.arial = new Font("Arial", Font.PLAIN, 10);
+		this.type = type;
 
-			this.arial = new Font("Arial", Font.PLAIN, 10);
-			pasL = 30;
-		}
-		else
-		{
-			this.capacite = capacite;
-
-			this.arial = new Font("Arial", Font.PLAIN, 10);
+		if (type == Substance.SOLID)
+			{
 			pasL = 1;
-		}
+			}
+		else
+			{
+			pasL = 1;
+			}
+
 		geometry();
 		control();
 		appearance();
 		}
-
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
@@ -85,10 +85,10 @@ public class JPanelGraduation extends JPanel
 		double ratio = h / capacite;
 		double pasPixel = (ratio * pasL);
 
-		int nbGrad = (int)(h/pasPixel);
+		int nbGrad = (int)(h / pasPixel);
 		int maxGrad = 30;
 
-		if(nbGrad > maxGrad)
+		if (nbGrad > maxGrad)
 			{
 			pasPixel = h / maxGrad;
 			pasL = (int)(pasPixel / ratio);
@@ -99,19 +99,41 @@ public class JPanelGraduation extends JPanel
 			{
 			g2d.setColor(Color.BLACK);
 
-			int marginL = 30;
-			int marginR = 12;
-
-			L += pasL;
-
-			if (L % (2 * pasL) == 0 && i != h)
+			if (type == Substance.SOLID)
 				{
-				g2d.setFont(arial);
-				g2d.drawString(L + "", 5, (int)(i + 4));
-				marginR = 8;
-				}
+				int marginL = 30;
+				int marginR = 12;
 
-			g2d.draw(new Line2D.Double(marginL, i, this.getWidth() - marginR, i));
+				L += pasL;
+
+				if (L % (2 * pasL) == 0 && i != h)
+					{
+					g2d.setFont(arial);
+					g2d.drawString(L + "", 5, (int)(i + 4));
+					marginR = 8;
+					}
+				g2d.draw(new Line2D.Double(marginL, i, this.getWidth() - marginR, i));
+
+				}
+			else
+				{
+
+				int margin = 5;
+				int marginSup = 3;
+				int sizeNumbers = 30;
+
+				L += pasL;
+				if (L % (2 * pasL) == 0 && i != h)
+					{
+					g2d.setFont(arial);
+					g2d.drawString(L + "", this.getWidth()/2 - sizeNumbers/2 + 6, (int)(i + 4));
+					marginSup = 0;
+					}
+
+				g2d.draw(new Line2D.Double(margin+marginSup, i, this.getWidth()/2 - sizeNumbers/2, i));
+				g2d.draw(new Line2D.Double(this.getWidth()/2 + sizeNumbers/2, i, this.getWidth()/2 + sizeNumbers/2 + margin-marginSup, i));
+
+				}
 			}
 		}
 
@@ -136,6 +158,7 @@ public class JPanelGraduation extends JPanel
 
 	// In
 	private double capacite;
+	private int type;
 
 	//tools
 	private Font arial;
