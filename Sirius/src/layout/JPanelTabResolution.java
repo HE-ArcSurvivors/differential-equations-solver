@@ -55,18 +55,10 @@ public class JPanelTabResolution extends JPanel
 
 			JScrollPane scrollerData = new JScrollPane(jpanelresolutiondata);
 
-			//Create a split pane with the two scroll panes in it.
-			splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-					scrollerData, jpanelresolutionsolving);
+			splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollerData, jpanelresolutionsolving);
 			splitPane.setOneTouchExpandable(true);
 			splitPane.setDividerLocation(0.5);
 			splitPane.setContinuousLayout(true);
-
-//			Box boxH = Box.createHorizontalBox();
-//			boxH.add(jpanelresolutiondata);
-//			boxH.add(jpanelresolutionsolving);
-//			boxH.setAlignmentX(LEFT_ALIGNMENT);
-//			boxH.setAlignmentY(TOP_ALIGNMENT);
 
 			BorderLayout layout = new BorderLayout();
 			setLayout(layout);
