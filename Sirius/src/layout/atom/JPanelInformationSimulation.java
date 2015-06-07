@@ -69,7 +69,7 @@ public class JPanelInformationSimulation extends JPanel
 
 			// Layout : Specification
 			{
-			FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
+			FlowLayout flowlayout = new FlowLayout(FlowLayout.LEFT);
 			setLayout(flowlayout);
 
 			// flowlayout.setHgap(20);
@@ -95,7 +95,7 @@ public class JPanelInformationSimulation extends JPanel
 
 	private void appearance()
 		{
-		// rien
+		setSize(500, 50);
 		}
 
 	/*------------------------------------------------------------------*\
