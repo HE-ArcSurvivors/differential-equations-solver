@@ -87,8 +87,11 @@ public class JPanelStopCondition extends JPanel
 
 		Box boxV = Box.createVerticalBox();
 		boxV.add(jpanelstoptimet);
+		boxV.add(Box.createVerticalStrut(5));
 		boxV.add(jpanelstopquantityq);
+		boxV.add(Box.createVerticalStrut(5));
 		boxV.add(jpanelstopoverflow);
+		boxV.add(Box.createVerticalStrut(5));
 		boxV.add(jpanelstopempty);
 
 		Box boxH = Box.createHorizontalBox();
@@ -125,10 +128,10 @@ public class JPanelStopCondition extends JPanel
 						if (!SimulationSingleton.getInstance().getMainTank().isQuantityPossible(jpanelstopquantityq.getQuantity(), jpanelstopquantityq.getSubstance()))
 							{
 							JOptionPane.showMessageDialog(null, "Oups, cette condition n'arrivera jamais!", "Condition inatteignable", JOptionPane.ERROR_MESSAGE);
+							jpanelstopquantityq.setWarning("Condition inatteignable");
 							}
 						else
 							{
-							System.out.println("SET VISIBLE");
 							jframestopcondition.setStateCondition(currentState);
 							jframestopcondition.setVisible(false);
 							}

@@ -33,6 +33,7 @@ import javax.swing.text.AbstractDocument;
 import substance.Substance;
 import substance.SubstanceComboBox;
 import tools.DoubleDocumentFilter;
+import tools.MagasinImage;
 import differentialEquationSolving.JPanelStopCondition;
 import differentialEquationSolving.SimulationSingleton;
 
@@ -87,6 +88,7 @@ public class JPanelStopQuantityQ extends JPanel
 
 		labelType = new JLabel("");
 		setLabelType();
+		labelWarning = new JLabel("");
 
 		Box boxH = Box.createHorizontalBox();
 		boxH.add(stopQuantityQ);
@@ -95,6 +97,7 @@ public class JPanelStopQuantityQ extends JPanel
 		boxH.add(paramQuantity);
 		boxH.add(Box.createHorizontalStrut(5));
 		boxH.add(labelType);
+		boxH.add(labelWarning);
 
 		setLayout(new BorderLayout());
 		add(boxH, BorderLayout.CENTER);
@@ -119,6 +122,12 @@ public class JPanelStopQuantityQ extends JPanel
 					setLabelType();
 					}
 			});
+		}
+
+	public void setWarning(String string)
+		{
+		labelWarning.setIcon(MagasinImage.iconWarning);
+		labelWarning.setToolTipText(string);
 		}
 
 	private void appearance()
@@ -170,7 +179,7 @@ public class JPanelStopQuantityQ extends JPanel
 	private JComboBox paramSubstance;
 	private SubstanceComboBox substancecombobox;
 	private JLabel labelType;
-
+	private JLabel labelWarning;
 	private JPanelStopCondition jpanelstopcondition;
 
 	}
