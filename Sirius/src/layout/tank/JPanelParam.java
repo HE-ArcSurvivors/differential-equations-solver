@@ -137,15 +137,12 @@ public class JPanelParam extends JPanel
 
 	public void update()
 		{
-		System.out.println("update");
-
 		contenance.setValue(tank.getCapacite());
 		debit.setValue(tank.getDebit());
 
 		for(Substance sub:mapSubstanceParamLine.keySet())
 			{
 			mapSubstanceParamLine.get(sub).setValue(tank.getValueSubstance(sub));
-
 			}
 
 		revalidate();
