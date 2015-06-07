@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -79,12 +80,6 @@ public class JFrameLayout extends JFrame
 		//Update with size
 
 		panelSimulation.getJpanelContent().refresh();
-
-		//TODO make the slider work
-
-		panelSimulation.scrollPaneContent.setBounds(50, 30, 300, 50);
-		panelSimulation.scrollPaneContent.setPreferredSize(new Dimension(10, 10));
-
 		}
 
 	/*------------------------------------------------------------------*\
@@ -131,8 +126,11 @@ public class JFrameLayout extends JFrame
 		//		String filename = "test.glou";
 
 		JMenuBar menuBar = new JMenuBar();
-		JMenu menu = new JMenu("Fichiers");
-		menuBar.add(menu);
+		JMenu menuFiles = new JMenu("Fichiers");
+		JMenu menuHelp = new JMenu("Aide");
+
+		menuBar.add(menuFiles);
+		menuBar.add(menuHelp);
 
 		JMenuItem newBoard = new JMenuItem("Nouveau");
 		newBoard.addActionListener(new ActionListener()
@@ -191,11 +189,46 @@ public class JFrameLayout extends JFrame
 			});
 		exit.setAccelerator(KeyStroke.getKeyStroke("ctrl Q"));
 
-		menu.add(newBoard);
-		menu.add(load);
-		menu.add(save);
-		menu.add(saveAs);
-		menu.add(exit);
+		JMenuItem about = new JMenuItem("A propos de GlouGlou");
+		about.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+					{
+
+					JPanelAbout aboutPanel = new JPanelAbout();
+					JDialog dialog = new JDialog();
+					dialog.setTitle("A propos de GlouGlou");
+					dialog.setPreferredSize(new Dimension(500,500));
+					dialog.setMinimumSize(new Dimension(500,500));
+					dialog.setMaximumSize(new Dimension(500,500));
+					dialog.setLocationRelativeTo(null);
+					dialog.add(aboutPanel);
+					dialog.setVisible(true);
+
+					}
+			});
+		about.setAccelerator(KeyStroke.getKeyStroke("ctrl A"));
+
+		JMenuItem help = new JMenuItem("Aide");
+		help.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+					{
+
+					}
+			});
+
+		menuFiles.add(newBoard);
+		menuFiles.add(load);
+		menuFiles.add(save);
+		menuFiles.add(saveAs);
+		menuFiles.add(exit);
+
+		menuHelp.add(about);
+		menuHelp.add(help);
+
 		this.setJMenuBar(menuBar);
 		}
 

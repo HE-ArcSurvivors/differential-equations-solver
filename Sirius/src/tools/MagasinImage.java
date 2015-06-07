@@ -28,14 +28,7 @@ public class MagasinImage
 	public static final ImageIcon iconStop = ImageLoader.loadSynchroneJar("ressources/iconStop-20x20.png");
 	public static final ImageIcon iconBackward = ImageLoader.loadSynchroneJar("ressources/iconBackward-20x20.png");
 	public static final ImageIcon iconWarning = ImageLoader.loadSynchroneJar("ressources/iconWarning-20x20.png");
-
-	/*------------------------------------------------------------------*\
-	|*		Version Assynchrone	(non bloquant)							*|
-	\*------------------------------------------------------------------*/
-
-	//public static final ImageIcon warning = ImageLoader.loadAsynchroneJar("./ressources/warning.png");
-	//public static final ImageIcon coffee = ImageLoader.loadAsynchroneJar("./ressources/coffee_logo.png");
-	//public static final ImageIcon cervin = ImageLoader.loadAsynchroneJar("ressources/cervin.jpg");
+	public static final ImageIcon bananaRocket = ImageLoader.loadSynchroneJar("ressources/BananaRocket.png");
 
 	}
 
