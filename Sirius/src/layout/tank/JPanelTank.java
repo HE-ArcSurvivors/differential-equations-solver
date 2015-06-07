@@ -194,16 +194,18 @@ public class JPanelTank extends JPanel
 
 		boutonDelete.addMouseListener(new MouseAdapter()
 			{
-
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
-					if (!SimulationSingleton.getInstance().isStarted())
+					if(tank != SimulationSingleton.getInstance().getMainTank())
 						{
-						Container tmp = panelTank.getParent();
-						deleteTank();
-						((JPanelContent)panelTank.getParent()).refresh();
-						tmp.repaint();
+						if (!SimulationSingleton.getInstance().isStarted())
+							{
+							Container tmp = panelTank.getParent();
+							deleteTank();
+							((JPanelContent)panelTank.getParent()).refresh();
+							tmp.repaint();
+							}
 						}
 					}
 			});
