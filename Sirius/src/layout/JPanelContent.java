@@ -1,11 +1,14 @@
 
 package layout;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import layout.tank.JPanelTank;
 import tank.Tank;
@@ -20,7 +23,6 @@ public class JPanelContent extends JPanel
 
 	public JPanelContent()
 		{
-		setLayout(null);
 
 		listPanelTank = new LinkedList<JPanelTank>();
 
@@ -32,24 +34,24 @@ public class JPanelContent extends JPanel
 		}
 //
 //		class MovingAdapter extends MouseAdapter {
-//
+//	
 //			private int x;
 //			private int y;
-//
+//	
 //			@Override
 //			public void mousePressed(MouseEvent e) {
 //				x = e.getX();
 //				y = e.getY();
 //			}
-//
+//	
 //			@Override
 //			public void mouseDragged(MouseEvent e) {
-//
+//				
 ////				Tank maintank = SimulationSingleton.getInstance().getMainTank();
-//
+//	
 //				int dx = e.getX() - x;
 //				int dy = e.getY() - y;
-//
+//	
 //				if (panelTank.contains(x, y)) {
 //					dx = panelTank.getX() + dx;
 //					dy = panelTank.getY() + dy;
@@ -259,7 +261,7 @@ public class JPanelContent extends JPanel
 
 		repaint();
 		updateUI();
-
+		
 		}
 
 	/*------------------------------*\
