@@ -1,3 +1,17 @@
+/*********************************************************************************
+# Copyright © Haute-Ecole ARC - All Rights Reserved
+# Copyright © Banana Rocket - All Rights Reserved
+#
+# This file is part of <P2 Java Project: GlouGlou - Problèmes de mélanges>.
+#
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+# Written by Claret-Yakovenko Roman <romain.claret@rocla.ch>
+# Written by Divernois Margaux <margaux.divernois@gmail.com>
+# Written by Visinand Steve <visinandst@gmail.com>
+#
+# Date : June 2015
+**********************************************************************************/
 
 package layout;
 
@@ -44,11 +58,11 @@ public class JPanelBottom extends JPanel
 
 	private void geometry()
 		{
-		
+
 		addMainTankToSimulation = new JButton("Ajouter un tank principal");
 		addMainTankToSimulation.setVisible(false);
 		centerSimulation = new JButton("Centrer la simulation");
-		
+
 		startSimulation = new JButton(MagasinImage.iconPlay);
 
 		stopSimulation = new JButton(MagasinImage.iconStop);
@@ -99,15 +113,15 @@ public class JPanelBottom extends JPanel
 
 	private void control()
 		{
-		
+
 //		actionPerformed(ActionEvent e) {
 //			if (SimulationSingleton.getInstance().getMainTank()==null)
 //			{
 //				System.out.println("no main tank !");
 //			}
 //	    }
-		
-		
+
+
 
 		centerSimulation.addActionListener(new ActionListener()
 			{
@@ -117,7 +131,7 @@ public class JPanelBottom extends JPanel
 				jpanelcontent.centerSimulation();
 				}
 		});
-		
+
 		addMainTankToSimulation.addActionListener(new ActionListener()
 		{
 		@Override
