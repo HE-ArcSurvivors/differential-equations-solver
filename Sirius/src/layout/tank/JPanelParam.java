@@ -2,11 +2,8 @@
 package layout.tank;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +17,7 @@ import javax.swing.border.TitledBorder;
 
 import substance.Substance;
 import tank.Tank;
+import tools.MagasinImage;
 import tools.SwingUtil;
 import differentialEquationSolving.SimulationSingleton;
 
@@ -66,9 +64,9 @@ public class JPanelParam extends JPanel
 		Border border = BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(20,20, 20, 20),borderTitle);
 		setBorder(border);
 
-		//tankIsInfinit = new JCheckBox();
+		//tankIsInfini = new JCheckBox();
 		//	sub_box1.add(new JXLabel("Infini: "));
-		//	sub_box1.add(tankIsInfinit);
+		//	sub_box1.add(tankIsInfini);
 		//	box.add(sub_box1);
 
 		contenance = new JPanelParamLine("Capacité : ", tank.getCapacite());
@@ -83,7 +81,9 @@ public class JPanelParam extends JPanel
 			box.add(mapSubstanceParamLine.get(sub));
 			}
 
-		validate = new JButton("Valider");
+		validate = new JButton(MagasinImage.iconValidate);
+		validate.setToolTipText("Valider les modifications");
+
 		box.add(validate);
 
 		setLayout(new BorderLayout());
@@ -98,18 +98,6 @@ public class JPanelParam extends JPanel
 				public void actionPerformed(ActionEvent e)
 					{
 					updateSimulationFromUser();
-					}
-			});
-
-		addComponentListener(new ComponentAdapter()
-			{
-
-				@Override
-				public void componentShown(ComponentEvent e)
-					{
-					update();
-					repaint();
-					revalidate();
 					}
 			});
 		}
@@ -130,7 +118,7 @@ public class JPanelParam extends JPanel
 			}
 
 		tank.setDebit(debit.getValue());
-		//tank.setInfini(getTankIsInfinit);
+		//tank.setInfini();
 
 		if (contenance.getValue() < tank.getContent())
 			{
@@ -150,26 +138,15 @@ public class JPanelParam extends JPanel
 
 	public void update()
 		{
-		System.out.println("getCapacite : "+tank.getCapacite());
-		System.out.println("getDebit : "+tank.getDebit());		contenance.setValue(tank.getCapacite());
 		debit.setValue(tank.getDebit());
 
 		for(Substance sub:mapSubstanceParamLine.keySet())
 			{
-			System.out.println("Substance "+sub.getName()+" : "+tank.getValueSubstance(sub));
 			mapSubstanceParamLine.get(sub).setValue(tank.getValueSubstance(sub));
 			}
 
 		revalidate();
 		repaint();
-		}
-
-	@Override
-	protected void paintComponent(Graphics g)
-		{
-		super.paintComponent(g);
-
-		update();
 		}
 
 	/*------------------------------------------------------------------*\

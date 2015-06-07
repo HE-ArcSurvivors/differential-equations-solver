@@ -40,46 +40,13 @@ public class JFrameLayout extends JFrame
 		SimulationSingleton.getInstance().addSubstance(eau);
 		SimulationSingleton.getInstance().addSubstance(sel);
 
-//		Tank r1 = new Tank(false, 500, 0);
-//		r1.setName("MainTank");
-//		r1.addSubstance(eau, 500);
-//		r1.addSubstance(sel,5);
-//		SimulationSingleton.getInstance().setMainTank(r1);
-//
-//		Tank r2 = new Tank(false, 600, 0);
-//		r2.setName("Tank");
-//		r2.addSubstance(eau, 500);
-//		r2.addSubstance(sel,5);
-//
-//		Tank r3 = new Tank(false, 700, 0);
-//		r3.setName("Tank2");
-//		r3.addSubstance(eau, 500);
-//		r3.addSubstance(sel, 5);
-//
-//		r1.addTankParent(r2);
-//		r2.addTankParent(r3);
-
-		Tank r1 = new Tank(false, 500, 5);
-		r1.setName("ParentTank");
-		Tank r2 = new Tank(false, 200, 5);
-		r2.setName("MainTank");
-
-		r1.addSubstance(sel, 2);
-		r1.addSubstance(eau, 500);
-
-		r2.addSubstance(sel, 4);
-		r2.addSubstance(eau, 100);
-		r2.addTankParent(r1);
-
-		SimulationSingleton.getInstance().setMainTank(r2);
+		newBoard();
 
 		geometry();
 		control();
 		appearance();
 
-		//Update with size
-
-		panelSimulation.getJpanelContent().refresh();
+		panelSimulation.getJPanelContent().refresh();
 		}
 
 	/*------------------------------------------------------------------*\
@@ -123,7 +90,6 @@ public class JFrameLayout extends JFrame
 
 	private void createMenu()
 		{
-		//		String filename = "test.glou";
 
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menuFiles = new JMenu("Fichiers");
@@ -140,6 +106,7 @@ public class JFrameLayout extends JFrame
 				public void actionPerformed(ActionEvent e)
 					{
 					newBoard();
+					panelSimulation.getJPanelContent().refresh();
 					}
 			});
 		newBoard.setAccelerator(KeyStroke.getKeyStroke("ctrl N"));
@@ -217,6 +184,16 @@ public class JFrameLayout extends JFrame
 				public void actionPerformed(ActionEvent e)
 					{
 
+					JPanelHelp helpPanel = new JPanelHelp();
+					JDialog dialog = new JDialog();
+					dialog.setTitle("Aide");
+					dialog.setPreferredSize(new Dimension(500,500));
+					dialog.setMinimumSize(new Dimension(500,500));
+					dialog.setMaximumSize(new Dimension(500,500));
+					dialog.setLocationRelativeTo(null);
+					dialog.add(helpPanel);
+					dialog.setVisible(true);
+
 					}
 			});
 
@@ -252,7 +229,7 @@ public class JFrameLayout extends JFrame
 				@Override
 				public void componentResized(ComponentEvent arg0)
 					{
-					panelSimulation.getJpanelContent().refresh();
+					panelSimulation.getJPanelContent().refresh();
 					}
 
 			});
@@ -280,18 +257,14 @@ public class JFrameLayout extends JFrame
 			SimulationSingleton.getInstance().deleteMainTank();
 
 			Tank r1 = new Tank(false, 500, 5);
-
 			r1.addSubstance(sel, 2);
 			r1.addSubstance(eau, 500);
 
 			SimulationSingleton.getInstance().setMainTank(r1);
-
-			panelSimulation.getJpanelContent().refresh();
-
 		}
 		else
 		{
-			System.out.println("simulation en cours, creation non disponible");
+			System.out.println("Simulation en cours, Création non disponible");
 		}
 
 	}
@@ -321,7 +294,6 @@ public class JFrameLayout extends JFrame
 	private void open()
 		{
 		FileDialog fd = new FileDialog(JFrameLayout.this, "Ouvrir un fichier existant", FileDialog.LOAD);
-		fd.setDirectory("C:\\"); //TODO add test of OS and change path
 		fd.setFile("*.glou");
 		fd.setVisible(true);
 		String name = fd.getDirectory()+fd.getFile();
@@ -330,7 +302,7 @@ public class JFrameLayout extends JFrame
 			{
 			SimulationSingleton.load(name);
 			setNewTitle("["+name+"]");
-			panelSimulation.getJpanelContent().refresh();
+			panelSimulation.getJPanelContent().refresh();
 			}
 		}
 
@@ -343,7 +315,7 @@ public class JFrameLayout extends JFrame
 		else
 			{
 			SimulationSingleton.save(SimulationSingleton.getInstance().getCurrentFileName());
-			panelSimulation.getJpanelContent().refresh();
+			panelSimulation.getJPanelContent().refresh();
 			setNewTitle("["+SimulationSingleton.getInstance().getCurrentFileName()+"]");
 			}
 		}

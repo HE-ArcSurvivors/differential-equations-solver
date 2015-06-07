@@ -6,7 +6,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import layout.toolsbar.JPanelOutils;
 
@@ -35,7 +34,8 @@ public class JPanelTabSimulation extends JPanel
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
-	public JPanelContent getJpanelContent()
+
+	public JPanelContent getJPanelContent()
 		{
 		return jpanelcontent;
 		}
@@ -54,12 +54,8 @@ public class JPanelTabSimulation extends JPanel
 		BorderLayout borderLayout = new BorderLayout();
 		setLayout(borderLayout);
 
-		//TODO make the scroll work
-//		scrollPaneContent = new JScrollPane(jpanelcontent);
-
 		// JComponent : add
-		 add(jpanelcontent, BorderLayout.CENTER);
-//		add(scrollPaneContent, BorderLayout.CENTER);
+		add(jpanelcontent, BorderLayout.CENTER);
 		add(jpaneloutil, BorderLayout.WEST);
 		add(jpanelbottom, BorderLayout.SOUTH);
 		}
@@ -95,7 +91,5 @@ public class JPanelTabSimulation extends JPanel
 	private JPanelOutils jpaneloutil;
 	private JPanelContent jpanelcontent;
 	private JPanelBottom jpanelbottom;
-
-	public JScrollPane scrollPaneContent;
 
 	}
