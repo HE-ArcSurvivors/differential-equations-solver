@@ -103,6 +103,18 @@ public class JPanelTank extends JPanel
 		boutonAddParent.setContentAreaFilled(false);
 		boutonAddParent.setBorder(BorderFactory.createEmptyBorder());
 
+		// EMPECHER LA SUPPRESSION DU MAINTANK
+		if(tank == SimulationSingleton.getInstance().getMainTank())
+			{
+			boutonDelete.setEnabled(false);
+			}
+
+		// EMPECHER L'AJOUT EN DESSUS DU 2ND NIVEAU
+		if(tank.getTankChild() != null)
+			{
+			boutonAddParent.setEnabled(false);
+			}
+
 		jpanelGraduationSolid = new JPanelGraduation(tank.getCapacite(), Substance.SOLID);
 
 		jpanelGraduationLiquid = new JPanelGraduation(tank.getCapacite(), Substance.LIQUID);
@@ -251,7 +263,7 @@ public class JPanelTank extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-	
+
 	// Tools
 	private JPanelGraduation jpanelGraduationSolid;
 	private JPanelSubstances jpanelSolid;
