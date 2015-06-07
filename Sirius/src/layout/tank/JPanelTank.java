@@ -61,9 +61,7 @@ public class JPanelTank extends JPanel
 		{
 		super.paintComponent(g);
 
-		boutonDelete.setEnabled(!SimulationSingleton.getInstance().isStarted());
-		buttonSettings.setEnabled(!SimulationSingleton.getInstance().isStarted());
-		boutonAddParent.setEnabled(!SimulationSingleton.getInstance().isStarted());
+		updateButtonSimulation();
 		}
 
 	public void affTime(double t)
@@ -128,17 +126,7 @@ public class JPanelTank extends JPanel
 		boutonAddParent.setContentAreaFilled(false);
 		boutonAddParent.setBorder(BorderFactory.createEmptyBorder());
 
-		// EMPECHER LA SUPPRESSION DU MAINTANK
-		if (tank == SimulationSingleton.getInstance().getMainTank())
-			{
-			boutonDelete.setEnabled(false);
-			}
-
-		// EMPECHER L'AJOUT EN DESSUS DU 2ND NIVEAU
-		if (tank.getTankChild() != null)
-			{
-			boutonAddParent.setEnabled(false);
-			}
+		updateButtonSimulation();
 
 		jpanelGraduationSolid = new JPanelGraduation(tank.getCapacite(), Substance.SOLID);
 
@@ -202,13 +190,31 @@ public class JPanelTank extends JPanel
 		add(jpanelparam);
 		}
 
+	private void updateButtonSimulation()
+	{
+		boutonDelete.setEnabled(!SimulationSingleton.getInstance().isStarted());
+		buttonSettings.setEnabled(!SimulationSingleton.getInstance().isStarted());
+		boutonAddParent.setEnabled(!SimulationSingleton.getInstance().isStarted());
+
+		// EMPECHER LA SUPPRESSION DU MAINTANK
+		if (tank == SimulationSingleton.getInstance().getMainTank())
+			{
+			boutonDelete.setEnabled(false);
+			}
+
+		// EMPECHER L'AJOUT EN DESSUS DU 2ND NIVEAU
+		if (tank.getTankChild() != null)
+			{
+			boutonAddParent.setEnabled(false);
+			}
+	}
+
 	private void control()
 		{
 		final JPanelTank panelTank = this;
 
 		buttonSettings.addMouseListener(new MouseAdapter()
 			{
-
 				@Override
 				public void mousePressed(MouseEvent arg0)
 					{
