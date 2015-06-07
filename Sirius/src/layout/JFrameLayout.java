@@ -2,10 +2,9 @@
 package layout;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FileDialog;
-import java.awt.Toolkit;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -19,7 +18,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import layout.tank.JPanelTank;
 import substance.Substance;
 import tank.Tank;
 import differentialEquationSolving.SimulationSingleton;
@@ -78,14 +76,14 @@ public class JFrameLayout extends JFrame
 		appearance();
 
 		//Update with size
-		
+
 		panelSimulation.getJpanelContent().refresh();
-		
+
 		//TODO make the slider work
-		
+
 		panelSimulation.scrollPaneContent.setBounds(50, 30, 300, 50);
 		panelSimulation.scrollPaneContent.setPreferredSize(new Dimension(10, 10));
-		
+
 		}
 
 	/*------------------------------------------------------------------*\
@@ -134,7 +132,7 @@ public class JFrameLayout extends JFrame
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Fichiers");
 		menuBar.add(menu);
-		
+
 		JMenuItem newBoard = new JMenuItem("Nouveau");
 		newBoard.addActionListener(new ActionListener()
 			{
@@ -227,20 +225,16 @@ public class JFrameLayout extends JFrame
 
 	private void appearance()
 		{
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		int xSize = ((int) tk.getScreenSize().getWidth());
-		int ySize = ((int) tk.getScreenSize().getHeight());
-		setSize(xSize,ySize);
-//		setSize(1120, 600);
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null); // frame centrer
 		setVisible(true); // last!
 		}
-	
+
 	private void setNewTitle(String name)
 	{
 		setTitle(title+name);
 	}
-	
+
 	private void newBoard()
 	{
 		if (!SimulationSingleton.getInstance().isStarted())
@@ -248,24 +242,24 @@ public class JFrameLayout extends JFrame
 			String name = "[Nouveau Fichier]*";
 			setNewTitle(name);
 			SimulationSingleton.getInstance().deleteMainTank();
-			
+
 			Tank r1 = new Tank(false, 500, 5);
 
 			r1.addSubstance(sel, 2);
 			r1.addSubstance(eau, 500);
 
 			SimulationSingleton.getInstance().setMainTank(r1);
-			
+
 			panelSimulation.getJpanelContent().refresh();
-			
+
 		}
 		else
 		{
 			System.out.println("simulation en cours, creation non disponible");
 		}
-		
+
 	}
-	
+
 
 	private void saveAs()
 		{

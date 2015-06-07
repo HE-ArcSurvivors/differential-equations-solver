@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.Box;
 import javax.swing.JFrame;
 
+import substance.Substance;
+
 public class JFrameStopCondition extends JFrame
 	{
 
@@ -79,7 +81,8 @@ public class JFrameStopCondition extends JFrame
 				break;
 			case JPanelStopCondition.QUANTITY:
 				double q = jpanelstopcondition.getQuantity();
-				t = SimulationSingleton.getInstance().getMainTank().timeQuantityQ(q);
+				Substance sub = jpanelstopcondition.getSubstance();
+				t = SimulationSingleton.getInstance().getMainTank().timeQuantityQ(q,sub);
 				break;
 			case JPanelStopCondition.OVERFLOW:
 				t = SimulationSingleton.getInstance().getMainTank().timeOverflow();
