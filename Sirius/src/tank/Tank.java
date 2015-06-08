@@ -342,14 +342,14 @@ public class Tank implements Iterable<Tank> ,Serializable
 
 	public double getInflowTotal(Substance substance)
 		{
-		double inflow = 0;
-
+		double debit = 0;
+		double quantity = 0;
 		for(Tank element:listTankParent)
 			{
-			inflow += element.getDebit() * element.getValueSubstance(substance);
+			debit += element.getDebit();
+			quantity += element.getValueSubstance(substance);
 			}
-
-		return inflow;
+		return debit * quantity;
 		}
 
 	public double getInflowSubstance(Substance substance)

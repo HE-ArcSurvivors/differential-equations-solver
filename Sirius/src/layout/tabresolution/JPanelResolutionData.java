@@ -16,6 +16,7 @@
 package layout.tabresolution;
 
 import java.awt.FlowLayout;
+import java.text.DecimalFormat;
 
 import javax.swing.JPanel;
 
@@ -86,39 +87,43 @@ public class JPanelResolutionData extends JPanel
 		Substance substance = SimulationSingleton.getInstance().getSubstanceAt(1);
 		Tank tank = SimulationSingleton.getInstance().getMainTank();
 
+		DecimalFormat df = new DecimalFormat("0.00");
+
 		latex = "\\begin{array}{l}";
 		latex += "\\boldsymbol{\\text{DONNÉES}}\\\\ \\\\ \\\\";
 		latex += "\\boldsymbol{\\text{Caractéristiques du réservoir: " + tank.getName() + "}}\\\\";
-		latex += "\\text{Capacité du réservoir:" + tank.getCapacite() + "}\\\\";
-		latex += "\\text{Débit sortant: " + tank.getDebit() + "}\\\\";
-		latex += "\\text{Quantité de substance au temps 0: } y(0) = " + tank.getValueSubstance(substance) + "\\\\";
+		latex += "\\text{Capacité du réservoir:" + df.format(tank.getCapacite()) + "}\\\\";
+		latex += "\\text{Débit sortant: " + df.format(tank.getDebit()) + "}\\\\";
+		latex += "\\text{Quantité de substance au temps 0: } y(0) = " + df.format(tank.getValueSubstance(substance)) + "\\\\";
 
 		for(Substance sub:SimulationSingleton.getInstance().getSubstanceList())
 			{
-			latex += "\\text{Quantité de ``" + sub.getName() + "'' dans le réservoir principal: " + tank.getValueSubstance(sub) + "}\\\\";
-			System.out.println(sub.getName() + " : " + tank.getValueSubstance(sub));
+			latex += "\\text{Quantité de ``" + sub.getName() + "'' dans le réservoir principal: " + df.format(tank.getValueSubstance(sub)) + "}\\\\";
+			System.out.println(sub.getName() + " : " + df.format(tank.getValueSubstance(sub)));
 			}
 
+		int i = 1;
 		for(Tank t:tank.getlistTankParent())
 			{
 			latex += "\\\\ \\\\";
-			latex += "\\boldsymbol{\\text{Caractéristiques du réservoir parent: " + t.getName() + "}}\\\\";
-			latex += "\\text{Contenu du réservoir:" + t.getContent() + "}\\\\";
-			latex += "\\text{Débit sortant: " + t.getDebit() + "}\\\\";
+			latex += "\\boldsymbol{\\text{Caractéristiques du réservoir parent: " + t.getName() + " "+i+"}}\\\\";
+			latex += "\\text{Contenu du réservoir:" + df.format(t.getContent()) + "}\\\\";
+			latex += "\\text{Débit sortant: " + df.format(t.getDebit()) + "}\\\\";
 
 			for(Substance sub:SimulationSingleton.getInstance().getSubstanceList())
 				{
-				latex += "\\text{Quantité de ``" + sub.getName() + "'' dans le réservoir " + t.getName() + ": " + t.getValueSubstance(sub) + "}\\\\";
+				latex += "\\text{Quantité de ``" + sub.getName() + "'' dans le réservoir " + t.getName() + ": " + df.format(t.getValueSubstance(sub)) + "}\\\\";
 				}
+			i++;
 			}
 
 		latex += "\\\\ \\\\ \\\\ \\boldsymbol{\\text{CALCULS PRÉALABLES}}\\\\ \\\\ \\\\";
-		latex += "\\text{Entrée de ``" + substance.getName() + "'': }" + tank.getInflow() + " * " + tank.getInflowSubstance(substance) + " = " + tank.getInflowTotal(substance) + "\\\\";
+		latex += "\\text{Entrée de ``" + substance.getName() + "'': }" + df.format(tank.getInflow()) + " * " + df.format(tank.getInflowSubstance(substance)) + " = " + df.format(tank.getInflowTotal(substance)) + "\\\\";
 
 		latex += "\\text{Sortie de ``" + substance.getName() + "'':} \\frac{\\text{Débit sortant}}{\\text{Contenu}} \\Rightarrow ";
-		latex += "\\frac{" + tank.getDebit() + "}{" + tank.getContent() + "} * y(t)\\\\";
+		latex += "\\frac{" + df.format(tank.getDebit()) + "}{" + df.format(tank.getContent()) + "} * y(t)\\\\";
 		latex += "\\text{Vitesse de variation: Entrée - Sortie(t)} \\Rightarrow ";
-		latex += "y'(t) = " + SimulationSingleton.getInstance().getMainTank().getInflowTotal(substance) + " - \\frac{" + tank.getDebit() + "}{" + tank.getContent() + "} * y(t)\\\\";
+		latex += "y'(t) = " + df.format(tank.getInflowTotal(substance)) + " - \\frac{" + df.format(tank.getDebit()) + "}{" + df.format(tank.getContent()) + "} * y(t)\\\\";
 
 		latex += "\\end{array}";
 		}

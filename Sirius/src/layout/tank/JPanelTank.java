@@ -262,13 +262,11 @@ public class JPanelTank extends JPanel
 
 							Tank parentTank = new Tank(false, 500, 0);
 
-							parentTank.setName("Added Parent by user");
+							parentTank.setName("Parent Tank");
 							parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
 							parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(1), 0);
 
 							tank.addTankParent(parentTank);
-
-							System.out.println("Nouveau tank : " + parentTank.getName());
 
 							((JPanelContent)panelTank.getParent()).refresh();
 							}

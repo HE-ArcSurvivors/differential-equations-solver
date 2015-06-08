@@ -209,7 +209,7 @@ public class JFrameLayout extends JFrame
 
 					}
 			});
-		
+
 		JMenuItem videoHelp = new JMenuItem("Aide Video");
 		videoHelp.addActionListener(new ActionListener()
 			{
