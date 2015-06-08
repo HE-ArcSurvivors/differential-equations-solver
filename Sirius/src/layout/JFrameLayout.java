@@ -114,7 +114,6 @@ public class JFrameLayout extends JFrame
 		JMenuItem newBoard = new JMenuItem("Nouveau");
 		newBoard.addActionListener(new ActionListener()
 			{
-
 				@Override
 				public void actionPerformed(ActionEvent e)
 					{
@@ -287,7 +286,7 @@ public class JFrameLayout extends JFrame
 		if (!SimulationSingleton.getInstance().isStarted())
 		{
 			String name = "newFile.glou";
-			SimulationSingleton.load(name);
+			SimulationSingleton.loadJar(name);
 			setNewTitle("[Nouveau Fichier]*");
 		}
 		else

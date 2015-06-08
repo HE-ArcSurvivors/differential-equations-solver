@@ -19,6 +19,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -94,6 +95,33 @@ public class SimulationSingleton implements Serializable
 			ois.close();
 			bis.close();
 			fis.close();
+			}
+		catch (Exception e)
+			{
+			System.err.println(e);
+			System.err.println("Fichier non chargé");
+
+			JOptionPane.showMessageDialog(null,
+				    "Le fichier n'a pas été chargé correctement.",
+				    "Fichier incorrect",
+				    JOptionPane.WARNING_MESSAGE);
+			}
+		}
+
+	public static void loadJar(String filename)
+		{
+		try
+			{
+			InputStream input = SimulationSingleton.class.getResourceAsStream("/"+filename);
+			BufferedInputStream bis = new BufferedInputStream(input);
+			ObjectInputStream ois = new ObjectInputStream(bis);
+
+			instance = (SimulationSingleton)ois.readObject();
+			fileName = filename;
+
+			ois.close();
+			bis.close();
+			input.close();
 			}
 		catch (Exception e)
 			{
