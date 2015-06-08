@@ -69,7 +69,7 @@ public class JPanelHelp extends JPanel
 			box.add(new JLabel("En cas de problème lors de l'utilisation de notre application,"));
 			box.add(new JLabel("veuillez contacter le support Banana par e-mail : "));
 			box.add(Box.createVerticalStrut(20));
-			box.add(new JLabel("banana.help@gmail.com"));
+			box.add(new JLabel("bananarocket.help@gmail.com"));
 			box.add(Box.createVerticalStrut(20));
 			box.add(new JLabel("Notre équipe tentera de répondre à toutes vos questions"));
 			box.add(Box.createVerticalStrut(20));

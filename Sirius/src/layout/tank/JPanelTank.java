@@ -259,8 +259,7 @@ public class JPanelTank extends JPanel
 						{
 						if (!SimulationSingleton.getInstance().isStarted())
 							{
-
-							Tank parentTank = new Tank(false, 500, 0);
+							Tank parentTank = new Tank(false, 500, 2);
 
 							parentTank.setName("Parent Tank");
 							parentTank.addSubstance(SimulationSingleton.getInstance().getSubstanceAt(0), 500);
